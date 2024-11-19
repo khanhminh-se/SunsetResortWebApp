@@ -72,7 +72,7 @@ a:hover {
 }
 
 .signup-button {
-    background-color: none;
+    background-color: transparent;
     color: white;
     padding: 12px 30px;
     border-radius: 200px;
@@ -439,7 +439,6 @@ input::placeholder {
     display: block;
     margin-left: 20px;
     margin-right: 20px;
-    background: url("images/hotel2.png") no-repeat fixed center;
     height: 660px;
     overflow: hidden;
     position: relative;

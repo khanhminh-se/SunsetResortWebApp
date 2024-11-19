@@ -72,7 +72,7 @@ a:hover {
 }
 
 .signup-button {
-    background-color: none;
+    background-color: transparent;
     color: white;
     padding: 12px 30px;
     border-radius: 200px;
@@ -307,7 +307,7 @@ input::placeholder {
 
 .customcard {
     position: relative;
-    top: 50px;
+    top: 100px;
     padding: 50px;
     max-width: 500px;
     margin: auto;
@@ -353,7 +353,7 @@ input::placeholder {
 
 #createaccbtn:hover {
     background-color: grey;
-    border: 1px solid grey;  
+    border: 1px solid grey;
 }
 
 .customcard h2 {
@@ -383,13 +383,5 @@ input::placeholder {
     width: 400px;
     margin-bottom: 10px;
     border-radius: 10px;
-}
-
-#close-btn {
-    position: relative;
-    left: 360px;
-    font-size: 30px; 
-    cursor: pointer; 
-    color: white; 
 }
 
