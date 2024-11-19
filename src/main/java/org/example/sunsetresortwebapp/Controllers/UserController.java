@@ -79,10 +79,10 @@ public class UserController {
                 }
         }
 
-        @PostMapping("/updateprofile")
-        public String processUpdateProfile(@RequestParam String fullname ,@RequestParam String email, @RequestParam String phonenumber, @RequestParam String address, Model model, HttpSession session){
-
-        }
+//        @PostMapping("/updateprofile")
+//        public String processUpdateProfile(@RequestParam String fullname ,@RequestParam String email, @RequestParam String phonenumber, @RequestParam String address, Model model, HttpSession session){
+//
+//        }
 
         @PostMapping("/signup")
         public String processSignUp(@RequestParam String email, @RequestParam String password, @RequestParam  String confirmPassword, @RequestParam  String fullname, @RequestParam  String  address, @RequestParam String phoneNumber , Model model){
