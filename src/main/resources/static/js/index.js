@@ -123,10 +123,10 @@ $(document).ready(function () {
         });
 
         arrowBtns.forEach(btn => {
-            btn.addEventListener("click", () => {
-                caroselCard.scrollLeft += btn.id === "previous" ? -(firstCardWidth + 30) : (firstCardWidth + 30);
-            });
-        }
+                btn.addEventListener("click", () => {
+                    caroselCard.scrollLeft += btn.id === "previous" ? -(firstCardWidth + 30) : (firstCardWidth + 30);
+                });
+            }
         );
 
         const dragStart = (e) => {
@@ -165,71 +165,154 @@ $(document).ready(function () {
         }
     })
 
-    // // show login form
-    // function showLoginForm() {
-    //     $('#popup-container').removeClass('hidden');
-    //     $('#login-form').removeClass('hidden');
-    //     $('#signup-form').addClass('hidden');
-    //     $('#toptitle').addClass('hidden');
-    //     $('#reverse-form').addClass('hidden');
-    //     $('#requireforbooking').addClass('hidden');
+    // show login form
+    function showLoginForm() {
+        $('#popup-container').removeClass('hidden');
+        $('#login-form').removeClass('hidden');
+        $('#signup-form').addClass('hidden');
+        $('#toptitle').addClass('hidden');
+        $('#reverse-form').addClass('hidden');
+        $('#requireforbooking').addClass('hidden');
+    }
+
+    // show signup form
+    function showSignupForm() {
+        $('#popup-container').removeClass('hidden');
+        $('#signup-form').removeClass('hidden');
+        $('#login-form').addClass('hidden');
+        $('#toptitle').addClass('hidden');
+        $('#reverse-form').addClass('hidden');
+        $('#requireforbooking').addClass('hidden');
+    }
+
+
+});
+
+
+//edit profile and update
+function enableEditing() {
+    const fields = ["user-name", "user-email", "user-phone", "user-address"];
+    fields.forEach(fieldId => {
+        const displaySpan = document.getElementById(fieldId);
+        const inputField = document.getElementById(`${fieldId}-input`);
+        displaySpan.style.display = "none";
+        inputField.style.display = "inline";
+    });
+    document.getElementById("edit-button").style.display = "none";
+    document.getElementById("update-button").style.display = "inline";
+}
+
+function saveChanges() {
+    const fields = ["user-name", "user-email", "user-phone", "user-dob", "user-nationality", "user-gender", "user-address"];
+    fields.forEach(fieldId => {
+        const displaySpan = document.getElementById(fieldId);
+        const inputField = document.getElementById(`${fieldId}-input`);
+        displaySpan.textContent = inputField.value;
+        displaySpan.style.display = "inline";
+        inputField.style.display = "none";
+    });
+
+    document.getElementById("edit-button").style.display = "inline";
+    document.getElementById("update-button").style.display = "none";
+}
+
+document.getElementById("update-button").addEventListener("click", saveChanges);
+
+// each function on sidebar
+function showProfile() {
+    $('#profile').removeClass('hidden');
+    $('#booking-detail').addClass('hidden');
+    $('#purchase-history').addClass('hidden');
+    $('#change-password').addClass('hidden');
+    $('#logout-popup').addClass('hidden');
+}
+
+function showBookingDetail() {
+    $('#profile').addClass('hidden');
+    $('#booking-detail').removeClass('hidden');
+    $('#purchase-history').addClass('hidden');
+    $('#change-password').addClass('hidden');
+    $('#logout-popup').addClass('hidden');
+}
+
+function showPurchaseHistory() {
+    $('#profile').addClass('hidden');
+    $('#booking-detail').addClass('hidden');
+    $('#purchase-history').removeClass('hidden');
+    $('#change-password').addClass('hidden');
+    $('#logout-popup').addClass('hidden');
+}
+
+function showChangePassword() {
+    $('#profile').addClass('hidden');
+    $('#booking-detail').addClass('hidden');
+    $('#purchase-history').addClass('hidden');
+    $('#change-password').removeClass('hidden');
+    $('#logout-popup').addClass('hidden');
+}
+// log out
+function showLogoutPopup() {
+    $('#logout-popup').removeClass('hidden');
+}
+
+function hideLogoutPopup() {
+    $('#logout-popup').addClass('hidden');
+}
+
+$(document).ready(function () {
+    $('.sidebar ul li:nth-child(5) a').click(function (e) {
+        e.preventDefault();
+        showLogoutPopup();
+    });
+
+    $('#confirm-logout').click(function () {
+        alert("You have successfully logged out.");
+        hideLogoutPopup();
+        window.location.href = "Login.html";
+    });
+
+    $('#cancel-logout').click(function () {
+        hideLogoutPopup();
+    });
+});
+
+// change password
+function checkPassword() {
+    const oldPassword = document.getElementById("old-password-input").value;
+    const newPassword = document.getElementById("new-password-input").value;
+    const repeatPassword = document.getElementById("repeat-password-input").value;
+
+    // if (!oldPassword) {
+    //     alert("Please enter your current password.");
+    //     return;
     // }
 
-    // // show signup form
-    // function showSignupForm() {
-    //     $('#popup-container').removeClass('hidden');
-    //     $('#signup-form').removeClass('hidden');
-    //     $('#login-form').addClass('hidden');
-    //     $('#toptitle').addClass('hidden');
-    //     $('#reverse-form').addClass('hidden');
-    //     $('#requireforbooking').addClass('hidden');
-    // }
+    if (newPassword !== repeatPassword) {
+        alert("New password and repeat password do not match.");
+        return;
+    }
 
-    // // Close Popup
-    // $('#close-btn').click(function () {
-    //     $('#popup-container').addClass('hidden');
-    //     // $('#toptitle').removeClass('hidden');
-    //     // $('#reverse-form').removeClass('hidden');
-    //     $('#requireforbooking').removeClass('hidden');
+    alert("Password changed successfully!");
 
-    // });
+    document.getElementById("old-password-input").value = "";
+    document.getElementById("new-password-input").value = "";
+    document.getElementById("repeat-password-input").value = "";
+}
 
-    // // close popup when clicking outside
-    // $(window).click(function (event) {
-    //     if (event.target.id === 'popup-container') {
-    //         $('#popup-container').addClass('hidden');
-    //         // $('#toptitle').removeClass('hidden');
-    //         // $('#reverse-form').removeClass('hidden');
-    //         $('#requireforbooking').removeClass('hidden');
-    //     }
-    // });
+document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll(".toggle-password").forEach(function (toggle) {
+        toggle.addEventListener("click", function () {
+            this.classList.toggle("fa-eye");
+            this.classList.toggle("fa-eye-slash");
 
-    // // Bind Buttons to Actions
-    // $('.login-btn').click(showLoginForm);
-    // $('.signup-btn').click(showSignupForm);
-    // $('#haveanaccbtn').click(showLoginForm);
-    // $('#createaccbtn').click(showSignupForm);
+            const input = document.querySelector(this.getAttribute("toggle"));
 
-
-    // Handle Events
-    //     function handleSignUp(e){
-    //             e.preventDefault();
-    //             const form = document.getElementById("sign-up-form");
-    //             const formData =new FormData(form);
-    //             const data = Object.fromEntries(formData.entries());
-    //             console.log(data);
-    //         fetch('/signup', {
-    //             method: 'POST',
-    //             headers: {
-    //                 'Content-Type': 'application/json',
-    //             },
-    //             body: JSON.stringify(data),
-    //         })
-    //             .catch(error => {
-    //                 console.error('Error:', error);
-    //                 alert('Failed to send registration request.');
-    //             });
-    //     }
-
+            if (input.type === "password") {
+                input.type = "text";
+            } else {
+                input.type = "password";
+            }
+        });
+    });
 });
 

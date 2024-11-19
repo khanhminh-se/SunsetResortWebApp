@@ -40,6 +40,7 @@ public class UserController {
         public String homepage(HttpSession session, Model model) {
                 User user = (User) session.getAttribute("loggedInUser");
                 if(user != null){
+                        session.setAttribute("loggedInUsers", user);
                        model.addAttribute("user", user);
                         return "homepage";
                 }else{
@@ -48,6 +49,22 @@ public class UserController {
 
         }
 
+        @GetMapping("/profile")
+        public String getProfile(HttpSession session, Model model) {
+                User user = (User) session.getAttribute("loggedInUser");
+                if(user != null){
+                        session.setAttribute("loggedInUsers", user);
+                        model.addAttribute("user", user);
+                        return "profile";
+                }else{
+                        return "redirect:/signin";
+                }
+        }
+
+        @GetMapping("/showproduct")
+        public String getProduct() {
+                return "showproduct";
+        }
 
         @PostMapping("/signin")
         public String processSignIn(@RequestParam String email, @RequestParam String password , Model model, HttpSession session){
@@ -60,6 +77,11 @@ public class UserController {
                         model.addAttribute("error", response.getMessage());
                         return "signin";
                 }
+        }
+
+        @PostMapping("/updateprofile")
+        public String processUpdateProfile(@RequestParam String fullname ,@RequestParam String email, @RequestParam String phonenumber, @RequestParam String address, Model model, HttpSession session){
+
         }
 
         @PostMapping("/signup")
