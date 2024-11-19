@@ -71,22 +71,23 @@
                             </ul>
                             <a href="/signin" th:if="${user == null}" class="login-btn login-button">Log In</a>
                             <a href="/signup"  th:if="${user == null}" class="signup-btn signup-button">Sign Up</a>
+<!--                        <label th:if="${user != null}">Hi, </label><label th:if="${user != null}" th:text="${user.fullname}"></label>-->
                             <div class="afterlogin" th:if="${user != null}">
                                 <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"
                                    id="opts">
                                     <img src="/images/menu.png" style="height: 35px; width: 35px;" id="menu">
                                 </a>
                                 <ul class="dropdown-menu" id="optmenu">
-                                    <li><a class="dropdown-item option" href="/profile"><img
+                                    <li><a class="dropdown-item option" href="/profile?section=profile" ><img
                                             src="/images/user.png" style="height: 20px; width: 20px;"> View
                                         Profile</a></li>
-                                    <li><a class="dropdown-item option" href="/booking"><img
+                                    <li><a class="dropdown-item option" href="/profile?section=booking" ><img
                                             src="/images/booking.png" style="height: 20px; width: 20px;"> My
                                         Booking</a></li>
-                                    <li><a class="dropdown-item option" href="/history"><img
+                                    <li><a class="dropdown-item option" href="/profile?section=history" ><img
                                             src="/images/history.png" style="height: 20px; width: 20px;">
                                         Purchase History</a></li>
-                                    <li><a class="dropdown-item option" href="/changepassword"><img
+                                    <li><a class="dropdown-item option" href="/profile?section=password"><img
                                             src="/images/password.png" style="height: 20px; width: 20px;">
                                         Change Password</a></li>
                                     <li><a class="dropdown-item option" href="/logout"><img

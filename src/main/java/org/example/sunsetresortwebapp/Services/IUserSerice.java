@@ -10,7 +10,7 @@ public interface IUserSerice {
      User getUserById(long id);
     User saveUser(User user);
     void deleleteUserById(long id);
-    void  updateUser(User user , long id);
+    User  updateUser(User user , long id);
     List<User> getAllUsers();
     void deleteAllUsers();
 }

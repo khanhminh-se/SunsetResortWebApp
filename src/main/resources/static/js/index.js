@@ -218,7 +218,7 @@ function saveChanges() {
 
 document.getElementById("update-button").addEventListener("click", saveChanges);
 
-// each function on sidebar
+// each function on sidebar in profile
 function showProfile() {
     $('#profile').removeClass('hidden');
     $('#booking-detail').addClass('hidden');
@@ -228,8 +228,8 @@ function showProfile() {
 }
 
 function showBookingDetail() {
-    $('#profile').addClass('hidden');
     $('#booking-detail').removeClass('hidden');
+    $('#profile').addClass('hidden');
     $('#purchase-history').addClass('hidden');
     $('#change-password').addClass('hidden');
     $('#logout-popup').addClass('hidden');
@@ -250,6 +250,32 @@ function showChangePassword() {
     $('#change-password').removeClass('hidden');
     $('#logout-popup').addClass('hidden');
 }
+
+// show function from homepage
+$(document).ready(function () {
+    const urlParams = new URLSearchParams(window.location.search);
+    const section = urlParams.get('section');
+
+    switch (section) {
+        case 'profile':
+            $('#profile').removeClass('hidden');
+            break;
+        case 'booking':
+            $('#booking-detail').removeClass('hidden');
+            break;
+        case 'history':
+            $('#purchase-history').removeClass('hidden');
+            break;
+        case 'password':
+            $('#change-password').removeClass('hidden');
+            break;
+        default:
+            $('#profile').removeClass('hidden');
+            break;
+    }
+});
+
+
 // log out
 function showLogoutPopup() {
     $('#logout-popup').removeClass('hidden');
@@ -268,7 +294,7 @@ $(document).ready(function () {
     $('#confirm-logout').click(function () {
         alert("You have successfully logged out.");
         hideLogoutPopup();
-        window.location.href = "Login.html";
+        window.location.href = "/logout";
     });
 
     $('#cancel-logout').click(function () {

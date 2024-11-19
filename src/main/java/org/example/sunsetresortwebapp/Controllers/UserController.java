@@ -31,6 +31,7 @@ public class UserController {
         public String signin() {
                 return "signin";
         }
+
         @GetMapping("/logout")
         public String logout(HttpSession session) {
                 session.invalidate();
@@ -81,7 +82,20 @@ public class UserController {
 
         @PostMapping("/updateprofile")
         public String processUpdateProfile(@RequestParam String fullname ,@RequestParam String email, @RequestParam String phonenumber, @RequestParam String address, Model model, HttpSession session){
-
+                if(session.getAttribute("loggedInUser") == null){
+                        return "redirect:/signin";
+                } else {
+                        User currentUser = (User) session.getAttribute("loggedInUser");
+                        User nUser = new User();
+                        nUser.setFullname(fullname);
+                        nUser.setEmail(email);
+                        nUser.setAddress(address);
+                        nUser.setPhoneNumber(phonenumber);
+                        User newUser = userService.updateUser(nUser, currentUser.getId());
+                        model.addAttribute("user", newUser);
+                        session.setAttribute("loggedInUser", newUser);
+                        return "redirect:/profile";
+                }
         }
 
         @PostMapping("/signup")
