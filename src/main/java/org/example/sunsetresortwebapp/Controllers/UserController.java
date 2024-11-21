@@ -37,6 +37,7 @@ public class UserController {
                 session.invalidate();
                 return "redirect:/signin";
         }
+
         @GetMapping("/homepage")
         public String homepage(HttpSession session, Model model) {
                 User user = (User) session.getAttribute("loggedInUser");
@@ -65,6 +66,11 @@ public class UserController {
         @GetMapping("/showproduct")
         public String getProduct() {
                 return "showproduct";
+        }
+
+        @GetMapping("/booking")
+        public String getBooking() {
+                return "booking";
         }
 
         @PostMapping("/signin")
