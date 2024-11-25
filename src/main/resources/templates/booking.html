@@ -10,11 +10,10 @@
           rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css"
           integrity="sha512-10/jx2EXwxxWqCLX/hHth/vu2KY3jCF70dCQB8TSgNjbCVAC/8vai53GfMDrO2Emgwccf2pJqxct9ehpzG+MTw=="
-          crossorigin="anonymous" referrerpolicy="no-referrer" />
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-
     <title>SunsetResort Booking</title>
     <link rel="stylesheet" href="/css/Booking.css" type="text/css">
 </head>
@@ -32,7 +31,7 @@
     <div class="booking-steps">
         <div class="step active">1. Calendar</div>
         <div class="step active">2. Room & Rate Selection</div>
-        <div class="step">3. Enhancements & Details</div>
+        <div class="step active">3. Enhancements & Details</div>
         <div class="step">4. Confirmation</div>
     </div>
 
@@ -44,10 +43,98 @@
         <a href="/homepage"><i class="fa fa-arrow-circle-o-left" aria-hidden="true"></i> Edit</a>
     </div>
 
+    <div class="container info">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <img src="/images/hotel1.jpg" alt="main image" class="img-fluid w-100 rounded">
+                </div>
+                <div class="col-lg-6">
+                    <div class="row">
+                        <div class="col-6 mb-3">
+                            <img src="/images/hotel1.jpg" alt="normal image 1" class="img-fluid rounded">
+                        </div>
+                        <div class="col-6 mb-3">
+                            <img src="/images/hotel1.jpg" alt="normal image 2" class="img-fluid rounded">
+                        </div>
+                        <div class="col-6 mb-3">
+                            <img src="/images/hotel1.jpg" alt="normal image 3" class="img-fluid rounded">
+                        </div>
+                        <div class="col-6 mb-3">
+                            <img src="/images/hotel1.jpg" alt="normal image 4" class="img-fluid rounded">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                <div id="ht-name">
+                    <label class="hotel-name">Sunset Villa</label>
+                    <p><span class="badge">Best Recommended</span></p>
+                </div>
+            </div>
+            <div class="col-lg-4" style="text-align: right">
+                <p>Price per night from</p>
+                <h2 id="price">$1.289</h2>
+            </div>
+            <div class="col-lg-2">
+                <button class="btn">BOOK</button>
+            </div>
+        </div>
+
+        <div class="container detail">
+            <div class="box review-box">
+                <h3>Ấn tượng</h3>
+                <p>Từ 895 đánh giá của khách đã ở</p>
+                <div class="ratings">
+                    <span class="rating-score">8.7</span>
+                    <span class="rating-description">Ấn tượng</span>
+                </div>
+                <h4>Khách nói gì về kỳ nghỉ của họ</h4>
+                <div class="customer-reviews">
+                    <p><strong>Nguyen T. M.</strong><br>Khách sạn sạch sẽ, giá tốt, tiện lợi, gần biển...</p>
+                    <p><strong>Thanh L. N.</strong><br>Khách sạn siêu rẻ, lễ tân nhiệt tình...</p>
+                    <p><strong>Thanh L. D.</strong><br>Khách sạn decor rất đẹp, sạch sẽ và thoáng...</p>
+                </div>
+            </div>
+
+            <div class="box location-box">
+                <h3>Trong khu vực</h3>
+                <p>57-59 Đỗ Bí, Mỹ An, Ngũ Hành Sơn, Đà Nẵng, Việt Nam, 550000</p>
+                <ul>
+                    <li><strong>Biển Mỹ Khê</strong> - 868 m</li>
+                    <li><strong>Four Points by Sheraton Danang</strong> - 2.65 km</li>
+                    <li><strong>Số 294 Trưng Nữ Vương</strong> - 2.96 km</li>
+                </ul>
+                <a href="#" class="map-link">Xem bản đồ</a>
+            </div>
+
+            <div class="box amenities-box">
+                <h3>Tiện ích chính</h3>
+                <ul>
+                    <li>Máy lạnh</li>
+                    <li>Nhà hàng</li>
+                    <li>WiFi</li>
+                    <li>Thang máy</li>
+                    <li>Lễ tân 24h</li>
+                    <li>Chỗ đậu xe</li>
+                </ul>
+                <a href="#" class="more-link">Xem thêm</a>
+            </div>
+
+            <div class="box description-box">
+                <p>
+                    Davue Hotel Da Nang là một khách sạn nằm trong khu vực an ninh, tọa lạc tại Mỹ An.
+                    Quầy tiếp tân 24 giờ luôn sẵn sàng phục vụ quý khách từ thủ tục nhận phòng đến trả phòng
+                    hay bất kỳ yêu cầu nào. Sóng WiFi phủ khắp các khu vực chung của khách sạn...
+                </p>
+                <a href="#" class="more-link">Xem thêm</a>
+            </div>
+        </div>
+
 
 </main>
-
-
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
