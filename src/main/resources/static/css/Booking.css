@@ -298,6 +298,15 @@ body {
     height: 20px;
 }
 
+.location-box .amenities-icon {
+    width: 20px;
+    height: 20px;
+}
+
+.location-box li {
+    margin-bottom: 10px;
+}
+
 .amenities-table {
     width: 100%;
     border-collapse: collapse;
@@ -393,4 +402,12 @@ body {
     font-size: 40px;
     font-weight: bold;
     cursor: pointer;
+}
+
+#location-map {
+    text-decoration: none;
+}
+
+#location-map:hover {
+    
 }
