@@ -218,7 +218,7 @@ function saveChanges() {
 
 document.getElementById("update-button").addEventListener("click", saveChanges);
 
-// each function on sidebar
+// each function on sidebar in profile
 function showProfile() {
     $('#profile').removeClass('hidden');
     $('#booking-detail').addClass('hidden');
@@ -228,8 +228,8 @@ function showProfile() {
 }
 
 function showBookingDetail() {
-    $('#profile').addClass('hidden');
     $('#booking-detail').removeClass('hidden');
+    $('#profile').addClass('hidden');
     $('#purchase-history').addClass('hidden');
     $('#change-password').addClass('hidden');
     $('#logout-popup').addClass('hidden');
@@ -250,6 +250,32 @@ function showChangePassword() {
     $('#change-password').removeClass('hidden');
     $('#logout-popup').addClass('hidden');
 }
+
+// show function from homepage
+$(document).ready(function () {
+    const urlParams = new URLSearchParams(window.location.search);
+    const section = urlParams.get('section');
+
+    switch (section) {
+        case 'profile':
+            $('#profile').removeClass('hidden');
+            break;
+        case 'booking':
+            $('#booking-detail').removeClass('hidden');
+            break;
+        case 'history':
+            $('#purchase-history').removeClass('hidden');
+            break;
+        case 'password':
+            $('#change-password').removeClass('hidden');
+            break;
+        default:
+            $('#profile').removeClass('hidden');
+            break;
+    }
+});
+
+
 // log out
 function showLogoutPopup() {
     $('#logout-popup').removeClass('hidden');
@@ -268,7 +294,7 @@ $(document).ready(function () {
     $('#confirm-logout').click(function () {
         alert("You have successfully logged out.");
         hideLogoutPopup();
-        window.location.href = "Login.html";
+        window.location.href = "/logout";
     });
 
     $('#cancel-logout').click(function () {
@@ -316,3 +342,61 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
+// Hàm khởi tạo popup
+function initializeImagePopup(imageSelector, popupId, popupImageId) {
+    const images = document.querySelectorAll(imageSelector);
+    const popup = document.getElementById(popupId);
+    const popupImage = document.getElementById(popupImageId);
+    const closeBtn = popup.querySelector(".close-popup");
+
+    // Kiểm tra nếu các phần tử tồn tại
+    if (!popup || !popupImage || !closeBtn) {
+        console.error("Không tìm thấy phần tử modal hoặc các thành phần bên trong.");
+        return;
+    }
+
+    // Thêm sự kiện click cho mỗi ảnh
+    images.forEach(img => {
+        img.addEventListener("click", () => {
+            popup.style.display = "flex"; // Hiển thị modal
+            popupImage.src = img.src;    // Gán src ảnh vào popup
+        });
+    });
+
+    // Thêm sự kiện đóng modal
+    closeBtn.addEventListener("click", () => {
+        popup.style.display = "none"; // Ẩn modal
+    });
+
+    // Đóng modal khi click bên ngoài ảnh
+    popup.addEventListener("click", (event) => {
+        if (event.target === popup) {
+            popup.style.display = "none"; // Ẩn modal
+        }
+    });
+}
+
+// Sử dụng khi DOM đã sẵn sàng
+document.addEventListener("DOMContentLoaded", () => {
+    initializeImagePopup(".img-fluid", "imagePopup", "popupImage");
+});
+
+
+document.addEventListener("DOMContentLoaded", () => {
+    console.log("Document loaded!");
+
+    // Kiểm tra phần tử modal
+    const popup = document.getElementById("imagePopup");
+    const popupImage = document.getElementById("popupImage");
+    if (!popup || !popupImage) {
+        console.error("Không tìm thấy modal hoặc popup image!");
+    }
+
+    // Kiểm tra danh sách ảnh
+    const images = document.querySelectorAll(".img-fluid");
+    if (images.length === 0) {
+        console.warn("Không tìm thấy ảnh nào có class 'img-fluid'!");
+    } else {
+        console.log(`Tìm thấy ${images.length} ảnh.`);
+    }
+});

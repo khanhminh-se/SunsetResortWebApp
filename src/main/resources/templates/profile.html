@@ -35,7 +35,7 @@
                 <nav class="sidebar">
                     <ul>
                         <li style="border-top-left-radius: 20px; border-top-right-radius: 20px;"><a
-                                href="/profile" onclick="showProfile()"><i class="fa-regular fa-user"></i> My
+                                href="#" onclick="showProfile()"><i class="fa-regular fa-user"></i> My
                             Profile</a></li>
                         <li><a href="#" onclick="showBookingDetail()"><i class="fa-regular fa-calendar-check"></i>
                             My Booking</a></li>
@@ -53,7 +53,7 @@
             </div>
             <!-- Main Content -->
             <div class="col-md-8 main-content">
-                <div class="profile" id="profile">
+                <div class="profile hidden" id="profile">
                     <h3>Personal Details<img src="/images/profile.png"
                                              style="height: 100px; width: 100px; margin-left: 410px;"></h3>
                     <form action="/updateprofile" method="post">
@@ -66,7 +66,6 @@
                                            style="display: none;" th:if="${user!=null}" th:value="${user.fullname}">
                                 </td>
                             </tr>
-
                             <tr class="detail-item">
                                 <th><label>Email:</label></th>
                                 <td class="detail">
@@ -92,9 +91,9 @@
                                 </td>
                             </tr>
                         </table>
-                        <button class="edit" id="edit-button" onclick="enableEditing()">EDIT</button>
                         <button class="submit" id="update-button" style="display: none;">UPDATE</button>
                     </form>
+                    <button class="btn" id="edit-button" onclick="enableEditing()">EDIT</button>
                 </div>
                 <div class="booking-detail hidden" id="booking-detail">
                     <h3>My Booking</h3>
@@ -213,7 +212,7 @@
                         </tr>
                     </table>
                     <button class="change-password-btn" id="update-password-button"
-                            onclick="checkPassword()">CHANGE
+                            onclick="checkPassword()">CHANGE-
                     </button>
                 </div>
                 <div class="popup hidden" id="logout-popup">

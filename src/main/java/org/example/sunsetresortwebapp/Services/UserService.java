@@ -34,7 +34,7 @@ public class UserService implements  IUserSerice{
     }
 
     @Override
-    public void updateUser(User user, long id) {
+    public User updateUser(User user, long id) {
         User currentUser = userRepository.findUserById(id);
         if(user.getEmail() != null &&  !user.getEmail().equalsIgnoreCase("")){
             currentUser.setEmail(user.getEmail());
@@ -55,6 +55,7 @@ public class UserService implements  IUserSerice{
             currentUser.setRole(user.getRole());
         }
         userRepository.save(currentUser);
+        return currentUser;
     }
 
     @Override
