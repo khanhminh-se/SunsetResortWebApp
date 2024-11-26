@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class UserController {
         private final UserService userService;
         private final UserRepository userRepository;
-
         @Autowired
         public UserController(UserService userService, UserRepository userRepository) {
                 this.userService = userService;
@@ -49,17 +48,7 @@ public class UserController {
 
         }
 
-        @GetMapping("/profile")
-        public String getProfile(HttpSession session, Model model) {
-                User user = (User) session.getAttribute("loggedInUser");
-                if(user != null){
-                        session.setAttribute("loggedInUsers", user);
-                        model.addAttribute("user", user);
-                        return "profile";
-                }else{
-                        return "redirect:/signin";
-                }
-        }
+
 
         @GetMapping("/showproduct")
         public String getProduct() {
@@ -80,7 +69,7 @@ public class UserController {
         }
 
         @PostMapping("/signup")
-        public String processSignUp(@RequestParam String email, @RequestParam String password, @RequestParam  String confirmPassword, @RequestParam  String fullname, @RequestParam  String  address, @RequestParam String phoneNumber , Model model){
+        public String processSignUp(@RequestParam String email, @RequestParam String password, @RequestParam  String confirmPassword, Model model){
                 if(!confirmPassword.equalsIgnoreCase(password)){
                         model.addAttribute("error", "Passwords do not match");
                         return "signup";
@@ -88,9 +77,6 @@ public class UserController {
                         User user = new User();
                         user.setEmail(email);
                         user.setPassword(password);
-                        user.setPhoneNumber(phoneNumber);
-                        user.setAddress(address);
-                        user.setFullname(fullname);
                        CheckUserResponse response =  userService.registerUser(user);
                        if(response.isSuccess()){
                                 model.addAttribute("message", response.getMessage());

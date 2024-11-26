@@ -6,64 +6,39 @@ import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.Optional;
+
 @Service
-public class UserService implements  IUserSerice{
+public class UserService {
     @Autowired
-    UserRepository userRepository;
+    private final UserRepository userRepository;
     public UserService(UserRepository userRepository){
         this.userRepository = userRepository;
     }
 
-    @Override
+
     public User getUserByEmail(String email) {
         return userRepository.findUserByEmail(email);
     }
-    @Override
-    public User getUserById(long id) {
+
+    public User findUserById(Long id) {
         return   userRepository.findUserById(id);
     }
 
-    @Override
+
     public User saveUser(User user) {
         return userRepository.save(user);
     }
 
-    @Override
+
     public void deleleteUserById(long id) {
-            userRepository.deleteUserById(id);
+            userRepository.deleteById(id);
     }
-
-    @Override
-    public User updateUser(User user, long id) {
-        User currentUser = userRepository.findUserById(id);
-        if(user.getEmail() != null &&  !user.getEmail().equalsIgnoreCase("")){
-            currentUser.setEmail(user.getEmail());
-        }
-        if(user.getPassword() != null &&  !user.getPassword().equalsIgnoreCase("")){
-            currentUser.setPassword(user.getPassword());
-        }
-        if (user.getFullname() != null &&  !user.getFullname().equalsIgnoreCase("")){
-            currentUser.setFullname(user.getFullname());
-        }
-        if(user.getPhoneNumber() != null &&  !user.getPhoneNumber().equalsIgnoreCase("")){
-            currentUser.setPhoneNumber(user.getPhoneNumber());
-        }
-        if(user.getAddress() != null &&  !user.getAddress().equalsIgnoreCase("")){
-            currentUser.setAddress(user.getAddress());
-        }
-        if(user.getRole() != null &&  !user.getRole().equalsIgnoreCase("")){
-            currentUser.setRole(user.getRole());
-        }
-        userRepository.save(currentUser);
-        return currentUser;
-    }
-
-    @Override
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
 
-    @Override
+
     public void deleteAllUsers() {
         userRepository.deleteAll();
     }

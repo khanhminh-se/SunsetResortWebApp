@@ -1,8 +1,12 @@
 package org.example.sunsetresortwebapp.Models;
 
 import jakarta.persistence.*;
+import org.example.sunsetresortwebapp.Enum.UserRole;
+import org.example.sunsetresortwebapp.Enum.UserStatus;
+
 
 @Entity
+@Table(name ="users")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -12,52 +16,26 @@ public class User {
     private String email;
     @Column(name="password", nullable = false)
     private String password;
-    @Column(name="fullname" , nullable = false)
-    private String fullname;
-    @Column(name="address")
-    private String address;
-    @Column(name ="phoneNumber")
-    private String phoneNumber;
-    @Column(name= "role", nullable = false)
-    private String role ="USER";
-    @Column(name = "enabled" )
-    private boolean isEnabled = true;
-    @Column(name="salt")
+    @Enumerated(EnumType.STRING)
+    @Column(name ="role")
+    private UserRole userRole = UserRole.USER;
     private String salt;
+    @Enumerated(EnumType.STRING)
+    @Column(name="status")
+    private UserStatus status = UserStatus.ACTIVATED;
+    @OneToOne(
+            mappedBy = "user",
+            cascade = CascadeType.ALL
+    )
+    private UserProfile profile;
     public User(){}
 
-    public String getSalt() {
-        return salt;
-    }
-
-    public void setSalt(String salt) {
-        this.salt = salt;
-    }
-
-    public User(String email, String password, String fullname, String address, String phoneNumber, String role, boolean isEnabled) {
+    public User(String email, String password, UserRole userRole, String salt, UserStatus status) {
         this.email = email;
         this.password = password;
-        this.fullname = fullname;
-        this.address = address;
-        this.phoneNumber = phoneNumber;
-        this.role = role;
-        this.isEnabled = isEnabled;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
-
-    public boolean isEnabled() {
-        return isEnabled;
-    }
-
-    public void setEnabled(boolean enabled) {
-        isEnabled = enabled;
+        this.userRole = userRole;
+        this.salt = salt;
+        this.status = status;
     }
 
     public long getId() {
@@ -84,28 +62,27 @@ public class User {
         this.password = password;
     }
 
-    public String getFullname() {
-        return fullname;
+    public UserRole getUserRole() {
+        return userRole;
     }
 
-    public void setFullname(String fullname) {
-        this.fullname = fullname;
+    public void setUserRole(UserRole userRole) {
+        this.userRole = userRole;
     }
 
-    public String getAddress() {
-        return address;
+    public String getSalt() {
+        return salt;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setSalt(String salt) {
+        this.salt = salt;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
+    public UserStatus getStatus() {
+        return status;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public void setStatus(UserStatus status) {
+        this.status = status;
     }
-
 }
