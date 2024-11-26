@@ -118,7 +118,7 @@ public class UserController {
                         user.setFullname(fullname);
                        CheckUserResponse response =  userService.registerUser(user);
                        if(response.isSuccess()){
-                                model.addAttribute("message", response.getMessage());
+                               model.addAttribute("message", response.getMessage());
                        }else{
                                model.addAttribute("error", response.getMessage());
                        }
