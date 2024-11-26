@@ -71,35 +71,84 @@ a:hover {
     font-weight: 500;
 }
 
-.stay-info {
-    margin: 20px auto;
+/*.stay-info {*/
+/*    margin: 20px auto;*/
+/*    text-align: center;*/
+/*    max-width: 620px;*/
+/*    background: #fff;*/
+/*    padding-right: 20px;*/
+/*    padding-left: 20px;*/
+/*    padding-top: 10px;*/
+/*    padding-bottom: 10px;*/
+/*    border-radius: 8px;*/
+/*    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);*/
+/*}*/
+
+
+#reverse-form {
+    position: relative;
+    bottom: 100px;
+    left: 250px;
+    display: block;
+    padding: 30px;
+    background: linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)),
+    url('../images/horizon.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 200px;
+    box-sizing: border-box;
+}
+
+#reverse-form input,
+#reverse-form select {
+    width: 25%;
+    padding: 15px;
+    border: 1px solid black;
+    border-radius: 200px;
+    background-color: #f6f7fa00;
+    color: black;
+    box-sizing: border-box;
+    margin-right: 1%;
+}
+
+#reverse-form select option {
+    color: black;
+}
+
+input::placeholder {
+    color: black;
+    opacity: 1;
+}
+
+.orange-button {
+    border: 1px solid black;
+    background-color: #CDB38B;
+    padding: 12px 30px;
+    border-radius: 200px;
+    border: white;
     text-align: center;
-    max-width: 620px;
-    background: #fff;
-    padding-right: 20px;
-    padding-left: 20px;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition-duration: 0.2s;
 }
 
-.stay-info p {
-    margin-bottom: 10px;
+.orange-button:hover {
+    transform: scale(0.9);
+    text-decoration: none;
+    color: white;
+    background-color: #0e1824;
 }
 
-.stay-info ul {
-    margin-left: 20px;
-    list-style: disc;
+
+.top-book-now-btn {
+    display: inline-block;
+    width: 18%;
+    box-sizing: border-box;
 }
 
-.stay-info a:hover {
-    color: #CDB38B;
-}
 
 .include-info {
     text-align: center;
-    margin-top: 10px;
+    margin-top: 0px;
 }
 
 #info-title {
@@ -202,3 +251,77 @@ a:hover {
     border-radius: 4px;
     border: 1px solid #ccc;
 }
+
+/*footer*/
+.footer {
+    display: block;
+    margin-top: 150px;
+    background-color: #0e1824;
+    color: white;
+    padding-left: 50px;
+    padding-right: 50px;
+    padding-top: 100px;
+    padding-bottom: 30px;
+}
+
+.footer h4 {
+    display: block;
+    padding-bottom: 20px;
+}
+
+.footer a {
+    color: white;
+    text-decoration: none;
+}
+
+.logo-footer {
+    display: block;
+    width: 320px;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+.email {
+    padding-right: 55px;
+}
+
+.form-subscribe input {
+    width: 90%;
+    padding: 13px 12px;
+    color: #ffffff;
+    background-color: #192431;
+    border-radius: 200px;
+    border: 1px solid #6f6f6f4a;
+    margin-top: 20px;
+}
+
+.subscribe-btn {
+    width: 100%;
+    border-radius: 200px;
+    background-color: #FFCC33;
+    padding: 13px 12px;
+    margin-top: 20px;
+    transition-duration: 0.2s;
+}
+
+.subscribe-btn:hover {
+    transform: scale(0.9);
+    background-color: #ffffff;
+}
+
+.copyright {
+    display: block;
+    position: relative;
+    padding-top: 50px;
+    border-top: 0.5px solid #ffffff4d;
+    width: 100%;
+    margin-top: 70px;
+}
+
+.copyright .overlay {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+}
+
+/*end footer*/

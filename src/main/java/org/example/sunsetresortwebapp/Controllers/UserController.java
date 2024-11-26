@@ -26,6 +26,11 @@ public class UserController {
             return "signup";
         }
 
+        @GetMapping("/bookingvilla")
+        public String bookingvilla() {
+                return "booking";
+        }
+
         @GetMapping("/signin")
         public String signin() {
                 return "signin";

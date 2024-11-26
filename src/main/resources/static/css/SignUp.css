@@ -298,7 +298,6 @@ input::placeholder {
 }
 
 
-/* phanlogin */
 .custombody {
     align-items: center;
     justify-content: center;
@@ -307,7 +306,7 @@ input::placeholder {
 
 .customcard {
     position: relative;
-    top: 20px;
+    top: 100px;
     padding: 50px;
     max-width: 500px;
     margin: auto;
@@ -366,8 +365,6 @@ input::placeholder {
     color: white;
 }
 
-/* phansignup */
-
 .customcard button {
     width: 400px;
     margin-bottom: 10px;
@@ -395,5 +392,6 @@ input::placeholder {
     background-color: grey;
     border: 1px solid grey;
 }
+
 
 
