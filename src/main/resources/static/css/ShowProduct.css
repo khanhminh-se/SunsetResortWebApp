@@ -71,35 +71,83 @@ a:hover {
     font-weight: 500;
 }
 
-.stay-info {
-    margin: 20px auto;
+/*.stay-info {*/
+/*    margin: 20px auto;*/
+/*    text-align: center;*/
+/*    max-width: 620px;*/
+/*    background: #fff;*/
+/*    padding-right: 20px;*/
+/*    padding-left: 20px;*/
+/*    padding-top: 10px;*/
+/*    padding-bottom: 10px;*/
+/*    border-radius: 8px;*/
+/*    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);*/
+/*}*/
+
+
+#reverse-form {
+    position: relative;
+    bottom: 100px;
+    left: 250px;
+    display: block;
+    padding: 15px;
+    border: 1px solid black;
+    background-image: url("/images/horizon.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 200px;
+    box-sizing: border-box;
+}
+
+#reverse-form input,
+#reverse-form select {
+    width: 25%;
+    padding: 15px;
+    border: 1px solid black;
+    border-radius: 200px;
+    background-color: #f6f7fa00;
+    color: black;
+    box-sizing: border-box;
+    margin-right: 1%;
+}
+
+#reverse-form select option {
+    color: black;
+}
+
+input::placeholder {
+    color: black;
+    opacity: 1;
+}
+
+.orange-button {
+    background-color: #CDB38B;
+    padding: 12px 30px;
+    border-radius: 200px;
+    border: white;
     text-align: center;
-    max-width: 620px;
-    background: #fff;
-    padding-right: 20px;
-    padding-left: 20px;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition-duration: 0.2s;
 }
 
-.stay-info p {
-    margin-bottom: 10px;
+.orange-button:hover {
+    transform: scale(0.9);
+    text-decoration: none;
+    color: white;
+    background-color: #0e1824;
 }
 
-.stay-info ul {
-    margin-left: 20px;
-    list-style: disc;
+
+.top-book-now-btn {
+    display: inline-block;
+    width: 18%;
+    box-sizing: border-box;
 }
 
-.stay-info a:hover {
-    color: #CDB38B;
-}
 
 .include-info {
     text-align: center;
-    margin-top: 10px;
+    margin-top: 0px;
 }
 
 #info-title {

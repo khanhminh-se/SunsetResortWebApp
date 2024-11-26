@@ -73,11 +73,6 @@ public class UserController {
                 return "showproduct";
         }
 
-        @GetMapping("/booking")
-        public String getBooking() {
-                return "booking";
-        }
-
         @PostMapping("/signin")
         public String processSignIn(@RequestParam String email, @RequestParam String password , Model model, HttpSession session){
                 CheckUserResponse response = userService.checkUser(email, password);

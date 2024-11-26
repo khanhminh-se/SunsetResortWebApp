@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <title>SunsetResort Accommodation</title>
-    <link rel="stylesheet" href="/css/ShowProduct.css" type="text/css">
+    <link rel="stylesheet" href="/css/ShowProduct.css?v=1.0" type="text/css">
 </head>
 
 <body>
@@ -37,11 +37,19 @@
         </div>
 
         <div class="stay-info">
-            <p id="info-title"><Strong>#sunsetresort</Strong></p>
-            <p><strong>Arrival:</strong> Saturday, November 30, 2024<span> | </span><strong>Departure:</strong>
-                Thursday, December 12, 2024
-            </p>
-            <a href="Sunset.html"><i class="fa fa-arrow-circle-o-left" aria-hidden="true"></i> Edit</a>
+            <div class="col-lg-8 col-8">
+                <div class="form " id="reverse-form">
+                    <form>
+                        <input type="text" class="datepicker" placeholder="Check in" required>
+                        <input type="text" class="datepicker" placeholder="Check out" required>
+                        <input type="number" step="any" class="mf-input mf-conditional-input"
+                               id="mf-input-mobile-3b9c09b0" name="mf-childs" placeholder="Number of Guest "
+                               aria-invalid="false" fdprocessedid="b35gu" required>
+                        <button type="submit" class="orange-button top-book-now-btn">Book
+                            Now</button>
+                    </form>
+                </div>
+            </div>
         </div>
 
         <div class="include-info">
