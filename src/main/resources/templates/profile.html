@@ -61,33 +61,36 @@
                             <tr class="detail-item">
                                 <th><label>Full Name:</label></th>
                                 <td class="detail">
-                                    <span id="user-name" th:if="${userProfile!=null}" th:text="${userProfile.fullname}"></span>
+                                    <span id="user-name"  th:text=" ${userProfile} ? ${userProfile.fullname} : ''"></span>
+
                                     <input type="text" name="fullname" id="user-name-input"
-                                           style="display: none;" th:if="${userProfile!=null}" th:value="${userProfile.fullname}">
+                                           style="display: none;"  th:value="${userProfile} ? ${userProfile.fullname} : ''">
                                 </td>
                             </tr>
                             <tr class="detail-item">
                                 <th><label>Email:</label></th>
                                 <td class="detail">
-                                    <span id="user-email" th:if="${user}" th:text="${user.email}"></span>
-                                    <input type="email" id="user-email-input" name="email" th:if="${user}" th:value="${user.email}"
+                                    <span id="user-email"  th:text="${user} ? ${user.email} : ''"></span>
+                                    <input type="email" id="user-email-input" name="email" th:value="${user} ? ${user.email} : ''"
                                            style="display: none;">
                                 </td>
                             </tr>
                             <tr class="detail-item">
                                 <th><label>Phone Number:</label></th>
                                 <td class="detail">
-                                    <span id="user-phone" th:if="${userProfile!=null}" th:text="${userProfile.phoneNumber}"></span>
+                                    <span id="user-phone" th:text=" ${userProfile} ? ${userProfile.phoneNumber} : ''"></span>
+
                                     <input type="phone" id="user-phone-input" name="phonenumber" style="display: none;"
-                                           th:if="${userProfile!=null}" th:value="${userProfile.phoneNumber}">
+                                            th:value="${userProfile} ? ${userProfile.phoneNumber} : ''">
                                 </td>
                             </tr>
                             <tr class="detail-item">
                                 <th><label>Address:</label></th>
                                 <td class="detail">
-                                    <span id="user-address" th:if="${userProfile!=null}" th:text="${userProfile.address}"></span>
+                                    <span id="user-address"  th:text="${userProfile} ? ${userProfile.address} : ''">""</span>
+
                                     <input type="address" id="user-address-input"
-                                           style="display: none;" name="address" th:if="${userProfile!=null}" th:value="${userProfile.address}">
+                                           style="display: none;" name="address"  th:value="${userProfile} ? ${userProfile.address} : ''">
                                 </td>
                             </tr>
                         </table>
@@ -212,7 +215,7 @@
                         </tr>
                     </table>
                     <button class="change-password-btn" id="update-password-button"
-                            onclick="checkPassword()">CHANGE-
+                            onclick="checkPassword()">CHANGE
                     </button>
                 </div>
                 <div class="popup hidden" id="logout-popup">
@@ -230,6 +233,103 @@
         </div>
     </div>
 </main>
+<footer>
+    <div class="footer">
+        <div class="container-customer">
+            <div class="row">
+                <div class="col-lg-4 col-sm-12">
+                    <div class="email">
+                        <div class="row">
+                            <div class="col-lg-12 col-sm-12">
+                                <div class="logo-footer">
+                                    <img src="/images/whitelogo.png" style="height: 50px; width: 320px;" alt="logo">
+                                </div>
+                                <p>
+                                    Welcome to Sunset Villas, where luxury meets tranquility in the most
+                                    breathtaking
+                                    locations
+                                    around
+                                    the
+                                    world.
+                                </p>
+                            </div>
+                        </div>
+
+                        <form class="form-subscribe">
+                            <div class="row no-gutters">
+                                <div class="col-lg-7 col-sm-12">
+                                    <input type="email" required placeholder="Your Email Address">
+                                </div>
+                                <div class="col-lg-5 col-sm-12">
+                                    <button class="subscribe-btn" type="submit"><i
+                                            class="fa-solid fa-envelope-open-text"></i>
+                                        Subscribe</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+
+                <div class="col-lg-2 col-sm-12">
+                    <div class="footer-content">
+                        <h4>Quick Menu</h4>
+                        <p><a href="#">Home</a></p>
+                        <p><a href="#">About</a></p>
+                        <p><a href="#">Our Accommodation</a></p>
+                        <p><a href="#">Blog</a></p>
+                        <p><a href="#">Contact Us</a></p>
+                    </div>
+                </div>
+
+                <div class="col-lg-2 col-sm-12">
+                    <div class="footer-content">
+                        <h4>Support</h4>
+                        <p><a href="#">FAQ</a></p>
+                        <p><a href="#">Privacy & Cookies</a></p>
+                        <p><a href="#">Legal</a></p>
+                        <p><a href="#">Accessibility</a></p>
+                        <p><a href="#">Sitemap</a></p>
+                    </div>
+                </div>
+
+                <div class="col-lg-2 col-sm-12">
+                    <div class="footer-content">
+                        <h4>Contact Info</h4>
+                        <p><a href="#">A : Building W 13th Parks Suite 559, Denver</a></p>
+                        <p><a href="#">P : +84 (983301103)</a></p>
+                        <p><a href="#">E : sunsetresort@support.com</a></p>
+                    </div>
+                </div>
+
+                <div class="col-lg-2 col-sm-12">
+                    <div class="footer-content">
+                        <h4>Social Media</h4>
+                        <ul>
+                            <li>
+                                <p><a href="#">Facebook</a></p>
+                            </li>
+                            <li>
+                                <p><a href="#">Instagram</a></p>
+                            </li>
+                            <li>
+                                <p><a href="#">Twitter</a></p>
+                            </li>
+                            <li>
+                                <p><a href="#">Youtube</a></p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="copyright">
+                    <p>Copyright © 2024 All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
