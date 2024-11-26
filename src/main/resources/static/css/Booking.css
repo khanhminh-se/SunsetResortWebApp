@@ -44,10 +44,13 @@ a:hover {
     overflow: hidden;
 }
 
-.top-nav-container ,hr, body {
+.top-nav-container ,hr, body, main {
     background-color: #FFFFF9;
 }
 
+.booking-steps {
+    background-color: #FFFFF9 !important;
+}
 
 .logo-white {
     display: block;
@@ -130,6 +133,8 @@ a:hover {
     color: #198754;
 }
 
+
+
 #main-image {
     width: 400px;
     height: 200px
@@ -141,7 +146,7 @@ a:hover {
 }
 
 img:hover {
-    transform: scale(1.05);
+    opacity: 90%;
 }
 
 .container {
@@ -198,7 +203,6 @@ img:hover {
 
 body {
     font-family: Arial, sans-serif;
-    background-color: #f8f8f8;
     margin: 0;
     padding: 0;
 }
@@ -215,6 +219,18 @@ body {
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
+
+.container .detail h3 {
+    font-family: "Cormorant Garamond", serif;
+    color: black;
+    font-weight: bold;
+}
+
+.review-box h4 {
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
 
 .review-box {
     grid-row: span 2;
@@ -275,4 +291,106 @@ body {
 .description-box p {
     font-size: 14px;
     line-height: 1.5;
+}
+
+.amenities-box .amenities-icon {
+    width: 20px;
+    height: 20px;
+}
+
+.amenities-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.amenities-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.amenities-list li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.facility-icons {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.facility-icons #score {
+    background-color: #CDB38B;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+    color: white;
+    padding: 2px;
+}
+
+.facility-icons #count {
+    color: grey;
+}
+
+.stars i {
+    padding-top: 5px;
+    color: #f0ad4e;
+}
+
+#info-title {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    color: #CDB38B;
+    font-size: 15px;
+}
+
+.customer-reviews p {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+}
+.customer-reviews p:hover {
+    transform: scale(1.05);
+    transition: 0.3s;
+}
+
+.img-fluid {
+    cursor: pointer;
+}
+
+/* Style cho modal */
+.image-popup {
+    display: none; /* Ẩn modal ban đầu */
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.8);
+    justify-content: center;
+    align-items: center;
+}
+
+/* Nội dung ảnh trong modal */
+.popup-content {
+    max-width: 90%;
+    max-height: 90%;
+    margin: auto;
+    display: block;
+    border-radius: 5px;
+}
+
+/* Nút đóng modal */
+.close-popup {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    color: #fff;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
 }

@@ -342,3 +342,61 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
+// Hàm khởi tạo popup
+function initializeImagePopup(imageSelector, popupId, popupImageId) {
+    const images = document.querySelectorAll(imageSelector);
+    const popup = document.getElementById(popupId);
+    const popupImage = document.getElementById(popupImageId);
+    const closeBtn = popup.querySelector(".close-popup");
+
+    // Kiểm tra nếu các phần tử tồn tại
+    if (!popup || !popupImage || !closeBtn) {
+        console.error("Không tìm thấy phần tử modal hoặc các thành phần bên trong.");
+        return;
+    }
+
+    // Thêm sự kiện click cho mỗi ảnh
+    images.forEach(img => {
+        img.addEventListener("click", () => {
+            popup.style.display = "flex"; // Hiển thị modal
+            popupImage.src = img.src;    // Gán src ảnh vào popup
+        });
+    });
+
+    // Thêm sự kiện đóng modal
+    closeBtn.addEventListener("click", () => {
+        popup.style.display = "none"; // Ẩn modal
+    });
+
+    // Đóng modal khi click bên ngoài ảnh
+    popup.addEventListener("click", (event) => {
+        if (event.target === popup) {
+            popup.style.display = "none"; // Ẩn modal
+        }
+    });
+}
+
+// Sử dụng khi DOM đã sẵn sàng
+document.addEventListener("DOMContentLoaded", () => {
+    initializeImagePopup(".img-fluid", "imagePopup", "popupImage");
+});
+
+
+document.addEventListener("DOMContentLoaded", () => {
+    console.log("Document loaded!");
+
+    // Kiểm tra phần tử modal
+    const popup = document.getElementById("imagePopup");
+    const popupImage = document.getElementById("popupImage");
+    if (!popup || !popupImage) {
+        console.error("Không tìm thấy modal hoặc popup image!");
+    }
+
+    // Kiểm tra danh sách ảnh
+    const images = document.querySelectorAll(".img-fluid");
+    if (images.length === 0) {
+        console.warn("Không tìm thấy ảnh nào có class 'img-fluid'!");
+    } else {
+        console.log(`Tìm thấy ${images.length} ảnh.`);
+    }
+});
