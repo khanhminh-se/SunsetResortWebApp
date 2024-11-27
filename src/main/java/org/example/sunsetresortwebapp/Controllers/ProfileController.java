@@ -1,30 +1,70 @@
 package org.example.sunsetresortwebapp.Controllers;
 
 import jakarta.servlet.http.HttpSession;
+import org.example.sunsetresortwebapp.Models.CheckUserResponse;
 import org.example.sunsetresortwebapp.Models.User;
 import org.example.sunsetresortwebapp.Models.UserProfile;
 import org.example.sunsetresortwebapp.Services.UserProfileService;
+import org.example.sunsetresortwebapp.Services.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 public class ProfileController {
+    private final UserService userService;
     private final UserProfileService userProfileService;
-    public ProfileController(UserProfileService userProfileService) {
+
+    public ProfileController(UserService userService, UserProfileService userProfileService) {
+        this.userService = userService;
         this.userProfileService = userProfileService;
     }
+
     @GetMapping("/profile")
     public String getProfile(HttpSession session, Model model) {
         User user = (User) session.getAttribute("loggedInUser");
-        UserProfile userProfile = userProfileService.findUserProfileById(user.getId());
         if(user != null){
+            UserProfile userProfile = userProfileService.findUserProfileById(user.getId());
             session.setAttribute("loggedInUsers", user);
+            session.setAttribute("userProfile", userProfile);
             model.addAttribute("userProfile", userProfile);
             model.addAttribute("user", user);
-            System.out.println("OKKKKK");
             return "profile";
+        }else{
+            return "redirect:/signin";
+        }
+    }
+    @PostMapping("updateprofile")
+    public String updateProfile(@RequestParam String fullname, @RequestParam String email, @RequestParam("phonenumber") String phoneNumber, @RequestParam String address, HttpSession session, Model model, RedirectAttributes redirectAttributes) {
+            User user = (User) session.getAttribute("loggedInUser");
+            UserProfile userProfile = new UserProfile();
+            userProfile.setId(user.getId());
+            user.setEmail(email);
+            userProfile.setFullname(fullname);
+            userProfile.setPhoneNumber(phoneNumber);
+            userProfile.setAddress(address);
+            userProfileService.updateUserProfile(userProfile);
+            userService.updateUser(user,user.getId());
+            redirectAttributes.addFlashAttribute("userProfile", userProfile);
+            redirectAttributes.addFlashAttribute("user", user);
+            redirectAttributes.addFlashAttribute("profilemessage", "Successfully updated profile");
+            return "redirect:/profile";
+    }
+    @PostMapping("/changepassword")
+    public String updateChangePassword(@RequestParam("currentpassword") String inputCurrentPassword, @RequestParam("newpassword") String password, @RequestParam("confirmpassword") String confirmPassword, HttpSession session, Model model, RedirectAttributes redirectAttributes) {
+        User user = (User) session.getAttribute("loggedInUser");
+        if(user != null){
+            CheckUserResponse response = userService.changePassword(inputCurrentPassword,password,confirmPassword,user);
+            redirectAttributes.addFlashAttribute("response", response);
+            session.setAttribute("loggedInUsers", userService.findUserById(user.getId()));
+            return "redirect:/profile?section=password";
         }else{
             return "redirect:/signin";
         }

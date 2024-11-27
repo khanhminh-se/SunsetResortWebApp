@@ -38,7 +38,17 @@ public class UserService {
         return userRepository.findAll();
     }
 
-
+    public User updateUser(User user, long id) {
+        User currentUser = userRepository.findUserById(id);
+        if(user.getEmail() != null &&  !user.getEmail().equalsIgnoreCase("")){
+            currentUser.setEmail(user.getEmail());
+        }
+        if(user.getPassword() != null &&  !user.getPassword().equalsIgnoreCase("")){
+            currentUser.setPassword(user.getPassword());
+        }
+        userRepository.save(currentUser);
+        return currentUser;
+    }
     public void deleteAllUsers() {
         userRepository.deleteAll();
     }
@@ -77,6 +87,27 @@ public class UserService {
             userRepository.save(user);
             response.setMessage("User successfully registered");
             response.setSuccess(true);
+        }
+        return response;
+    }
+    public CheckUserResponse changePassword(String inputCurrentPassword, String newPassword, String confirmPassword, User user){
+        CheckUserResponse response = new CheckUserResponse();
+        String inputCurrentHashedPassword = BCrypt.hashpw(inputCurrentPassword, user.getSalt());
+        if(inputCurrentHashedPassword.equals(user.getPassword())){
+            if(confirmPassword.equals(newPassword)){
+                 String salt = BCrypt.gensalt();
+                 user.setSalt(salt);
+                 user.setPassword(BCrypt.hashpw(newPassword,salt));
+                 response.setSuccess(true);
+                 response.setMessage("Password changed successfully");
+                 userRepository.save(user);
+            }else{
+                response.setSuccess(false);
+                response.setMessage("Passwords do not match");
+            }
+        }else{
+            response.setSuccess(false);
+            response.setMessage("Wrong password");
         }
         return response;
     }

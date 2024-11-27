@@ -186,6 +186,7 @@ $(document).ready(function () {
     }
 
 
+
 });
 
 
@@ -301,28 +302,7 @@ $(document).ready(function () {
     });
 });
 
-// change password
-function checkPassword() {
-    const oldPassword = document.getElementById("old-password-input").value;
-    const newPassword = document.getElementById("new-password-input").value;
-    const repeatPassword = document.getElementById("repeat-password-input").value;
 
-    // if (!oldPassword) {
-    //     alert("Please enter your current password.");
-    //     return;
-    // }
-
-    if (newPassword !== repeatPassword) {
-        alert("New password and repeat password do not match.");
-        return;
-    }
-
-    alert("Password changed successfully!");
-
-    document.getElementById("old-password-input").value = "";
-    document.getElementById("new-password-input").value = "";
-    document.getElementById("repeat-password-input").value = "";
-}
 
 document.addEventListener("DOMContentLoaded", function () {
     document.querySelectorAll(".toggle-password").forEach(function (toggle) {
@@ -339,4 +319,22 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
     });
+
+});
+document.addEventListener("DOMContentLoaded", function () {
+    console.log("DOM fully loaded and parsed");
+
+    // Select the profile message element
+    const messageProfileElement = document.getElementById("profile-message");
+    if (messageProfileElement) {
+        console.log("Profile message found!");
+
+        // Hide the message after 3 seconds
+        setTimeout(() => {
+            messageProfileElement.style.display = "none";
+            console.log("Profile message hidden.");
+        }, 3000);
+    } else {
+        console.log("No tag with the id 'profile-message'");
+    }
 });

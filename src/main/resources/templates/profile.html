@@ -57,6 +57,7 @@
                     <h3>Personal Details<img src="/images/profile.png"
                                              style="height: 100px; width: 100px; margin-left: 410px;"></h3>
                     <form action="/updateprofile" method="post">
+                        <p id="profile-message" style="color:green;" th:if="${profilemessage}" th:text="${profilemessage}"></p>
                         <table>
                             <tr class="detail-item">
                                 <th><label>Full Name:</label></th>
@@ -180,44 +181,47 @@
                 </div>
                 <div class="change-password hidden" id="change-password">
                     <h3>Change Your Password</h3>
-                    <table>
-                        <tr class="detail-item">
-                            <th><label>Current Password:</label></th>
-                            <td class="detail">
-                                <div class="password-wrapper">
-                                    <input type="password" id="old-password-input" class="form-control" required>
-                                    <span toggle="#old-password-input"
-                                          class="fa fa-fw fa-eye field-icon toggle-password"
-                                          style="cursor: pointer;"></span>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr class="detail-item">
-                            <th><label>New Password:</label></th>
-                            <td class="detail">
-                                <div class="password-wrapper">
-                                    <input type="password" id="new-password-input" class="form-control" required>
-                                    <span toggle="#new-password-input"
-                                          class="fa fa-fw fa-eye field-icon toggle-password"
-                                          style="cursor: pointer;"></span>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr class="detail-item">
-                            <th><label>Repeat Password:</label></th>
-                            <td class="detail">
-                                <div class="password-wrapper">
-                                    <input type="password" id="repeat-password-input" class="form-control" required>
-                                    <span toggle="#repeat-password-input"
-                                          class="fa fa-fw fa-eye field-icon toggle-password"
-                                          style="cursor: pointer;"></span>
-                                </div>
-                            </td>
-                        </tr>
-                    </table>
-                    <button class="change-password-btn" id="update-password-button"
-                            onclick="checkPassword()">CHANGE
-                    </button>
+                    <form action="/changepassword" method="post">
+                        <p th:if="${response}" th:style="'color:' + (${response.success} ? 'green' : 'red')" th:text="${response.message}"></p>
+                        <table>
+                            <tr class="detail-item">
+                                <th><label>Current Password:</label></th>
+                                <td class="detail">
+                                    <div class="password-wrapper">
+                                        <input name="currentpassword" type="password" id="old-password-input" class="form-control" required>
+                                        <span toggle="#old-password-input"
+                                              class="fa fa-fw fa-eye field-icon toggle-password"
+                                              style="cursor: pointer;"></span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="detail-item">
+                                <th><label>New Password:</label></th>
+                                <td class="detail">
+                                    <div class="password-wrapper">
+                                        <input name="newpassword" type="password" id="new-password-input" class="form-control" required>
+                                        <span toggle="#new-password-input"
+                                              class="fa fa-fw fa-eye field-icon toggle-password"
+                                              style="cursor: pointer;"></span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="detail-item">
+                                <th><label>Repeat Password:</label></th>
+                                <td class="detail">
+                                    <div class="password-wrapper">
+                                        <input name="confirmpassword" type="password" id="repeat-password-input" class="form-control" required>
+                                        <span toggle="#repeat-password-input"
+                                              class="fa fa-fw fa-eye field-icon toggle-password"
+                                              style="cursor: pointer;"></span>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                        <button class="change-password-btn" id="update-password-button"
+                                type="submit">CHANGE
+                        </button>
+                    </form>
                 </div>
                 <div class="popup hidden" id="logout-popup">
                     <div class="popup-content">
