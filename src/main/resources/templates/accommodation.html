@@ -77,21 +77,21 @@
                                     <div class="room-details">
                                         <h3 th:text="${accommodation.accommodationType}"></h3>
                                         <p th:text="${accommodation.description}"></p>
-                                        <ul th:if="${accommodation.amentities} != null" th:with="amentities=${#strings.arraySplit(accommodation.amentities, '|')}">
+                                        <ul th:if="${accommodation.amenities} != null" th:with="amenities=${#strings.arraySplit(accommodation.amenities, '|')}">
                                             <li><img class="amenities-icon" src="/images/area.png">
-                                                <span th:text="${amentities[0]}"></span>
+                                                <span th:text="${amenities[0]}"></span>
                                             </li>
                                             <li ><img class="amenities-icon" src="/images/view.png">
-                                                <span th:text="${amentities[1]}"></span>
+                                                <span th:text="${amenities[1]}"></span>
                                             </li>
                                             <li><img class="amenities-icon" src="/images/bed.png">
-                                                <span th:text="${amentities[2]}"></span>
+                                                <span th:text="${amenities[2]}"></span>
                                             </li>
                                             <li><img class="amenities-icon" src="/images/air-conditioner.png">
-                                                <span th:text="${amentities[4]}"></span>
+                                                <span th:text="${amenities[4]}"></span>
                                             </li>
                                             <li ><img class="amenities-icon" src="/images/bathub.png">
-                                                <span th:text="${amentities[4]}"></span>
+                                                <span th:text="${amenities[4]}"></span>
                                             </li>
                                             <li><img class="amenities-icon" src="/images/people.png">
                                                 Maximum People

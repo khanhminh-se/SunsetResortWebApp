@@ -28,7 +28,7 @@ public class AccommodationController {
     @PostMapping("/accommodations")
     public String createAccommodation( @RequestBody  Accommodation accommodation , Model model ) {
            Accommodation accommodation1 =  accommodationService.createAccommodation(accommodation);
-        model.addAttribute("accommodation", accommodation1);
+            model.addAttribute("accommodation", accommodation1);
            return "accommodation";
     }
 }

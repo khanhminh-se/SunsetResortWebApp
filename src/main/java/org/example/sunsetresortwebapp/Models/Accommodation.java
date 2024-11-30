@@ -17,7 +17,7 @@ public class Accommodation {
     @Column(name ="price")
     private Double pricePerNight;
     private String description;
-    private String amentities;
+    private String amenities;
     private int maximumGuests;
 
     @OneToMany(
@@ -27,14 +27,22 @@ public class Accommodation {
     )
     List<Image> images;
 
-    public Accommodation(String accommodationType, Integer availableQuantity, Double pricePerNight, String description, String amentities, int maximumGuests, List<Image> images) {
-        this.accommodationType = accommodationType;
-        this.availableQuantity = availableQuantity;
-        this.pricePerNight = pricePerNight;
-        this.description = description;
-        this.amentities = amentities;
-        this.maximumGuests = maximumGuests;
+    public Accommodation(List<Image> images, int maximumGuests, String amenities, String description, Double pricePerNight, Integer availableQuantity, String accommodationType) {
         this.images = images;
+        this.maximumGuests = maximumGuests;
+        this.amenities = amenities;
+        this.description = description;
+        this.pricePerNight = pricePerNight;
+        this.availableQuantity = availableQuantity;
+        this.accommodationType = accommodationType;
+    }
+
+    public String getAmenities() {
+        return amenities;
+    }
+
+    public void setAmenities(String amenities) {
+        this.amenities = amenities;
     }
 
     public String getDescription() {
@@ -87,13 +95,7 @@ public class Accommodation {
         this.pricePerNight = pricePerNight;
     }
 
-    public String getAmentities() {
-        return amentities;
-    }
 
-    public void setAmentities(String amentities) {
-        this.amentities = amentities;
-    }
 
     public List<Image> getImages() {
         return images;
