@@ -60,6 +60,11 @@ public class UserController {
                 return "showproduct";
         }
 
+        @GetMapping("/restaurant")
+        public String getRestaurantBoking() {
+                return "restaurantbooking";
+        }
+
         @PostMapping("/signin")
         public String processSignIn(@RequestParam String email, @RequestParam String password , Model model, HttpSession session){
                 CheckUserResponse response = userService.checkUser(email, password);
