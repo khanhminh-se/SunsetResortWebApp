@@ -27,6 +27,14 @@ public class UserProfile {
         this.phoneNumber = phoneNumber;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     public Long getId() {
         return id;
     }

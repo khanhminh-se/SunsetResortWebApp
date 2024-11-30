@@ -71,86 +71,41 @@
                     <option value="desc">Price: High to Low</option>
                 </select>
             </div>
-            <div class="room-list">
-                <div class="room-card">
-                    <img src="/images/villa.png" alt="Villa">
-                    <div class="room-details">
-                        <h3>Villa</h3>
-                        <p>Villas are the ultimate getaway, featuring spacious interiors, private pools, and secluded
-                            locations with breathtaking views.</p>
-                        <ul>
-                            <li><img class="amenities-icon" src="/images/area.png"> 200 sq. m (2,152 sq. ft)</li>
-                            <li><img class="amenities-icon" src="/images/view.png"> Beach or Mountain View</li>
-                            <li><img class="amenities-icon" src="/images/bed.png"> King-size bed</li>
-                            <li><img class="amenities-icon" src="/images/air-conditioner.png"> Air Conditioner</li>
-                            <li><img class="amenities-icon" src="/images/bathub.png"> Bathub, Twin Vanities</li>
-                            <li><img class="amenities-icon" src="/images/people.png"> Maximum 10 people</li>
-                        </ul>
-                        <div class="price-detail">
-                            <p class="price">From <strong>$1,245 / night</strong></p>
-                            <button class="btn">View Details & Book</button>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="room-card">
-                    <img src="/images/president-suite.png" alt="President Suite">
-                    <div class="room-details">
-                        <h3>President Suite</h3>
-                        <p>The President Suite is the pinnacle of luxury, featuring expansive spaces, bespoke furnishings, and panoramic views for a truly regal experience.</p>
-                        <ul>
-                            <li><img class="amenities-icon" src="/images/area.png"> 200 sq. m (1,076 sq. ft)</li>
-                            <li><img class="amenities-icon" src="/images/view.png"> Panoramic Ocean View or City View</li>
-                            <li><img class="amenities-icon" src="/images/bed.png"> King-size bed</li>
-                            <li><img class="amenities-icon" src="/images/air-conditioner.png"> Air Conditioner</li>
-                            <li><img class="amenities-icon" src="/images/bathub.png"> Bathub, Twin Vanities</li>
-                            <li><img class="amenities-icon" src="/images/people.png"> Maximum 6 people</li>
-
-                        </ul>
-                        <div class="price-detail">
-                            <p class="price">From <strong>$1,000 / night</strong></p>
-                            <button class="btn">View Details & Book</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="room-card">
-                    <img src="/images/over-water-bungalows.png" alt="Overwater Bungalow">
-                    <div class="room-details">
-                        <h3>Overwater Bungalow</h3>
-                        <p>Overwater Bungalows offer unparalleled luxury, set above crystal-clear waters, with private decks and direct lagoon access.</p>
-                        <ul>
-                            <li><img class="amenities-icon" src="/images/area.png"> 60 sq. m (645 sq. ft)</li>
-                            <li><img class="amenities-icon" src="/images/view.png"> Lagoon or Ocean View</li>
-                            <li><img class="amenities-icon" src="/images/bed.png"> King-size bed</li>
-                            <li><img class="amenities-icon" src="/images/air-conditioner.png"> Air Conditioner</li>
-                            <li><img class="amenities-icon" src="/images/bathub.png"> Bathub, Twin Vanities</li>
-                            <li><img class="amenities-icon" src="/images/people.png"> Maximum 4 people</li>
-                        </ul>
-                        <div class="price-detail">
-                            <p class="price">From <strong>$800 / night</strong></p>
-                            <button class="btn">View Details & Book</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="room-card">
-                    <img src="/images/bungalow.png" alt="Bungalow">
-                    <div class="room-details">
-                        <h3>Bungalow</h3>
-                        <p>Bungalows provide a private escape, surrounded by lush greenery, with rustic charm and all the modern conveniences for a tranquil stay.</p>
-                        <ul>
-                            <li><img class="amenities-icon" src="/images/area.png"> 45 sq. m (484 sq. ft)</li>
-                            <li><img class="amenities-icon" src="/images/view.png"> Garden View</li>
-                            <li><img class="amenities-icon" src="/images/bed.png"> King-size or Twin beds</li>
-                            <li><img class="amenities-icon" src="/images/air-conditioner.png"> Air Conditioner</li>
-                            <li><img class="amenities-icon" src="/images/bathub.png"> Bathub, Twin Vanities</li>
-                            <li><img class="amenities-icon" src="/images/people.png"> Maximum 4 people</li>
-                        </ul>
-                        <div class="price-detail">
-                            <p class="price">From <strong>$400 / night</strong></p>
-                            <button class="btn">View Details & Book</button>
-                        </div>
-                    </div>
-                </div>
+            <div class="room-list">-->
+                                <div class="room-card" th:if="${accommodations}" th:each="accommodation:${accommodations}">
+                                    <img th:if="${accommodation.images != null and !accommodation.images.isEmpty()}"  th:src="${accommodation.images[0].imageUrl}" >
+                                    <div class="room-details">
+                                        <h3 th:text="${accommodation.accommodationType}"></h3>
+                                        <p th:text="${accommodation.description}"></p>
+                                        <ul th:if="${accommodation.amentities} != null" th:with="amentities=${#strings.arraySplit(accommodation.amentities, '|')}">
+                                            <li><img class="amenities-icon" src="/images/area.png">
+                                                <span th:text="${amentities[0]}"></span>
+                                            </li>
+                                            <li ><img class="amenities-icon" src="/images/view.png">
+                                                <span th:text="${amentities[1]}"></span>
+                                            </li>
+                                            <li><img class="amenities-icon" src="/images/bed.png">
+                                                <span th:text="${amentities[2]}"></span>
+                                            </li>
+                                            <li><img class="amenities-icon" src="/images/air-conditioner.png">
+                                                <span th:text="${amentities[4]}"></span>
+                                            </li>
+                                            <li ><img class="amenities-icon" src="/images/bathub.png">
+                                                <span th:text="${amentities[4]}"></span>
+                                            </li>
+                                            <li><img class="amenities-icon" src="/images/people.png">
+                                                Maximum People
+                                                <span th:text="${accommodation.maximumGuests}"></span></li>
+                                        </ul>
+                                        <div class="price-detail">
+                                            <p   class="price">From <strong>
+                                                $<span th:text="${accommodation.pricePerNight}"></span>
+                                                / night
+                                            </strong></p>
+                                            <button class="btn" th:attr="data-id=${accommodation.accommodationId}">View Details & Book</button>
+                                        </div>
+                                    </div>
+                                </div>
                 <div class="room-card">
                     <img src="/images/junior-suite.png" alt="Junior Suite">
                     <div class="room-details">
@@ -205,7 +160,7 @@
                         </ul>
                         <div class="price-detail">
                             <p class="price">From <strong>$150 / night</strong></p>
-                            <button class="btn">View Details & Book</button>
+                            <button class="btn" >View Details & Book</button>
                         </div>
                     </div>
                 </div>

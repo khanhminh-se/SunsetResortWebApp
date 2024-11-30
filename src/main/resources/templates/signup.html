@@ -75,7 +75,6 @@
                             <a href="/signup" class="signup-btn signup-button">Sign Up</a>
                         </div>
                     </div>
-                    <!-- login-signup -->
                     <div class="custom-body">
                         <div id="popup-container" class="popup ">
                             <div class="customcard">
@@ -83,26 +82,15 @@
                                     <h2 class="text-center mb-3">Sign up</h2>
                                     <p class="text-center text-muted mb-4">Create an account to start your journey
                                         with us</p>
-                                    <p style="color :green" th:if="${message}" th:text="${message}"></p>
-                                    <p style="color :red" th:if="${error}" th:text="${error}"></p>
+                                    <p th:if="${response}" th:style="'color:' + (${response.success} ? 'green' : 'red')" th:text="${response.message}"></p>
                                     <form action="/signup" id="sign-up-form" method="post">
                                         <input type="hidden" name="_csrf" value="${_csrf.token}" />
-<!--                                        <div class="input">-->
-<!--                                            <input type="text" class="form-control" placeholder="Full Name"-->
-<!--                                                   name="fullname" required>-->
-<!--                                        </div>-->
+
                                         <div class="input">
                                             <input type="email" class="form-control" placeholder="Email" required
                                                    name="email">
                                         </div>
-<!--                                        <div class="input">-->
-<!--                                            <input type="text" class="form-control" placeholder="Phone Number"-->
-<!--                                                   required name="phoneNumber">-->
-<!--                                        </div>-->
-<!--                                        <div class="input">-->
-<!--                                            <input type="text" class="form-control" placeholder="Address" required-->
-<!--                                                   name="address">-->
-<!--                                        </div>-->
+
                                         <div class="input">
                                             <input type="password" class="form-control" placeholder="Password"
                                                    required name="password">

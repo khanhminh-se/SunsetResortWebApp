@@ -1,5 +1,6 @@
 package org.example.sunsetresortwebapp.Services;
 
+import org.example.sunsetresortwebapp.Models.User;
 import org.example.sunsetresortwebapp.Models.UserProfile;
 import org.example.sunsetresortwebapp.Repository.ProfileRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,25 +14,31 @@ public class UserProfileService {
         this.profileRepository = profileRepository;
     }
 
-
+    public UserProfile findUserProfileByUserId(Long userId){
+         return profileRepository.findUserProfileByUserId(userId);
+    }
     public UserProfile findUserProfileById(Long id){
         return profileRepository.findById(id).orElse(null);
     }
-    public UserProfile updateUserProfile(UserProfile userProfile){
-            UserProfile currentUserProfile = profileRepository.findById(userProfile.getId()).orElse(null);
+    public UserProfile updateUserProfile(String fullname, String phoneNumber, String address, User user){
+            UserProfile currentUserProfile = profileRepository.findUserProfileByUserId(user.getId());
             if(currentUserProfile != null){
 
-                if (userProfile.getFullname() != null &&  !userProfile.getFullname().equalsIgnoreCase("")){
-                    currentUserProfile.setFullname(userProfile.getFullname());
+                if (fullname != null &&  !fullname.equalsIgnoreCase("")){
+                    currentUserProfile.setFullname(fullname);
                 }
-                if(userProfile.getPhoneNumber() != null &&  !userProfile.getPhoneNumber().equalsIgnoreCase("")){
-                    currentUserProfile.setPhoneNumber(userProfile.getPhoneNumber());
+                if(phoneNumber != null &&  !phoneNumber.equalsIgnoreCase("")){
+                    currentUserProfile.setPhoneNumber(phoneNumber);
                 }
-                if(userProfile.getAddress() != null &&  !userProfile.getAddress().equalsIgnoreCase("")){
-                    currentUserProfile.setAddress(userProfile.getAddress());
+                if(address != null &&  !address.equalsIgnoreCase("")){
+                    currentUserProfile.setAddress(address);
                 }
             }else{
-               currentUserProfile= userProfile;
+               currentUserProfile= new UserProfile();
+               currentUserProfile.setFullname(fullname);
+               currentUserProfile.setPhoneNumber(phoneNumber);
+               currentUserProfile.setAddress(address);
+               currentUserProfile.setUser(user);
             }
             return profileRepository.save(currentUserProfile);
     }

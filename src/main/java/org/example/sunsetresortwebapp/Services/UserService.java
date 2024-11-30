@@ -5,6 +5,9 @@ import org.example.sunsetresortwebapp.Repository.UserRepository;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestParam;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -53,9 +56,7 @@ public class UserService {
         userRepository.deleteAll();
     }
     public CheckUserResponse checkUser(String email , String password){
-
         User user = userRepository.findUserByEmail(email);
-
         CheckUserResponse response = new CheckUserResponse();
         if(user == null){
             response.setMessage("User not found");
@@ -74,19 +75,27 @@ public class UserService {
         }
         return response;
     }
-    public CheckUserResponse registerUser(User user){
+    public CheckUserResponse registerUser( String email,  String password,   String confirmPassword){
         CheckUserResponse response = new CheckUserResponse();
-        User currentUser = userRepository.findUserByEmail(user.getEmail());
-        if(currentUser != null){
-            response.setMessage("User  with the email already exists");
+        if(!password.equals(confirmPassword)){
+            response.setMessage("Passwords do not match");
             response.setSuccess(false);
-        }else{
-            String salt = BCrypt.gensalt();
-            user.setSalt(salt);
-            user.setPassword(BCrypt.hashpw(user.getPassword(),salt));
-            userRepository.save(user);
-            response.setMessage("User successfully registered");
-            response.setSuccess(true);
+        }else {
+            User user = userRepository.findUserByEmail(email);
+            if (user == null) {
+                user = new User();
+                String salt = BCrypt.gensalt();
+                user.setSalt(salt);
+                user.setEmail(email);
+                user.setPassword(BCrypt.hashpw(password, salt));
+                userRepository.save(user);
+                response.setMessage("User successfully registered");
+                response.setSuccess(true);
+
+            } else {
+                response.setMessage("Email already existed");
+                response.setSuccess(false);
+            }
         }
         return response;
     }

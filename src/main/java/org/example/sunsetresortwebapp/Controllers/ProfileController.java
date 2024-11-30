@@ -11,12 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import java.util.HashMap;
-import java.util.Map;
-
 @Controller
 public class ProfileController {
     private final UserService userService;
@@ -31,7 +26,7 @@ public class ProfileController {
     public String getProfile(HttpSession session, Model model) {
         User user = (User) session.getAttribute("loggedInUser");
         if(user != null){
-            UserProfile userProfile = userProfileService.findUserProfileById(user.getId());
+            UserProfile userProfile = userProfileService.findUserProfileByUserId(user.getId());
             session.setAttribute("loggedInUsers", user);
             session.setAttribute("userProfile", userProfile);
             model.addAttribute("userProfile", userProfile);
@@ -44,17 +39,16 @@ public class ProfileController {
     @PostMapping("updateprofile")
     public String updateProfile(@RequestParam String fullname, @RequestParam String email, @RequestParam("phonenumber") String phoneNumber, @RequestParam String address, HttpSession session, Model model, RedirectAttributes redirectAttributes) {
             User user = (User) session.getAttribute("loggedInUser");
-            UserProfile userProfile = new UserProfile();
-            userProfile.setId(user.getId());
-            user.setEmail(email);
-            userProfile.setFullname(fullname);
-            userProfile.setPhoneNumber(phoneNumber);
-            userProfile.setAddress(address);
-            userProfileService.updateUserProfile(userProfile);
-            userService.updateUser(user,user.getId());
-            redirectAttributes.addFlashAttribute("userProfile", userProfile);
-            redirectAttributes.addFlashAttribute("user", user);
-            redirectAttributes.addFlashAttribute("profilemessage", "Successfully updated profile");
+           if(user == null){
+               return "redirect:/signin";
+           }else{
+               user.setEmail(email);
+              User newUser = userService.updateUser(user,user.getId());
+              UserProfile newUserProfile = userProfileService.updateUserProfile(fullname,phoneNumber, address,newUser);
+               redirectAttributes.addFlashAttribute("userProfile", newUserProfile );
+               redirectAttributes.addFlashAttribute("user", newUser);
+               redirectAttributes.addFlashAttribute("profilemessage", "Successfully updated profile");
+           }
             return "redirect:/profile";
     }
     @PostMapping("/changepassword")

@@ -57,7 +57,7 @@ public class UserController {
 
         @GetMapping("/showproduct")
         public String getProduct() {
-                return "showproduct";
+                return "accommodation";
         }
 
         @PostMapping("/signin")
@@ -75,21 +75,9 @@ public class UserController {
 
         @PostMapping("/signup")
         public String processSignUp(@RequestParam String email, @RequestParam String password, @RequestParam  String confirmPassword, Model model){
-                if(!confirmPassword.equalsIgnoreCase(password)){
-                        model.addAttribute("error", "Passwords do not match");
-                        return "signup";
-                }else{
-                        User user = new User();
-                        user.setEmail(email);
-                        user.setPassword(password);
-                       CheckUserResponse response =  userService.registerUser(user);
-                       if(response.isSuccess()){
-                                model.addAttribute("message", response.getMessage());
-                       }else{
-                               model.addAttribute("error", response.getMessage());
-                       }
-                       return "signup";
-                }
+                CheckUserResponse response = userService.registerUser(email, password, confirmPassword);
+                model.addAttribute("response", response);
+                return "signup";
         }
 
 }
