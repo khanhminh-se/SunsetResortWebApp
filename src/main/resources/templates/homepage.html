@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <title>Sunset - Villa & Resort</title>
-    <link rel="stylesheet" href="/css/Sunset.css" type="text/css">
+    <link rel="stylesheet" href="/css/Sunset.css?v=1.0" type="text/css">
 </head>
 
 <body>
@@ -74,27 +74,27 @@
                             </ul>
                             <a href="/signin" th:if="${user == null}" class="login-btn login-button">Log In</a>
                             <a href="/signup" th:if="${user == null}" class="signup-btn signup-button">Sign Up</a>
-                            <!--                        <label th:if="${user != null}">Hi, </label><label th:if="${user != null}" th:text="${user.fullname}"></label>-->
                             <div class="afterlogin" th:if="${user != null}">
+                                <label id="username" th:if="${user != null}" th:text="'Hi, ' + ${user.email}"></label>
                                 <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"
                                    id="opts">
                                     <img src="/images/menu.png" style="height: 35px; width: 35px;" id="menu">
                                 </a>
                                 <ul class="dropdown-menu" id="optmenu">
                                     <li><a class="dropdown-item option" href="/profile?section=profile"><img
-                                            src="/images/user.png" style="height: 20px; width: 20px;"> View
+                                            src="/images/user.png?v=1.0" style="height: 20px; width: 20px;"> View
                                         Profile</a></li>
                                     <li><a class="dropdown-item option" href="/profile?section=booking"><img
-                                            src="/images/booking.png" style="height: 20px; width: 20px;"> My
+                                            src="/images/booking.png?v=1.0" style="height: 20px; width: 20px;"> My
                                         Booking</a></li>
                                     <li><a class="dropdown-item option" href="/profile?section=history"><img
-                                            src="/images/history.png" style="height: 20px; width: 20px;">
+                                            src="/images/history.png?v=1.0" style="height: 20px; width: 20px;">
                                         Purchase History</a></li>
                                     <li><a class="dropdown-item option" href="/profile?section=password"><img
-                                            src="/images/password.png" style="height: 20px; width: 20px;">
+                                            src="/images/password.png?v=1.0" style="height: 20px; width: 20px;">
                                         Change Password</a></li>
                                     <li><a class="dropdown-item option" href="/logout"><img
-                                            src="/images/logout.png" style="height: 20px; width: 20px;"> Log
+                                            src="/images/logout.png?v=1.0" style="height: 20px; width: 20px;"> Log
                                         out</a></li>
                                 </ul>
                                 <!--                                <a href="/logout"  th:if="${user != null}"   class="login-btn login-button">Log Out</a>-->
@@ -238,8 +238,8 @@
         <div class="container-customer">
             <div class="row">
                 <div class="title">
-                    <p>Our Villas</p>
-                    <h1>Explore Our Best Villas For An <span>Unforgettable</span> Vacation</h1>
+                    <p>Our Paradise</p>
+                    <h1>Explore Our Best Accommodation For An <span>Unforgettable</span> Vacation</h1>
                 </div>
             </div>
             <div class="row" id="villa-items-row">
@@ -259,6 +259,19 @@
                         <a href="#" class="book-now-btn orange-button">Book Now</a>
                     </div>
 
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="service-and-news">
+        <div class="container-customer">
+            <div class="row" id="service-row">
+                <div class="col-lg-12 col-sm-12">
+                    <div class="title">
+                        <p>Service Reservation</p>
+                        <h1>Our Service Booking <span>Satisfy</span> Your Trip</h1>
+                    </div>
                 </div>
             </div>
         </div>
@@ -576,9 +589,9 @@
                 <div class="col-lg-2 col-sm-12">
                     <div class="footer-content">
                         <h4>Contact Info</h4>
-                        <p><a href="#">A : Building W 13th Parks Suite 559, Denver</a></p>
-                        <p><a href="#">P : +84 (983301103)</a></p>
-                        <p><a href="#">E : sunsetresort@support.com</a></p>
+                        <p><a href="#">Address: Phu Loc, Lang Co, Da Nang, Viet Nam</a></p>
+                        <p><a href="#">Phone: 0983.301.103</a></p>
+                        <p><a href="#">Email: sunsetresort@support.com</a></p>
                     </div>
                 </div>
 
@@ -617,7 +630,8 @@
         crossorigin="anonymous"></script>
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.14.0/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/ui/1.14.0/jquery-ui.js"></script>
-<script type="text/javascript" src="/js/index.js"></script>
+<script type="text/javascript" src="/js/index.js?v=1.0"></script>
+
 </body>
 
 </html>

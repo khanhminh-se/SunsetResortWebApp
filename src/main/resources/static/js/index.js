@@ -30,9 +30,9 @@ $(document).ready(function () {
     function loadVillaItems() {
         let villas = $("#villa-items-row");
         let villasArr = [
-            { overlay: "Denpasar", imgSrc: `images/Our villas - 1.jpg`, name: "Whispering Pines Villa", bed: "4 ", bath: "3 ", guest: "12 ", details: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar", price: "150.000" },
-            { overlay: "Bandung", imgSrc: `images/Our villas - 2.jpg`, name: "Mountain Serenity Villa", bed: "6 ", bath: "4 ", guest: "14 ", details: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar", price: "165.000" },
-            { overlay: "Tangerang", imgSrc: `images/Our villas - 3.jpg`, name: "Modern Bliss Villa", bed: "7 ", bath: "5 ", guest: "15 ", details: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar", price: "175.000" }
+            { overlay: "Luxury", imgSrc: `images/villa.png`, name: "Sunset Villa", bed: "5 ", bath: "5 ", guest: "10 ", details: "Experience unmatched comfort and elegance with panoramic views for an unforgettable stay.", price: "1,245" },
+            { overlay: "President", imgSrc: `images/president-suite.png`, name: "President Suite", bed: "3 ", bath: "3 ", guest: "6 ", details: "Indulge in sophistication and style, featuring spacious rooms and premium services tailored to your needs.", price: "1,000" },
+            { overlay: "Nature Expert", imgSrc: `images/over-water-bungalows.png`, name: "Overwater Bungalow", bed: "2 ", bath: "2 ", guest: "4 ", details: "Immerse yourself in tranquility and nature with direct water access and breathtaking scenic beauty.", price: "800" }
         ];
         let VillasEl = "";
 
@@ -50,7 +50,7 @@ $(document).ready(function () {
                             <i class="fa fa-star" aria-hidden="true"></i>
                             <i class="fa fa-star" aria-hidden="true"></i>
                             <i class="fa fa-star" aria-hidden="true"></i>
-                            <i class="fa fa-star-half-o" aria-hidden="true"></i>
+                            <i class="fa fa-star" aria-hidden="true"></i>
                         </div>
 
                         <h3>${s.name}</h3>
@@ -63,7 +63,7 @@ $(document).ready(function () {
                         <p>${s.details}</p>
                         <hr>
                         <div class="price-and-details">
-                            <p><span style="font-size: 24px; font-weight: 500">$${s.price}</span>/Night</p>
+                            <p>from <span style="font-size: 24px; font-weight: 500">$${s.price}</span>/Night</p>
                             <button class="more-details-btn orange-button">More Details</button>
                         </div>
                     </div>
@@ -72,6 +72,36 @@ $(document).ready(function () {
         villas.append(VillasEl);
     }
     loadVillaItems();
+
+    //load service
+    function loadService() {
+        let serArr = [
+            { imgSrc: `images/restaurant.png"`, title: "Restaurant & Party"},
+            { imgSrc: `images/laundry.png"`, title: "Laundry & Ironing"},
+            { imgSrc: `images/golf.png"`, title: "Golf & Spa"}
+        ];
+        let serEl = "";
+        for (const a of serArr) {
+
+            serEl += `
+            <div class="col-lg-4 col-sm-12">
+                <div class="services">
+                    <a href="#">
+                        <div class="service-img-box">
+                            <img src="${a.imgSrc}" alt="service-1">
+                        </div>
+                        <div class="overlay">
+                            <h4>${a.title}</h4>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            `;
+        }
+        $("#service-row").append(serEl);
+    }
+    loadService();
+
 
     //load blogs
     function loadBlogs() {
