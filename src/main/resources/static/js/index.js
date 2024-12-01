@@ -76,9 +76,9 @@ $(document).ready(function () {
     //load service
     function loadService() {
         let serArr = [
-            { imgSrc: `images/restaurant.png"`, title: "Restaurant & Party", link: "/restaurant"},
-            { imgSrc: `images/laundry.png"`, title: "Laundry & Ironing", link: "/request"},
-            { imgSrc: `images/golf.png"`, title: "Golf & Spa", link: "/golfspa"}
+            { imgSrc: `images/restaurant.png"`, title: "Reservable Service", link: "/reservable-service"},
+            { imgSrc: `images/laundry.png"`, title: "Requestable Service", link: "/requestable-service"},
+            { imgSrc: `images/golf.png"`, title: "General Service", link: "/general-service"}
         ];
         let serEl = "";
         for (const a of serArr) {

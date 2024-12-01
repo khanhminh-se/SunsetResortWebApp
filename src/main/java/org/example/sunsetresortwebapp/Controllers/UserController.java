@@ -60,14 +60,19 @@ public class UserController {
                 return "accommodation";
         }
 
-        @GetMapping("/restaurant")
-        public String getRestaurantBoking() {
+        @GetMapping("/reservable-service")
+        public String getRestaurantBooking() {
                 return "restaurantbooking";
         }
 
-        @GetMapping("/request")
-        public String getRequestBoking() {
+        @GetMapping("/requestable-booking")
+        public String getRequestBooking() {
                 return "requestbooking";
+        }
+
+        @GetMapping("/requestable-service")
+        public String getRequestService() {
+                return "requestservice";
         }
 
         @GetMapping("/request-payment")
