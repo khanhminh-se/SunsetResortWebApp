@@ -61,7 +61,12 @@ public class UserController {
         }
 
         @GetMapping("/reservable-service")
-        public String getRestaurantBooking() {
+        public String getReservableService() {
+                return "reserveservice";
+        }
+
+        @GetMapping("/reservable-booking")
+        public String getReservableBooking() {
                 return "restaurantbooking";
         }
 
@@ -75,7 +80,7 @@ public class UserController {
                 return "requestservice";
         }
 
-        @GetMapping("/request-payment")
+        @GetMapping("/requestable-payment")
         public String getRequestBookingPayment() {
                 return "paymentforrequest";
         }
