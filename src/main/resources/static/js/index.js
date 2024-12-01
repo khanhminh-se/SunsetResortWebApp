@@ -76,9 +76,9 @@ $(document).ready(function () {
     //load service
     function loadService() {
         let serArr = [
-            { imgSrc: `images/restaurant.png"`, title: "Restaurant & Party"},
-            { imgSrc: `images/laundry.png"`, title: "Laundry & Ironing"},
-            { imgSrc: `images/golf.png"`, title: "Golf & Spa"}
+            { imgSrc: `images/restaurant.png"`, title: "Restaurant & Party", link: "/restaurant"},
+            { imgSrc: `images/laundry.png"`, title: "Laundry & Ironing", link: "/request"},
+            { imgSrc: `images/golf.png"`, title: "Golf & Spa", link: "/golfspa"}
         ];
         let serEl = "";
         for (const a of serArr) {
@@ -86,9 +86,9 @@ $(document).ready(function () {
             serEl += `
             <div class="col-lg-4 col-sm-12">
                 <div class="services">
-                    <a href="#">
+                    <a href="${a.link}">
                         <div class="service-img-box">
-                            <img src="${a.imgSrc}" alt="service-1">
+                        <img src="${a.imgSrc}" alt="${a.title}">
                         </div>
                         <div class="overlay">
                             <h4>${a.title}</h4>
