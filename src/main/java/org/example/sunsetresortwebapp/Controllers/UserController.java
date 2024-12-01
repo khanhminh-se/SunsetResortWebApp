@@ -71,8 +71,13 @@ public class UserController {
         }
 
         @GetMapping("/request-payment")
-        public String getRequestBokingPayment() {
+        public String getRequestBookingPayment() {
                 return "paymentforrequest";
+        }
+
+        @GetMapping("/payment")
+        public String getAccommodationPayment() {
+                return "paymentforaccommodation";
         }
 
         @PostMapping("/signin")
