@@ -2,7 +2,7 @@
     font-family: "Inter Tight", sans-serif;
 }
 
-main>div {
+main > div {
     margin-top: 150px;
 }
 
@@ -167,7 +167,7 @@ a:hover {
     box-sizing: border-box;
 }
 
-.desktop-nav>li {
+.desktop-nav > li {
     display: inline-block;
 }
 
@@ -178,13 +178,13 @@ a:hover {
     background-color: #05051E00;
 }
 
-.desktop-nav>li>a:hover {
+.desktop-nav > li > a:hover {
     display: block;
     background-color: #ffffff36;
     border-radius: 200px;
 }
 
-.desktop-nav>li.has-children {
+.desktop-nav > li.has-children {
     position: relative;
 }
 
@@ -194,7 +194,7 @@ a:hover {
     padding-left: 5px;
 }
 
-.desktop-nav>li.has-children:hover .sub-nav {
+.desktop-nav > li.has-children:hover .sub-nav {
     display: block;
 }
 
@@ -413,8 +413,9 @@ input::placeholder {
 }
 
 .more-details-btn {
+    width: 150px;
     position: absolute;
-    right: 0;
+    left: 220px;
     bottom: 30px;
 }
 
@@ -445,6 +446,39 @@ input::placeholder {
     left: 20px;
     top: 20px;
 }
+
+.price-and-details {
+    display: inline-block;
+}
+
+.price-and-details #from {
+    font-size: 15px
+}
+
+.price-and-details #price {
+    font-size: 24px;
+    font-weight: 500;
+    color: black;
+}
+
+
+.villa-items {
+    border: 1px solid #CFCFCF;
+    border-radius: 20px;
+}
+
+.villa-img img {
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+}
+
+#info {
+    padding-top: 20px;
+    padding-right: 20px;
+    padding-left: 20px;
+    /*padding: 50px;*/
+}
+
 
 .slider-fix-wrapper {
     display: block;
@@ -488,7 +522,6 @@ input::placeholder {
     right: 0;
     top: 40px;
 }
-
 
 
 .why-choose-us .img-box {
@@ -636,7 +669,7 @@ ul {
 .carousel-card {
     display: grid;
     grid-auto-flow: column;
-    grid-auto-columns: calc((100%/4) - 30px);
+    grid-auto-columns: calc((100% / 4) - 30px);
     gap: 30px;
     overflow: hidden;
     cursor: pointer;
