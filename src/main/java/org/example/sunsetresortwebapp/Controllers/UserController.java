@@ -85,6 +85,11 @@ public class UserController {
                 return "paymentforrequest";
         }
 
+        @GetMapping("/general-service")
+        public String getGeneralService() {
+                return "generalservice";
+        }
+
         @GetMapping("/payment")
         public String getAccommodationPayment() {
                 return "paymentforaccommodation";
