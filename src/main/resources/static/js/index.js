@@ -44,27 +44,27 @@ $(document).ready(function () {
                             <p class="overlay">${s.overlay}</p>
                             <img src="${s.imgSrc}" alt="">
                         </div>
-                
-                        <div class="stars">
-                            <i class="fa fa-star" aria-hidden="true"></i>
-                            <i class="fa fa-star" aria-hidden="true"></i>
-                            <i class="fa fa-star" aria-hidden="true"></i>
-                            <i class="fa fa-star" aria-hidden="true"></i>
-                            <i class="fa fa-star" aria-hidden="true"></i>
-                        </div>
+                        <div class="info" id="info">
+                            <div class="stars">
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                            </div>
 
-                        <h3>${s.name}</h3>
-                        <!-- bieu tuong -->
-                        <div class="facility-icons">
-                            <i class="fa-solid fa-bed" aria-hidden="true"></i><span> ${s.bed} Beds</span>
-                            <i class="fa-solid fa-bath" aria-hidden="true"></i><span> ${s.bath} Baths</span> 
-                            <i class="fa-solid fa-users" aria-hidden="true"></i><span> ${s.guest} Guests</span>
-                        </div>
-                        <p>${s.details}</p>
-                        <hr>
-                        <div class="price-and-details">
-                            <p>from <span style="font-size: 24px; font-weight: 500">$${s.price}</span>/Night</p>
-                            <button class="more-details-btn orange-button">More Details</button>
+                            <h3>${s.name}</h3>
+                            <!-- bieu tuong -->
+                            <div class="facility-icons">
+                                <i class="fa-solid fa-bed" aria-hidden="true"></i><span> ${s.bed} Beds</span>
+                                <i class="fa-solid fa-bath" aria-hidden="true"></i><span> ${s.bath} Baths</span> 
+                                <i class="fa-solid fa-users" aria-hidden="true"></i><span> ${s.guest} Guests</span>
+                            </div>
+                            <p>${s.details}</p>
+                            <hr>
+                            <div class="price-and-details">
+                                <p>from <span style="font-size: 24px; font-weight: 500">$${s.price}</span>/Night<button class="more-details-btn orange-button">More Details</button></p>
+                            </div>
                         </div>
                     </div>
                 </div>`;
