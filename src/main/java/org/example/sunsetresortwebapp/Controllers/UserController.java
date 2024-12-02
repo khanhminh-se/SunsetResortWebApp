@@ -85,6 +85,11 @@ public class UserController {
                 return "paymentforrequest";
         }
 
+        @GetMapping("/admin-dashboard")
+        public String getAdminDashboard() {
+                return "admindashboard";
+        }
+
         @GetMapping("/general-service")
         public String getGeneralService() {
                 return "generalservice";
