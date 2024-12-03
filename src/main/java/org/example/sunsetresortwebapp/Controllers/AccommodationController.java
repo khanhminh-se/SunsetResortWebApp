@@ -6,6 +6,7 @@ import org.example.sunsetresortwebapp.Services.AccommodationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -30,5 +31,11 @@ public class AccommodationController {
            Accommodation accommodation1 =  accommodationService.createAccommodation(accommodation);
             model.addAttribute("accommodation", accommodation1);
            return "accommodation";
+    }
+    @GetMapping("/accommodations/detail-booking/{accommodation-id}")
+    public String getAccommodationDetails(@PathVariable("accommodation-id") Long accommodationId, Model model) {
+        Accommodation accommodation = accommodationService.getAccommodationById(accommodationId);
+        model.addAttribute("accommodation", accommodation);
+        return "accommodationdetail";
     }
 }

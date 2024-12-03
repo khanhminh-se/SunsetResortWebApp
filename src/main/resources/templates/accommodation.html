@@ -101,7 +101,7 @@
                                                 $<span th:text="${accommodation.pricePerNight}"></span>
                                                 / night
                                             </strong></p>
-                                            <button class="btn" th:attr="data-id=${accommodation.accommodationId}">View Details & Book</button>
+                                            <button  onclick="handleViewAndBook(this)"  class="btn" th:attr="data-id=${accommodation.accommodationId}">View Details & Book</button>
                                         </div>
                                     </div>
                                 </div>

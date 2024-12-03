@@ -368,3 +368,11 @@ document.addEventListener("DOMContentLoaded", function () {
         console.log("No tag with the id 'profile-message'");
     }
 });
+
+function handleViewAndBook(e){
+    console.log("Clicked");
+    console.log(e);
+    const accommodationId = e.getAttribute("data-id");
+    window.location.href= "http://localhost:8081/accommodations/detail-booking/" + accommodationId;
+
+}

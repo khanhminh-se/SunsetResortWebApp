@@ -28,7 +28,7 @@ public class UserController {
 
         @GetMapping("/bookingvilla")
         public String bookingvilla() {
-                return "booking";
+                return "accommodationdetail";
         }
 
         @GetMapping("/signin")
