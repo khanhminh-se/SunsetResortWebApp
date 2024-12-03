@@ -216,12 +216,14 @@ input::placeholder {
 }
 
 .price {
-    margin-top: 15px;
+    margin-top: 10px;
     font-size: 1.2rem;
     color: #333;
 }
 
 .btn {
+    position: relative;
+    bottom: 10px;
     background: #CDB38B;
     padding: 10px 20px;
     border: none;
