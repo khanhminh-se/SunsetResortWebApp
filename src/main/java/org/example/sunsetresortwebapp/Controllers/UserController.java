@@ -26,11 +26,6 @@ public class UserController {
             return "signup";
         }
 
-        @GetMapping("/bookingvilla")
-        public String bookingvilla() {
-                return "accommodationdetail";
-        }
-
         @GetMapping("/signin")
         public String signin() {
                 return "signin";
@@ -54,6 +49,10 @@ public class UserController {
         }
 
 
+        @GetMapping("/bookingvilla")
+        public String getBookingVilla() {
+                return "accommodationdetail";
+        }
 
         @GetMapping("/showproduct")
         public String getProduct() {
