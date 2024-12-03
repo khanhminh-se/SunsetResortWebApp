@@ -128,7 +128,7 @@
                 <div class="amenities-text">
                     <h3>Amenities</h3>
                     <table class="amenities-table">
-                        <tr th:if="${accommodation.amenities} != null" th:with="amenities=${#strings.arraySplit(accommodation.amenities, '|')}">
+                        <tr th:if="${accommodation} != null" th:with="amenities=${#strings.arraySplit(accommodation.amenities, '|')}">
                             <td>
                                 <ul class="amenities-list">
                                     <li><img class="amenities-icon" src="/images/area.png" alt="Area" style="margin-right: 2px" >
