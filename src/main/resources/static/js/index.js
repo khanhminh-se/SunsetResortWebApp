@@ -63,7 +63,7 @@ $(document).ready(function () {
                             <p>${s.details}</p>
                             <hr>
                             <div class="price-and-details">
-                                <p>from <span style="font-size: 24px; font-weight: 500">$${s.price}</span>/Night<button class="more-details-btn orange-button">More Details</button></p>
+                                <p>from <span style="font-size: 24px; font-weight: 500">$${s.price}</span>/Night<button class="more-details-btn orange-button" onclick="window.location.href='/bookingvilla';">More Details</button></p>
                             </div>
                         </div>
                     </div>
