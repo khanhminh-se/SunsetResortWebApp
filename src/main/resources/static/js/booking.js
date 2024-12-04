@@ -47,7 +47,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 price: price,
                 totalPrice: totalPrice,
             });
-
         });
     });
 
@@ -102,7 +101,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    const tax = subtotal * 0.05;
+    const tax = subtotal * 0.15;
     const totalPrice = subtotal + tax;
 
     subtotalPriceEl.innerText = `$${subtotal.toFixed(2)}`;
