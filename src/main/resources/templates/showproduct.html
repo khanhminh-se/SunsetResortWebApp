@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <title>SunsetResort Accommodation</title>
-    <link rel="stylesheet" href="/css/ShowProduct.css?v=2.0" type="text/css">
+    <link rel="stylesheet" href="/css/ShowProduct.css?v=4.0" type="text/css">
 </head>
 
 <body>
@@ -70,6 +70,11 @@
                     <option value="desc">Price: High to Low</option>
                 </select>
             </div>
+            <div class="amount">
+                <h4>Total Amount</h4>
+                <p id="total-amount">0</p>
+                <button class="amount-btn" id="export-booking"  onclick="window.location.href='/payment';">Reserve</button>
+            </div>
             <div class="room-list">
                 <div class="room-card">
                     <img src="/images/villa.png" alt="Villa">
@@ -84,11 +89,15 @@
                             <li><img class="amenities-icon" src="/images/air-conditioner.png"> Air Conditioner</li>
                             <li><img class="amenities-icon" src="/images/bathub.png"> Bathub, Twin Vanities</li>
                             <li><img class="amenities-icon" src="/images/people.png"> Maximum 10 people</li>
-                            <li><img class="amenities-icon" src="/images/quantity.png"> Remained Quantity: 2</li>
+                            <li><img class="amenities-icon" src="/images/quantity.png"> Remained Quantity: <span class="remained-quantity">2</span></li>
                         </ul>
                         <div class="price-detail">
                             <p class="price">From <strong>$1,245 / night</strong></p>
-                            <button class="btn">View Details & Book</button>
+                            <button class="view-btn" onclick="window.location.href='/bookingvilla';">View Details</button>
+                            <button class="select-btn">Select Amount <input type="number" step="any" class="mf-input mf-conditional-input quantity"
+                                                                     id="mf-input-room-1" name="mf-childs"
+                                                                     aria-invalid="false" required></button>
+                            <button class="btn book-btn">Add</button>
                         </div>
                     </div>
                 </div>
@@ -105,12 +114,15 @@
                             <li><img class="amenities-icon" src="/images/air-conditioner.png"> Air Conditioner</li>
                             <li><img class="amenities-icon" src="/images/bathub.png"> Bathub, Twin Vanities</li>
                             <li><img class="amenities-icon" src="/images/people.png"> Maximum 6 people</li>
-                            <li><img class="amenities-icon" src="/images/quantity.png"> Remained Quantity: 2</li>
+                            <li><img class="amenities-icon" src="/images/quantity.png"> Remained Quantity: <span class="remained-quantity">2</span></li>
                         </ul>
                         <div class="price-detail">
                             <p class="price">From <strong>$1,000 / night</strong></p>
-                            <button class="btn">View Details & Book</button>
-                        </div>
+                            <button class="view-btn"  onclick="window.location.href='/bookingvilla';">View Details</button>
+                            <button class="select-btn">Select Amount <input type="number" step="any" class="mf-input mf-conditional-input quantity"
+                                                                            id="mf-input-room-2" name="mf-childs"
+                                                                            aria-invalid="false" required></button>
+                            <button class="btn book-btn">Add</button>                        </div>
                     </div>
                 </div>
                 <div class="room-card">
@@ -125,12 +137,15 @@
                             <li><img class="amenities-icon" src="/images/air-conditioner.png"> Air Conditioner</li>
                             <li><img class="amenities-icon" src="/images/bathub.png"> Bathub, Twin Vanities</li>
                             <li><img class="amenities-icon" src="/images/people.png"> Maximum 4 people</li>
-                            <li><img class="amenities-icon" src="/images/quantity.png"> Remained Quantity: 2</li>
+                            <li><img class="amenities-icon" src="/images/quantity.png"> Remained Quantity: <span class="remained-quantity">2</span></li>
                         </ul>
                         <div class="price-detail">
                             <p class="price">From <strong>$800 / night</strong></p>
-                            <button class="btn">View Details & Book</button>
-                        </div>
+                            <button class="view-btn"  onclick="window.location.href='/bookingvilla';">View Details</button>
+                            <button class="select-btn">Select Amount <input type="number" step="any" class="mf-input mf-conditional-input quantity"
+                                                                            id="mf-input-room-3" name="mf-childs"
+                                                                            aria-invalid="false" required></button>
+                            <button class="btn book-btn">Add</button>                  </div>
                     </div>
                 </div>
                 <div class="room-card">
@@ -145,12 +160,15 @@
                             <li><img class="amenities-icon" src="/images/air-conditioner.png"> Air Conditioner</li>
                             <li><img class="amenities-icon" src="/images/bathub.png"> Bathub, Twin Vanities</li>
                             <li><img class="amenities-icon" src="/images/people.png"> Maximum 4 people</li>
-                            <li><img class="amenities-icon" src="/images/quantity.png"> Remained Quantity: 2</li>
+                            <li><img class="amenities-icon" src="/images/quantity.png"> Remained Quantity: <span class="remained-quantity">2</span></li>
                         </ul>
                         <div class="price-detail">
                             <p class="price">From <strong>$400 / night</strong></p>
-                            <button class="btn">View Details & Book</button>
-                        </div>
+                            <button class="view-btn"  onclick="window.location.href='/bookingvilla';">View Details</button>
+                            <button class="select-btn">Select Amount <input type="number" step="any" class="mf-input mf-conditional-input quantity"
+                                                                            id="mf-input-room-4" name="mf-childs"
+                                                                            aria-invalid="false" required></button>
+                            <button class="btn book-btn">Add</button>                      </div>
                     </div>
                 </div>
                 <div class="room-card">
@@ -165,12 +183,15 @@
                             <li><img class="amenities-icon" src="/images/air-conditioner.png"> Air Conditioner</li>
                             <li><img class="amenities-icon" src="/images/bathub.png"> Bathub, Twin Vanities</li>
                             <li><img class="amenities-icon" src="/images/people.png"> Maximum 4 people</li>
-                            <li><img class="amenities-icon" src="/images/quantity.png"> Remained Quantity: 2</li>
+                            <li><img class="amenities-icon" src="/images/quantity.png"> Remained Quantity: <span class="remained-quantity">2</span></li>
                         </ul>
                         <div class="price-detail">
                             <p class="price">From <strong>$300 / night</strong></p>
-                            <button class="btn">View Details & Book</button>
-                        </div>
+                            <button class="view-btn"  onclick="window.location.href='/bookingvilla';">View Details</button>
+                            <button class="select-btn">Select Amount <input type="number" step="any" class="mf-input mf-conditional-input quantity"
+                                                                            id="mf-input-room-5" name="mf-childs"
+                                                                            aria-invalid="false" required></button>
+                            <button class="btn book-btn">Add</button>                     </div>
                     </div>
                 </div>
                 <div class="room-card">
@@ -185,12 +206,15 @@
                             <li><img class="amenities-icon" src="/images/air-conditioner.png"> Air Conditioner</li>
                             <li><img class="amenities-icon" src="/images/bathub.png"> Bathub, Twin Vanities</li>
                             <li><img class="amenities-icon" src="/images/people.png"> Maximum 4 people</li>
-                            <li><img class="amenities-icon" src="/images/quantity.png"> Remained Quantity: 2</li>
+                            <li><img class="amenities-icon" src="/images/quantity.png"> Remained Quantity: <span class="remained-quantity">2</span></li>
                         </ul>
                         <div class="price-detail">
                             <p class="price">From <strong>$200 / night</strong></p>
-                            <button class="btn">View Details & Book</button>
-                        </div>
+                            <button class="view-btn"  onclick="window.location.href='/bookingvilla';">View Details</button>
+                            <button class="select-btn">Select Amount <input type="number" step="any" class="mf-input mf-conditional-input quantity"
+                                                                            id="mf-input-room-6" name="mf-childs"
+                                                                            aria-invalid="false" required></button>
+                            <button class="btn book-btn">Add</button>                       </div>
                     </div>
                 </div>
                 
@@ -206,11 +230,15 @@
                             <li><img class="amenities-icon" src="/images/air-conditioner.png"> Air Conditioner</li>
                             <li><img class="amenities-icon" src="/images/bathub.png"> Bathub, Twin Vanities</li>
                             <li><img class="amenities-icon" src="/images/people.png"> Maximum 3 people</li>
-                            <li><img class="amenities-icon" src="/images/quantity.png"> Remained Quantity: 2</li>
+                            <li><img class="amenities-icon" src="/images/quantity.png"> Remained Quantity: <span class="remained-quantity">2</span></li>
                         </ul>
                         <div class="price-detail">
                             <p class="price">From <strong>$150 / night</strong></p>
-                            <button class="btn">View Details & Book</button>
+                            <button class="view-btn"  onclick="window.location.href='/bookingvilla';">View Details</button>
+                            <button class="select-btn">Select Amount <input type="number" step="any" class="mf-input mf-conditional-input quantity"
+                                                                            id="mf-input-room-7" name="mf-childs"
+                                                                            aria-invalid="false" required></button>
+                            <button class="btn book-btn">Add</button>
                         </div>
                     </div>
                 </div>
@@ -226,11 +254,17 @@
                             <li><img class="amenities-icon" src="/images/air-conditioner.png"> Air Conditioner</li>
                             <li><img class="amenities-icon" src="/images/bathub.png"> Bathub, Twin Vanities</li>
                             <li><img class="amenities-icon" src="/images/people.png"> Maximum 2 people</li>
-                            <li><img class="amenities-icon" src="/images/quantity.png"> Remained Quantity: 2</li>
+                            <li><img class="amenities-icon" src="/images/quantity.png"> Remained Quantity: <span class="remained-quantity">2</span></li>
                         </ul>
+
                         <div class="price-detail">
                             <p class="price">From <strong>$100 / night</strong></p>
-                            <button class="btn">View Details & Book</button>
+                            <button class="view-btn"  onclick="window.location.href='/bookingvilla';">View Details</button>
+                            <button class="select-btn">Select Amount <input type="number" step="any" class="mf-input mf-conditional-input quantity"
+                                                                            id="mf-input-room-8" name="mf-childs"
+                                                                            aria-invalid="false" required></button>
+                            <button class="btn book-btn">Add</button>
+
                         </div>
                     </div>
                 </div>
@@ -343,7 +377,10 @@
         crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.14.0/themes/base/jquery-ui.css">
     <script src="https://code.jquery.com/ui/1.14.0/jquery-ui.js"></script>
-    <script type="text/javascript" src="/js/index.js"></script>
+    <script type="text/javascript" src="/js/index.js?v=4.0"></script>
+    <script type="text/javascript" src="/js/booking.js?v=4.0"></script>
+
+
 </body>
 
 </html>

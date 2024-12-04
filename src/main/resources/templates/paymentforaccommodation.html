@@ -113,16 +113,18 @@
                         <div class="card-body">
                             <p id="info-title"><Strong>#sunsetresort</Strong></p>
                             <p class="card-text">
-                                Arriving: Thursday, January 9, 2025 <br>
-                                Departing: Friday, January 17, 2025 <br>
-                                Rate Type: Standard Daily Rate <br>
-                                Number of People: 10
+                                <span id="arriving-date">Arriving: Thursday, January 9, 2025</span>
                             </p>
+                            <p class="card-text">
+                                <span id="departing-date">Departing: Friday, January 17, 2025</span>
+                            </p>
+                            <p>Total Length of Stay: <span id="total-length-of-stay"></span></p>
                             <hr>
-                            <h6>Sunset Villa</h6>
-                            <p class="mb-1">Guest Room Subtotal: $10,000</p>
-                            <p class="mb-1">Taxes & Fees: $1,660</p>
-                            <p><strong>Total: $11,660</strong></p>
+                            <h5>You Selected</h5>
+                            <div id="selected-rooms"></div> <!-- Show selected rooms here -->
+                            <p>Guest Room Subtotal: <span id="subtotal-price">$0</span></p>
+                            <p>Taxes & Fees: <span id="taxes-fees">$0</span></p>
+                            <p><strong>Total: $<span id="total-price">$0</span></strong></p>
                         </div>
                     </div>
                 </div>
@@ -236,6 +238,8 @@
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.14.0/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/ui/1.14.0/jquery-ui.js"></script>
 <script type="text/javascript" src="/js/index.js"></script>
+<script type="text/javascript" src="/js/booking.js"></script>
+
 </body>
 
 </html>
