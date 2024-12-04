@@ -1,17 +1,25 @@
 package org.example.sunsetresortwebapp.Models;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.List;
 
 @Entity
 @Table(name ="accommodation")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Accommodation {
     @Id
     @GeneratedValue
     private Long accommodationId;
-    @Column(name="type")
-    private String accommodationType;
+    @Column(name="name")
+    private String accommodationName;
     @Column(name ="quantity")
     private Integer availableQuantity;
     @Column(name ="price")
@@ -27,81 +35,14 @@ public class Accommodation {
     )
     List<Image> images;
 
-    public Accommodation(List<Image> images, int maximumGuests, String amenities, String description, Double pricePerNight, Integer availableQuantity, String accommodationType) {
-        this.images = images;
-        this.maximumGuests = maximumGuests;
-        this.amenities = amenities;
-        this.description = description;
-        this.pricePerNight = pricePerNight;
-        this.availableQuantity = availableQuantity;
-        this.accommodationType = accommodationType;
-    }
 
-    public String getAmenities() {
-        return amenities;
-    }
+    @OneToMany(
 
-    public void setAmenities(String amenities) {
-        this.amenities = amenities;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public int getMaximumGuests() {
-        return maximumGuests;
-    }
-
-    public void setMaximumGuests(int maximumGuests) {
-        this.maximumGuests = maximumGuests;
-    }
-
-    public Accommodation() {}
-
-    public Long getAccommodationId() {
-        return accommodationId;
-    }
-
-    public void setAccommodationId(Long accommodationId) {
-        this.accommodationId = accommodationId;
-    }
-
-    public String getAccommodationType() {
-        return accommodationType;
-    }
-
-    public void setAccommodationType(String accommodationType) {
-        this.accommodationType = accommodationType;
-    }
-
-    public Integer getAvailableQuantity() {
-        return availableQuantity;
-    }
-
-    public void setAvailableQuantity(Integer availableQuantity) {
-        this.availableQuantity = availableQuantity;
-    }
-
-    public Double getPricePerNight() {
-        return pricePerNight;
-    }
-
-    public void setPricePerNight(Double pricePerNight) {
-        this.pricePerNight = pricePerNight;
-    }
+            mappedBy = "accommodation",
+            cascade = CascadeType.ALL,
+            fetch = FetchType.EAGER
+    )
+    List<AccommodationUnit> accommodationUnits;
 
 
-
-    public List<Image> getImages() {
-        return images;
-    }
-
-    public void setImages(List<Image> images) {
-        this.images = images;
-    }
 }

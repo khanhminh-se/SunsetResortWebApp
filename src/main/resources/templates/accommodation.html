@@ -79,7 +79,7 @@
                 <div class="room-card" th:if="${accommodations}" th:each="accommodation:${accommodations}">
                     <img th:if="${accommodation.images != null and !accommodation.images.isEmpty()}"  th:src="${accommodation.images[0].imageUrl}" >
                     <div class="room-details">
-                        <h3 th:text="${accommodation.accommodationType}"></h3>
+                        <h3 th:text="${accommodation.accommodationName}"></h3>
                         <p th:text="${accommodation.description}"></p>
                         <ul th:if="${accommodation.amenities} != null" th:with="amenities=${#strings.arraySplit(accommodation.amenities, '|')}">
                             <li><img class="amenities-icon" src="/images/area.png">
@@ -107,7 +107,7 @@
                                 $<span th:text="${accommodation.pricePerNight}"></span>
                                 / night
                             </strong></p>
-                            <button class="view-btn" onclick="window.location.href='/bookingvilla';">View Details</button>
+                            <button class="view-btn" th:attr="data-id=${accommodation.accommodationId}"  onclick="handleViewDetail(this)">View Details</button>
                             <button class="select-btn">Select Amount <input type="number" step="any" class="mf-input mf-conditional-input quantity"
                                                                      id="mf-input-room-1" name="mf-childs"
                                                                      aria-invalid="false" required></button>

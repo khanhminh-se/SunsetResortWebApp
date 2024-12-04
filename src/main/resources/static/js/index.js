@@ -369,7 +369,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 });
 
-function handleViewAndBook(e){
+function handleViewDetail(e){
     console.log("Clicked");
     console.log(e);
     const accommodationId = e.getAttribute("data-id");
