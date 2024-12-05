@@ -3,6 +3,16 @@
 
 }
 
+ul {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+
 .top-nav-container {
     display: block;
     position: relative;
@@ -25,6 +35,10 @@
     box-sizing: border-box;
 }
 /*main*/
+
+.remained-seat {
+    color: #996666;
+}
 
 .service-section {
     text-align: center;
@@ -73,6 +87,7 @@
     background: #333;
     color: #fff;
 }
+
 
 /*footer*/
 .footer {
