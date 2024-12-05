@@ -100,6 +100,12 @@ public class UserController {
                 return "paymentforaccommodation";
         }
 
+        @GetMapping("/thankyou")
+        public String getThankYouPage() {
+                return "thankyou";
+        }
+
+
         @PostMapping("/signin")
         public String processSignIn(@RequestParam String email, @RequestParam String password , Model model, HttpSession session){
                 CheckUserResponse response = userService.checkUser(email, password);
