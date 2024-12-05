@@ -18,7 +18,6 @@ public class AccommodationUnit {
     private Long accommodationUnitId;
     @Column(name ="accommodation_unit_name", unique = true)
     private String accommodationUnitName;
-
     @ManyToOne
     @JoinColumn(name="accommodation_id")
     private Accommodation accommodation;

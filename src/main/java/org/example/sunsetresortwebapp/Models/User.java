@@ -45,5 +45,5 @@ public class User {
             cascade =  CascadeType.ALL,
             fetch =  FetchType.EAGER
     )
-    List<Reservation> reservations;
+    List<AccommodationReservation> accommodationReservations;
 }

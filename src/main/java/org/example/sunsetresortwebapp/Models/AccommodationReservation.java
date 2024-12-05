@@ -3,6 +3,7 @@ package org.example.sunsetresortwebapp.Models;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.example.sunsetresortwebapp.Enum.ReservationStatus;
 
@@ -10,33 +11,32 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Entity
-@Table(name = "reservations")
+@Table(name = "accommodation_reservations")
 @Getter
 @Setter
 @AllArgsConstructor
-public class Reservation {
+@NoArgsConstructor
+public class AccommodationReservation {
     @Id
     @GeneratedValue
-    private Long reservationId;
+    @Column(name ="accommodation_reservation_id")
+    private Long accommodationReservationId;
 
     private LocalDate checkInDate;
     private LocalDate checkOutDate;
     @Enumerated(EnumType.STRING)
     private ReservationStatus status;
+    @Column(name ="total_price")
+    private double totalPrice;
+    @Column(name ="quantity")
+    private int totalQuantity;
 
+    @Column(name ="length_of_stays")
+    private int lengthOfStays;
     @ManyToOne
     @JoinColumn(name ="user_id")
     private User user;
 
-   @OneToMany(
-           mappedBy = "reservation",
-           cascade = CascadeType.ALL,
-           fetch = FetchType.EAGER
-   )
-    List<ReservationDetail> reservationDetails;
-
-
-    public Reservation() {}
 
 
 }

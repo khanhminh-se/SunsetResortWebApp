@@ -17,9 +17,6 @@ public class ReservationUnit {
     @GeneratedValue
     private Long reservationUnitId;
 
-    @ManyToOne
-    @JoinColumn(name ="reservation_detail_id")
-    private ReservationDetail reservationDetail;
 
     @OneToOne
     @JoinColumn(name ="accommodationUnit")
