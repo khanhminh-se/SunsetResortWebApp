@@ -35,14 +35,13 @@ public class Accommodation {
     )
     List<Image> images;
 
-
     @OneToMany(
-
             mappedBy = "accommodation",
-            cascade = CascadeType.ALL,
-            fetch = FetchType.EAGER
+            cascade =  CascadeType.ALL,
+            fetch =  FetchType.EAGER
     )
-    List<AccommodationUnit> accommodationUnits;
+    List<AccommodationReservationDetail>    accommodationReservationDetails;
+
 
 
 }

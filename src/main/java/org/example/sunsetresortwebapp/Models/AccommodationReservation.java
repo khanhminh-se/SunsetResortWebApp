@@ -36,7 +36,12 @@ public class AccommodationReservation {
     @ManyToOne
     @JoinColumn(name ="user_id")
     private User user;
-
+    @OneToMany(
+            mappedBy = "accommodationReservation",
+            cascade =  CascadeType.ALL,
+            fetch =  FetchType.EAGER
+    )
+    private List<AccommodationReservationDetail> accommodationReservationDetails;
 
 
 }

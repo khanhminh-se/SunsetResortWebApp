@@ -39,11 +39,11 @@
         <div class="stay-info">
             <div class="col-lg-8 col-8">
                 <div class="form " id="reverse-form">
-                    <form>
-                        <input type="text" class="datepicker" placeholder="Check in" required>
-                        <input type="text" class="datepicker" placeholder="Check out" required>
+                    <form id="searchAccommodationForm">
+                        <input type="text" class="datepicker" name="checkInDate" placeholder="Check in" required>
+                        <input type="text" class="datepicker" name="checkOutDate" placeholder="Check out" required>
                         <input type="number" step="any" class="mf-input mf-conditional-input"
-                               id="mf-input-mobile-3b9c09b0" name="mf-childs" placeholder="Number of Guest "
+                               id="mf-input-mobile-3b9c09b0" name="numberOfGuests" placeholder="Number of Guest "
                                aria-invalid="false" fdprocessedid="b35gu" required>
                         <button type="submit" class="orange-button top-book-now-btn">Search</button>
                     </form>
@@ -59,6 +59,7 @@
                 <li>Daily afternoon tea</li>
                 <li>Access to fitness centre, spa, private beach and public swimming pool</li>
             </ul>
+            <h1 th:if="${error}" th:text="${error}"></h1>
         </div>
 
         <div class="room-selection">
@@ -100,7 +101,7 @@
                             <li><img class="amenities-icon" src="/images/people.png">
                                 Maximum People
                                 <span th:text="${accommodation.maximumGuests}"></span></li>
-                            <li><img class="amenities-icon" src="/images/quantity.png"> Remained Quantity: <span class="remained-quantity" th:text="${accommodation.availableQuantity}"></span></li>
+                            <li><img class="amenities-icon" src="/images/quantity.png"> Remained Quantity: <span class="remained-quantity" th:if="${availabilityMap} != null" th:text="${availabilityMap[accommodation.accommodationId]}"></span></li>
                         </ul>
                         <div class="price-detail">
                             <p   class="price">From <strong>
