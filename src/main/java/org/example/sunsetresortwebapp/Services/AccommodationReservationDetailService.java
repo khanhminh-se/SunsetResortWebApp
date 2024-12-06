@@ -31,10 +31,10 @@ public class AccommodationReservationDetailService {
 
     public Map<Long,Integer> getReservedAvailabilityForAllAccommodations(List<Accommodation> accommodations, LocalDate checkInDate, LocalDate checkOutDate){
         Map<Long,Integer> availabilityMap = new HashMap<>();
-        accommodations.forEach(accommodation -> {
-            int reservedQuantity = this.getReservedAvailability(accommodation.getAccommodationId(), checkInDate, checkOutDate);
+        for(Accommodation accommodation : accommodations){
+            int reservedQuantity = accommodationReservationDetailRepository.getReservedQuantity(accommodation.getAccommodationId(), checkInDate, checkOutDate);
             availabilityMap.put(accommodation.getAccommodationId(), accommodation.getAvailableQuantity() - reservedQuantity);
-        });
+        }
         return availabilityMap;
     }
 }

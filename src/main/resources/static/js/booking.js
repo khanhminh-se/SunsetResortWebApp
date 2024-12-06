@@ -1,8 +1,9 @@
 // amount of accommodation
 document.addEventListener("DOMContentLoaded", () => {
-    if (window.location.pathname === "/showproduct") {
-        localStorage.removeItem("bookings");
-        localStorage.removeItem("totalAmount");
+    if (window.location.pathname === "/showproduct" ||  window.location.pathname ==="/accommodations") {
+        // localStorage.removeItem("bookings");
+        // localStorage.removeItem("totalAmount");
+        localStorage.clear();
     }
 
     let bookings = JSON.parse(localStorage.getItem("bookings")) || [];
@@ -50,10 +51,30 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    reserveButton.addEventListener("click", () => {
-        localStorage.setItem("bookings", JSON.stringify(bookings));
-        localStorage.setItem("totalAmount", totalAmount);
-        console.log("Current Bookings:", bookings);
+    reserveButton.addEventListener("click", (e) => {
+        fetch("/reservations/make-reservations",{ method:"POST",
+            headers:{
+            "Content-Type": "application/json",
+            },
+            body:JSON.stringify({
+                bookings: bookings // Send the bookings array inside an object
+            })
+            }
+            )
+            .then(response => response.json())
+            .then(data =>{
+                if(data.redirectURL){
+                    window.location.href=data.redirectURL;
+                }
+
+                localStorage.setItem("reservations",JSON.stringify(data.bookings));
+                console.log("OK")
+            })
+
+            .catch(error => console.error('Error:', error));
+        // localStorage.setItem("bookings", JSON.stringify(bookings));
+        // localStorage.setItem("totalAmount", totalAmount);
+        // console.log("Current Bookings:", bookings);
     });
 });
 
@@ -112,54 +133,19 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 
-//Search accommodation handlers
-function formatDate(inputDate) {
-    const date = new Date(inputDate); // Parse the input date string
-    const year = date.getFullYear(); // Get the year
-    const month = String(date.getMonth() + 1).padStart(2, '0'); // Get the month (0-indexed) and pad with leading zero
-    const day = String(date.getDate()).padStart(2, '0'); // Get the day and pad with leading zero
-
-    return `${year}-${month}-${day}`; // Return formatted date
-}
-document.getElementById('searchAccommodationForm').addEventListener('submit', function(event) {
-    event.preventDefault();  // Prevent the form from submitting normally
-
-    // Collect form data
-    const checkInDate = document.querySelector('input[name="checkInDate"]').value;
-    const checkOutDate = document.querySelector('input[name="checkOutDate"]').value;
-    const numberOfGuests = document.querySelector('input[name="numberOfGuests"]').value;
-
-    // Create a JSON object to send in the request
-    const requestData = {
-        checkInDate: formatDate(checkInDate),
-        checkOutDate: formatDate(checkOutDate),
-        numberOfGuests: numberOfGuests
-    };
-
-    // Send the data as a JSON POST request using fetch
-    fetch('/accommodations/searchAccommodation', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(requestData)
-    })
-        .then(response => {
-            if (response.ok) {
-                // If the server returns an HTML page as the response, reload the page
-                return response.text();  // Get the HTML response as a text
-            }
-            throw new Error('Request failed');
-        })
-        .then(html => {
-            // Since the response is a full HTML page, you can either:
-            // Option 1: Redirect to the new page (if the response provides a location for redirect)
-            // window.location.href = response.url;  // Uncomment if you want to follow the redirect manually
-
-            // Option 2: Inject the HTML response into an existing element
-            document.documentElement.innerHTML = html;  // Replace the whole page with the new HTML
-        })
-        .catch(error => {
-            console.error('Error:', error);  // Handle any errors
-        });
+document.addEventListener("DOMContentLoaded", () => {
+   const staySummary = document.getElementById("summary-stay");
+   const reservations = JSON.parse(localStorage.getItem("reservations")) || [];
+   staySummary.innerHTML = '';
+   reservations.forEach((booking) => {
+       const str = `
+        <p>Room Name: ${booking.roomName}</p>
+            <p>Quantity: ${booking.quantity}</p>
+            <p>Total Price: ${booking.totalPrice}</p>`;
+       staySummary.innerHTML += str;
+   })
 });
+
+
+
+
