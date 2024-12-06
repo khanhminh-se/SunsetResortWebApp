@@ -4,6 +4,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const form = document.querySelector(".booking-form form");
     const noticePopup = document.getElementById("notice-popup");
     const cancelNoticeButton = document.getElementById("cancel-notice");
+    const paymentForm = document.querySelector(".booking-form");
+    const success = document.querySelector(".success");
+    const successMessageBox = document.querySelector("._success");
 
     function showNoticePopup() {
         noticePopup.classList.remove("hidden");
@@ -13,16 +16,22 @@ document.addEventListener("DOMContentLoaded", () => {
         noticePopup.classList.add("hidden");
     }
 
+    function showSuccessPopup() {
+        paymentForm.style.display = "none";
+        success.classList.remove("hidden");
+        successMessageBox.style.display = "block";
+    }
+
     form.addEventListener("submit", (e) => {
         const remainedSeats = parseInt(remainedSeatEl.innerText, 10);
         const numberOfGuests = parseInt(numberOfGuestsInput.value, 10);
-
+        e.preventDefault();
         if (isNaN(numberOfGuests) || numberOfGuests <= 0) {
-            e.preventDefault();
             showNoticePopup();
         } else if (numberOfGuests > remainedSeats) {
-            e.preventDefault();
             showNoticePopup();
+        } else {
+            showSuccessPopup();
         }
     });
 
@@ -30,3 +39,6 @@ document.addEventListener("DOMContentLoaded", () => {
         hideNoticePopup();
     });
 });
+
+
+
