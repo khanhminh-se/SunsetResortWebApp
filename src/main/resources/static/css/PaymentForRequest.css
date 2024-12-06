@@ -83,17 +83,6 @@ main {
     color: #fff;
 }
 
-.btn-navigate {
-    margin-top: 20px;
-    background-color: #28a745;
-    color: white;
-    border: none;
-}
-
-.btn-navigate:hover {
-    background: #333;
-    color: #fff;
-}
 
 /*popup payment */
 
@@ -132,6 +121,18 @@ main {
     font-size: 18px;
     color: #495057;
     font-weight: 500;
+}
+
+.btn-navigate {
+    margin-top: 20px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+}
+
+.btn-navigate:hover {
+    background: #333;
+    color: #fff;
 }
 
 /*footer*/
