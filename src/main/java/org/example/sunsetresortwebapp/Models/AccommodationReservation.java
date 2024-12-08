@@ -24,13 +24,15 @@ public class AccommodationReservation {
 
     private LocalDate checkInDate;
     private LocalDate checkOutDate;
+    @Column(length = 255)
     @Enumerated(EnumType.STRING)
     private ReservationStatus status;
     @Column(name ="total_price")
     private double totalPrice;
     @Column(name ="quantity")
     private int totalQuantity;
-
+    @Column(name ="special_request" , nullable = true)
+    private String specialRequest;
     @Column(name ="length_of_stays")
     private int lengthOfStays;
     @ManyToOne

@@ -8,6 +8,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
+import java.util.*;
 
 @Repository
 public interface AccommodationReservationDetailRepository extends JpaRepository<AccommodationReservationDetail, Long> {
@@ -15,10 +16,13 @@ public interface AccommodationReservationDetailRepository extends JpaRepository<
             "FROM AccommodationReservationDetail d " +
             " JOIN d.accommodationReservation ar ON d.accommodationReservation.accommodationReservationId = ar.accommodationReservationId " +
             "WHERE d.accommodation.accommodationId = :accommodationId " +
-            "AND  (:checkOutDate >= ar.checkInDate AND :checkInDate <= ar.checkOutDate)"
+            "AND  (:checkOutDate >= ar.checkInDate AND :checkInDate <= ar.checkOutDate)"+
+            "AND ar.status not in :excludedList"
     )
     Integer getReservedQuantity(@Param("accommodationId") Long accommodationId,
                                 @Param("checkInDate") LocalDate checkInDate,
-                                @Param("checkOutDate") LocalDate checkOutDate
-    );
+                                @Param("checkOutDate") LocalDate checkOutDate,
+                                @Param("excludedList") List<ReservationStatus> excludedList
+
+                                );
 }

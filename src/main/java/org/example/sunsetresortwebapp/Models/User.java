@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.example.sunsetresortwebapp.Enum.UserRole;
 import org.example.sunsetresortwebapp.Enum.UserStatus;
+import org.example.sunsetresortwebapp.Services.RequestableResortServiceService;
 
 import java.util.List;
 
@@ -46,4 +47,19 @@ public class User {
             fetch =  FetchType.EAGER
     )
     List<AccommodationReservation> accommodationReservations;
+
+    @OneToMany(
+            mappedBy =  "user",
+            cascade =  CascadeType.ALL,
+            fetch =  FetchType.EAGER
+    )
+    List<ReservableServiceReservation> reservableServiceReservations;
+
+    @OneToMany(
+            mappedBy = "user",
+            cascade = CascadeType.ALL,
+            fetch = FetchType.EAGER
+    )
+    List<RequestableServiceRequest>  requestableServiceRequests;
+
 }

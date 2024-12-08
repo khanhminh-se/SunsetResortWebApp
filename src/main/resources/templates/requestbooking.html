@@ -31,28 +31,31 @@
     <div class="container booking-form-container">
         <div class="booking-form">
             <h2>REQUEST SERVICE FORM</h2>
-            <form>
-<!--                <div class="mb-3">-->
-<!--                    <label class="form-label" >Select your service</label>-->
-<!--                    <select class="form-select" id="service" name="service" required>-->
-<!--                        <option value="" disabled selected>Choose a service</option>-->
-<!--                        <option value="Restaurant">Laundry</option>-->
-<!--                        <option value="Bar">Ironing</option>-->
-<!--                        <option value="Bar">Room Tidy</option></select>-->
-<!--                </div>-->
+            <p th:if="${response}" th:text="${response.message}" th:style="'color :' + ${response.success ? 'green' :'red'}"></p>
+            <form action="/requestable-services/request-making" method="POST">
+                <div th:if="${requestableService}" class="mb-3">
+                    <label for="requestName" class="form-label">Request Name</label>
+                    <input readonly th:value="${requestableService.requestName}" type="text" name="requestName" class="form-control" id="requestName" required>
+                </div>
+                <input type="hidden" th:value="${requestableService.serviceId}" name="requestableResortServiceId" class="form-control" id="requestableResortServiceId" required>
                 <div class="mb-3">
-                    <label for="roomid" class="form-label">Accommodation ID</label>
-                    <input type="text" class="form-control" id="roomid" required>
+                    <label for="price" class="form-label">Fee</label>
+                    <input readonly type="text" th:value="${requestableService.price}" name="price" class="form-control" id="price" required>
                 </div>
                 <div class="mb-3">
+                    <label for="roomname" class="form-label">Room Name</label>
+                    <input type="text" name="roomName" class="form-control" id="roomname" required>
+                </div>
+
+                <div class="mb-3">
                     <label for="date" class="form-label">Date</label>
-                    <input type="date" class="form-control" id="date" required>
+                    <input type="date"  name="requestDate" class="form-control" id="date" required>
                 </div>
                 <div class="mb-3">
                     <label for="time" class="form-label">Time</label>
-                    <input type="time" class="form-control" id="time" required>
+                    <input type="time"  name="requestTime" class="form-control" id="time" required>
                 </div>
-                <button onclick="window.location.href='/request-payment';"  type="submit" class="btn btn-custom w-100">REQUEST</button>
+                <button  type="submit" class="btn btn-custom w-100">REQUEST</button>
             </form>
         </div>
     </div>

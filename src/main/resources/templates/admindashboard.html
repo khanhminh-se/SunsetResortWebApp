@@ -60,14 +60,60 @@
                         <tr>
                             <th>#</th>
                             <th>Customer Name</th>
-                            <th>Accommdation</th>
-                            <th>Request ID</th>
+                            <th>Reservation ID</th>
+                            <th>Check-in Date</th>
+                            <th>Check-out Date</th>
+                            <th>Total Price</th>
+                            <th>Total Quantity</th>
+                            <th>Reservation Status</th>
                             <th>Actions</th>
                         </tr>
                         </thead>
-                        <tbody id="accommodation-table">
+                        <tbody th:if="${accommodationReservations}" th:each=" accommodationReservation,stat :${accommodationReservations}" id="accommodation-table">
+                        <tr th:attr="reservation-id=${accommodationReservation.accommodationReservationId}" class="accommodation-row">
+                            <td th:text="${stat.index}"></td>
+                            <td th:text="${accommodationReservation.user.profile} != null ? ${accommodationReservation.user.profile.fullname} : ''"></td>
+                            <td th:text="${accommodationReservation.accommodationReservationId}"></td>
+                            <td th:text="${accommodationReservation.checkInDate}"></td>
+                            <td th:text="${accommodationReservation.checkOutDate}"></td>
+                            <td th:text="${accommodationReservation.totalPrice}"></td>
+                            <td th:text="${accommodationReservation.totalQuantity}"></td>
+                            <td>
+                                <span th:class="'status ' +( ${accommodationReservation.status} != null ? ${accommodationReservation.status.name()})"  th:text="${accommodationReservation.status} != null ? ${accommodationReservation.status.name()} : ''"></span>
+                            </td>
+                            <td th:if="${accommodationReservation.status != null and accommodationReservation.status.name() != 'CONFIRMED'}">
+                                <button class="btn btn-success">Accept</button>
+                                <button class="btn btn-danger">Decline</button>
+                            </td>
+                        </tr>
                         </tbody>
                     </table>
+                    <div class="modal fade" id="reservationDetailsModal" tabindex="-1" aria-labelledby="reservationDetailsModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="reservationDetailsModalLabel">Reservation Details</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <table class="table table-bordered" style="text-align: left; background-color: #ffffff;">
+                                        <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Accommodation Reserved ID</th>
+                                            <th>Accommodation Reserved Name</th>
+                                            <th>Reserved Quantity</th>
+                                            <th>Accommodation Reserved Total Price</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody id="reservation-details-body">
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </section>
                 <section id="requests" class="section-content">
                     <h3>Customer Requests</h3>
@@ -106,17 +152,38 @@
                     <table class="table table-striped" style="text-align: center">
                         <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>Address</th>
-                            <th>Full Name</th>
-                            <th>Phone Number</th>
+                            <th>STT</th>
                             <th>User ID</th>
+                            <th>Email</th>
+                            <th>Full Name</th>
+                            <th>Address</th>
+                            <th>Phone Number</th>
                             <th>Role</th>
                             <th>Status</th>
                             <th>Actions</th>
                         </tr>
                         </thead>
-                        <tbody id="user-table">
+                        <tbody th:if="${users}" th:each="user, stat:${users}" id="user-table">
+                        <tr id="row-${user.id}">
+                            <td th:text="${stat.index}"></td>
+                            <td th:text="${user.id}"></td>
+                            <td th:text="${user.email}"></td>
+                            <td th:text="${user.profile} != null ? ${user.profile.fullname} :'' "></td>
+                            <td th:text="${user.profile} != null ? ${user.profile.address} : ''"></td>
+                            <td th:text="${user.profile} != null ? ${user.profile.phoneNumber} : ''"></td>
+                            <td th:text="${user.userRole.name()}"></td>
+                            <td>
+                                <select name="userStatus" th:value="${user.status.name()}" id="userStatus">
+                                    <option value="ACTIVATED">Activated</option>
+                                    <option value="BANNED">Banned</option>
+                                    <option value="DEACTIVATED">Deactivated</option>
+                                </select>
+                            </td>
+                            <td>
+                                <button class="btn btn-primary btn-sm" th:attr="data-id=${user.id}" onclick="editUser()">Edit</button>
+                                <button class="btn btn-danger btn-sm" th:attr="data-id=${user.id}" onclick="deleteUser()">Delete</button>
+                            </td>
+                        </tr>`;
                         </tbody>
                     </table>
                 </section>

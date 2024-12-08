@@ -1,5 +1,6 @@
 package org.example.sunsetresortwebapp.Services;
 
+import org.example.sunsetresortwebapp.Enum.ReservationStatus;
 import org.example.sunsetresortwebapp.Models.Accommodation;
 import org.example.sunsetresortwebapp.Repository.AccommodationRepository;
 import org.example.sunsetresortwebapp.Repository.AccommodationReservationDetailRepository;
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,7 +25,7 @@ public class AccommodationReservationDetailService {
 
     public int getReservedAvailability(Long accommodationId, LocalDate checkInDate, LocalDate checkOutDate) {
         Accommodation accommodation = accommodationRepository.findById(accommodationId).get();
-        int reservedQuantity = accommodationReservationDetailRepository.getReservedQuantity(accommodationId, checkInDate, checkOutDate);
+        int reservedQuantity = accommodationReservationDetailRepository.getReservedQuantity(accommodationId, checkInDate, checkOutDate,Arrays.asList(new ReservationStatus[]{ReservationStatus.CANCELED, ReservationStatus.REJECTED}));
         System.out.println(reservedQuantity);
         System.out.println(accommodation.getAvailableQuantity());
         return accommodation.getAvailableQuantity() - reservedQuantity;
@@ -32,7 +34,7 @@ public class AccommodationReservationDetailService {
     public Map<Long,Integer> getReservedAvailabilityForAllAccommodations(List<Accommodation> accommodations, LocalDate checkInDate, LocalDate checkOutDate){
         Map<Long,Integer> availabilityMap = new HashMap<>();
         for(Accommodation accommodation : accommodations){
-            int reservedQuantity = accommodationReservationDetailRepository.getReservedQuantity(accommodation.getAccommodationId(), checkInDate, checkOutDate);
+            int reservedQuantity = accommodationReservationDetailRepository.getReservedQuantity(accommodation.getAccommodationId(), checkInDate, checkOutDate, Arrays.asList(new ReservationStatus[]{ReservationStatus.CANCELED, ReservationStatus.REJECTED}));
             availabilityMap.put(accommodation.getAccommodationId(), accommodation.getAvailableQuantity() - reservedQuantity);
         }
         return availabilityMap;

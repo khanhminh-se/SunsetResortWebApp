@@ -26,24 +26,24 @@ function showSection(sectionId) {
     document.getElementById(sectionId).classList.add('active');
 }
 
-function loadAcommodation() {
-    const accommoTable = document.getElementById('accommodation-table');
-    accommoTable.innerHTML = '';
-    accommodations.forEach((req, index) => {
-        const row = `
-                  <tr>
-                      <td>${index + 1}</td>
-                      <td>${req.name}</td>
-                      <td>${req.request}</td>
-                      <td>${req.requestid}</td>
-                      <td>
-                          <button class="btn btn-success btn-sm" onclick="acceptAccommodation(${req.id})">Accept</button>
-                          <button class="btn btn-danger btn-sm" onclick="declineAccommodation(${req.id})">Decline</button>
-                      </td>
-                  </tr>`;
-        accommoTable.innerHTML += row;
-    });
-}
+// function loadAcommodation() {
+//     const accommoTable = document.getElementById('accommodation-table');
+//     accommoTable.innerHTML = '';
+//     accommodations.forEach((req, index) => {
+//         const row = `
+//                   <tr>
+//                       <td>${index + 1}</td>
+//                       <td>${req.name}</td>
+//                       <td>${req.request}</td>
+//                       <td>${req.requestid}</td>
+//                       <td>
+//                           <button class="btn btn-success btn-sm" onclick="acceptAccommodation(${req.id})">Accept</button>
+//                           <button class="btn btn-danger btn-sm" onclick="declineAccommodation(${req.id})">Decline</button>
+//                       </td>
+//                   </tr>`;
+//         accommoTable.innerHTML += row;
+//     });
+// }
 
 function loadReserve() {
     const reserveTable = document.getElementById('reserve-table');
@@ -217,7 +217,6 @@ function deleteUser(id) {
 document.addEventListener('DOMContentLoaded', () => {
 
     loadRequests();
-    loadAcommodation();
     loadReserve();
     loadUsers();
 });
@@ -249,3 +248,35 @@ $(document).ready(function () {
         hideLogoutPopup();
     });
 });
+const accommodationRows = document.querySelectorAll(".accommodation-row");
+accommodationRows.forEach((row) => row.addEventListener("click", function handleViewAccommodationReservationDetail(event){
+
+    const accommodationReservationId  = row.getAttribute("reservation-id");
+    fetch("/accommodation-reservation-details/" + accommodationReservationId)
+        .then(response=> response.json())
+        .then(data => {
+            if(data.status == 'success'){
+                if(data.details){
+                    var detailsBody = document.getElementById('reservation-details-body');
+                    detailsBody.innerHTML = "";  // Clear any existing content
+                    let stt = 0;
+                    data.details.forEach(function(detail) {
+                        var row = document.createElement("tr");
+                        row.innerHTML = `
+                     <td>${stt++}</td>
+                    <td>${detail.accommodationReservationDetailId}</td>
+                    <td>${detail.accommodationReservationName}</td>
+                     <td>${detail.reservedQuantity}</td>
+                      <td>${detail.accommodationReservationTotalPrice  ? detail.accommodationReservationTotalPrice :'' }</td>
+        `;
+                        detailsBody.appendChild(row);
+                    });
+                    $('#reservationDetailsModal').modal('show');
+                }
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching reservation details:', error);
+        });
+
+}))

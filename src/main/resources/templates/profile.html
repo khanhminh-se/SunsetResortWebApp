@@ -100,36 +100,82 @@
                     </form>
                     <button class="btn" id="edit-button" onclick="enableEditing()">EDIT</button>
                 </div>
-                <div class="booking-detail hidden" id="booking-detail">
+                <div  class="booking-detail hidden" id="booking-detail">
                     <h3>My Booking</h3>
-                    <div class="booking-card">
-                        <div class="booking-info">
-                            <p class="booking-id">Booking ID: <strong>1014149999</strong></p>
-                            <p class="booking-name">
-                                <img src="/images/resort.png"> Overwater Bungalow
-                            </p>
-                            <span class="status pending">Pending</span>
-                        </div>
-                        <div class="booking-details">
-                            <p class="price">$1130</p>
-                            <a class="details-link">24/12/2024 - 25/12/2024</a>
-                            <i class="fa fa-calendar" aria-hidden="true"></i>
-                            <br><a class="request">request for cancel</a><br>
+                    <div class="accommodation-reservations">
+                        <h5>Accommodation Reservations</h5>
+                        <div th:if="${reservationHistory}" th:each="reservation : ${reservationHistory}">
+                            <div th:if="${reservation.accommodationReservationDetails != null}" th:each="reservationDetail:${reservation.accommodationReservationDetails}" class="booking-card">
+                                <div class="booking-info">
+                                    <p class="booking-id">Reservation ID: <strong th:text="${reservation.accommodationReservationId}"></strong></p>
+                                    <p class="booking-name">
+                                        <img src="/images/resort.png">  <span th:text="${reservationDetail.accommodation.accommodationName}"></span>
+                                    </p>
+                                    <p>Reserved Quantity : <span th:text="${reservationDetail.reservedQuantity}"></span></p>
+                                    <span th:if="${reservation.status} != null" th:class="'status ' + ${ reservation.status.name() }"  th:text="${reservation.status.name()}"></span>
+
+                                </div>
+                                <div class="booking-details">
+                                    <p class="price" th:text="${reservationDetail.accommodationReservationTotalPrice}"></p>
+                                    <a class="details-link"><span th:text="${reservation.checkInDate}"></span> - <span th:text="${reservation.checkOutDate}"></span></a>
+                                    <i class="fa fa-calendar" aria-hidden="true"></i>
+                                    <br><a  onclick="handleRequestForCancel(event)" th:attr="bookingID=${reservation.accommodationReservationId}" itemType="accommodationReservation" class="request">request for cancel</a><br>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="booking-card">
-                        <div class="booking-info">
-                            <p class="booking-id">Booking ID: <strong>1014149998</strong></p>
-                            <p class="booking-name">
-                                <img src="/images/resort.png"> Junior Suite
-                            </p>
-                            <span class="status success">Successful</span>
+                    <div class="service-reservations">
+                        <h5>Reservable Service Reservations</h5>
+                        <div th:if="${reservableReservationHistory}" th:each="rr:${reservableReservationHistory}">
+                            <div class="booking-card">
+                                <div class="booking-info">
+                                    <p class="booking-id">Reservation ID: <strong th:text="${rr.reservableServiceReservationId}"></strong></p>
+                                    <p class="booking-name">
+                                         <span th:text="${rr.reservableResortService.reservableServiceName}"></span>
+                                    </p>
+                                    <p>Reserved Quantity : <span th:text="${rr.reservedQuantity}"></span></p>
+                                    <span th:if="${rr.reservationStatus} != null" th:class="'status ' + ${ rr.reservationStatus.name() }"  th:text="${rr.reservationStatus.name()}"></span>
+
+                                </div>
+                                <div class="booking-details">
+                                    <p class="price" th:text="${rr.reservableResortService.price}"></p>
+                                    <a class="details-link"><span th:text="${rr.reservedDate}"></span> -  Time : <span th:text="${rr.reservedTime}"></span></a>
+                                    <i class="fa fa-calendar" aria-hidden="true"></i>
+                                    <br><a onclick="handleRequestForCancel(event)" th:attr="bookingID=${rr.reservableServiceReservationId}" itemType="reservableServiceReservation" class="request">request for cancel</a><br>
+                                </div>
+                            </div>
                         </div>
-                        <div class="booking-details">
-                            <p class="price">$978</p>
-                            <a class="details-link">28/11/2024 - 30/11/2024</a>
-                            <i class="fa fa-calendar" aria-hidden="true"></i>
-                            <br><a class="request">request for cancel</a><br>
+                    </div>
+                    <div class="requests">
+                        <h5>Requests</h5>
+                        <div th:if="${requests}" th:each="r:${requests}">
+                            <div class="booking-card">
+                                <div class="booking-info">
+                                    <p class="booking-id">Request ID: <strong th:text="${r.requestableServiceRequestId}"></strong></p>
+                                    <p class="booking-name">
+                                        <span th:text="${r.requestableResortService.requestName}"></span>
+                                    </p>
+                                    <span th:if="${r.status} != null" th:class="'status ' + ${r.status}"  th:text="${r.status}"></span>
+
+                                </div>
+                                <div class="booking-details">
+                                    <p class="price" th:text="${r.requestableResortService.price}"></p>
+                                    <a class="details-link"><span th:text="${r.requestDate}"></span> -  Time : <span th:text="${r.requestTime}"></span></a>
+                                    <i class="fa fa-calendar" aria-hidden="true"></i>
+                                    <br><a onclick="handleRequestForCancel(event)" th:attr="bookingID=${r.requestableServiceRequestId}" itemType="requestableServiceRequest" class="request">request for cancel</a><br>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="popup hidden" id="cancel-popup">
+                    <div class="popup-content">
+                        <h4>Are you sure to cancel the booking</h4>
+                        <div class="popup-actions">
+                            <button class="btn" id="confirm-cancel">Yes</button>
+                            <button class="btn btn-secondary" id="cancel-canceling"
+                                    onclick="hideRequestForCancel()">Cancel
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -177,7 +223,6 @@
                             <i class="fa fa-calendar" aria-hidden="true"></i>
                         </div>
                     </div>
-
                 </div>
                 <div class="change-password hidden" id="change-password">
                     <h3>Change Your Password</h3>
@@ -234,6 +279,7 @@
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>

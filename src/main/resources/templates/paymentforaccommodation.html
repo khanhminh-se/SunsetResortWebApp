@@ -40,7 +40,7 @@
             <div class="col-lg-6">
                 <div class="bg-white p-4 rounded shadow">
                     <h3 class="mb-4">CONFIRM YOUR STAY</h3>
-                    <form>
+                    <form onsubmit=" handleReserveAndPayment(event)">
                         <!-- Guest Information -->
                         <h5>Guest Information</h5>
                         <div class="row mb-3">
@@ -52,17 +52,17 @@
                                 </select>
                             </div>
                             <div class="col-md-10">
-                                <input type="text" class="form-control" placeholder="Full Name" required>
+                                <input type="text" th:value="${user.profile != null} ? ${user.profile.fullname} :''" class="form-control" placeholder="Full Name" required>
                             </div>
                         </div>
                         <div class="mb-3">
-                            <input type="email" class="form-control" placeholder="Email" required>
+                            <input type="email" th:value="${user != null} ? ${user.email} : ''" class="form-control" placeholder="Email" required>
                         </div>
                         <div class="mb-3">
                             <div class="input-group">
                                 <span class="input-group-text">+84 <img src="/images/vnflag.png"
                                                                         style="height: 15px; width: auto; margin-left: 5px;"></span>
-                                <input type="text" class="form-control" placeholder="Phone Number" required>
+                                <input th:value="${user.profile != null} ? ${user.profile.phoneNumber} : ''" type="text" class="form-control" placeholder="Phone Number" required>
                             </div>
                         </div>
                         <div class="mb-3">
@@ -112,22 +112,20 @@
                         <img src="/images/villa1.png" class="card-img-top" alt="Room Image">
 
                         <div  id="summary-stay" class="card-body ">
-
-
-<!--                            <p id="info-title"><Strong>#sunsetresort</Strong></p>-->
-<!--                            <p class="card-text">-->
-<!--                                <span id="arriving-date">Arriving: Thursday, January 9, 2025</span>-->
-<!--                            </p>-->
-<!--                            <p class="card-text">-->
-<!--                                <span id="departing-date">Departing: Friday, January 17, 2025</span>-->
-<!--                            </p>-->
-<!--                            <p>Total Length of Stay: <span id="total-length-of-stay"></span></p>-->
-<!--                            <hr>-->
-<!--                            <h5>You Selected</h5>-->
-<!--                            <div id="selected-rooms"></div> &lt;!&ndash; Show selected rooms here &ndash;&gt;-->
-<!--                            <p>Guest Room Subtotal: <span id="subtotal-price">$0</span></p>-->
-<!--                            <p>Taxes & Fees: <span id="taxes-fees">$0</span></p>-->
-<!--                            <p><strong>Total: $<span id="total-price">$0</span></strong></p>-->
+                            <p id="info-title"><Strong>#sunsetresort</Strong></p>
+                            <p class="card-text">
+                                <span id="arriving-date">Arriving: Thursday, January 9, 2025</span>
+                            </p>
+                            <p class="card-text">
+                                <span id="departing-date">Departing: Friday, January 17, 2025</span>
+                            </p>
+                            <p>Total Length of Stay: <span id="total-length-of-stay"></span></p>
+                            <hr>
+                            <h5>You Selected</h5>
+                            <div id="selected-rooms"></div> <!-- Show selected rooms here -->
+                            <p>Guest Room Subtotal: <span id="subtotal-price">$0</span></p>
+                            <p>Taxes & Fees: <span id="taxes-fees">$0</span></p>
+                            <p><strong>Total: $<span id="total-price">$0</span></strong></p>
                         </div>
                     </div>
                 </div>

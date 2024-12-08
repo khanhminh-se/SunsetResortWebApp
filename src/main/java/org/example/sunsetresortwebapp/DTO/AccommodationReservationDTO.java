@@ -3,8 +3,9 @@ package org.example.sunsetresortwebapp.DTO;
 import org.springframework.cglib.core.Local;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public record AccommodationReservationDTO(
-        LocalDate checkInDate, LocalDate checkOutDate, int totalQuantity, double totalPrice, int reservedQuantity, Long userId, Long accommodationId
+      String checkInDate, String checkOutDate,Double totalPrice, Integer totalQuantity, int lengthOfStay, List<ReservationUnitDTO> reservationUnitDTOList
 ) {
 }

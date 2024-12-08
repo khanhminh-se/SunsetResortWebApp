@@ -25,7 +25,6 @@ $(document).ready(function () {
             $(".video-box").hide();
         })
     });
-
     //load items
     function loadVillaItems() {
         let villas = $("#villa-items-row");
@@ -312,10 +311,61 @@ function showLogoutPopup() {
     $('#logout-popup').removeClass('hidden');
 }
 
+
 function hideLogoutPopup() {
     $('#logout-popup').addClass('hidden');
 }
 
+// Request for Cancel
+function showRequestForCancel(){
+    $('#cancel-popup').removeClass('hidden');
+}
+function hideRequestForCancel(){
+    $('#cancel-popup').addClass('hidden');
+}
+function handleRequestForCancel(event
+){
+    event.preventDefault();
+    const bookingID = event.target.getAttribute("bookingID");
+    const itemType =  event.target.getAttribute("itemType");
+    showRequestForCancel();
+    const yesButton  = document.getElementById('confirm-cancel');
+    yesButton.addEventListener("click", function (){
+        handleCancel(bookingID,itemType);
+    });
+}
+function handleCancel(bookingId, itemType){
+    let url = "";
+    switch(itemType){
+        case "requestableServiceRequest":
+            url = "/requestable-services/cancel-requests"
+            break;
+        case "accommodationReservation":
+           url = "/accommodations/cancel-reservations";
+            break;
+        case "reservableServiceReservation" :
+            url = "/reservable-services/cancel-reservations";
+            break;
+
+    }
+    fetch(url, {
+        method:"POST",
+        headers:{
+            "Content-Type": "application/json",
+        },
+        body:JSON.stringify({
+            bookingID : bookingId
+        })
+    }).then(response => response.json())
+        .then(data => {
+            if(data.status && data.status == 'success'){
+                if(data.redirectUrl){
+                    window.location.href= data.redirectUrl;
+                }
+            }
+        })
+        .catch(error => console.error('Error:', error))
+}
 $(document).ready(function () {
     $('.sidebar ul li:nth-child(5) a').click(function (e) {
         e.preventDefault();
@@ -375,4 +425,12 @@ function handleViewDetail(e){
     const accommodationId = e.getAttribute("data-id");
     window.location.href= "http://localhost:8081/accommodations/detail-booking/" + accommodationId;
 
+}
+function handleReserveReservableService(event){
+    const reservableServiceId = event.target.getAttribute('data-id');
+    window.location.href= "/reservable-services/reserving/" + reservableServiceId;
+}
+function handleRequestService(event){
+    const serviceId =  event.target.getAttribute('data-id');
+    window.location.href = "/requestable-services/requesting/" + serviceId;
 }

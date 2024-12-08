@@ -1,9 +1,13 @@
 package org.example.sunsetresortwebapp.Controllers;
 
+import jakarta.servlet.http.HttpSession;
 import org.example.sunsetresortwebapp.DTO.AccommodationReservationDTO;
 import org.example.sunsetresortwebapp.DTO.AccommodationSearchingDTO;
+import org.example.sunsetresortwebapp.DTO.RequestCancelDTO;
+import org.example.sunsetresortwebapp.Models.User;
 import org.example.sunsetresortwebapp.Services.AccommodationReservationDetailService;
 import org.example.sunsetresortwebapp.Services.AccommodationReservationService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.example.sunsetresortwebapp.Models.Accommodation;
 import org.example.sunsetresortwebapp.Services.AccommodationService;
@@ -83,13 +87,28 @@ public class AccommodationController {
         return dates[2] + "-" + dates[0] + "-" + dates[1];
     }
 
-
-    @PostMapping("/accommodations/makereservation")
-    public String makeAccommodationReservation(@RequestBody AccommodationReservationDTO accommodationReservationDTO, Model model) {
-        model.addAttribute("message", "Succesfully make a reservation");
-        accommodationReservationService.makeReservation(accommodationReservationDTO);
-        return "accommodationfiltering";
+    @PostMapping("/accommodations/cancel-reservations")
+    public ResponseEntity<Map<String,Object>> cancelAccommodationReservations(@RequestBody RequestCancelDTO requestCancelDTO, HttpSession session){
+        Map<String,Object> response = new HashMap<>();
+        if(session.getAttribute("loggedInUser") == null){
+                response.put("status", "error");
+                response.put("redirectUrl", "/signin");
+        }else{
+            User user  = (User) session.getAttribute("loggedInUser");
+            accommodationReservationService.updateAccommodationReservationStatus(user,requestCancelDTO.bookingID());
+            response.put("status", "success");
+            response.put("redirectUrl", "/profile?section=booking");
+        }
+        return ResponseEntity.ok(response);
     }
+
+
+//    @PostMapping("/accommodations/makereservation")
+//    public String makeAccommodationReservation(@RequestBody AccommodationReservationDTO accommodationReservationDTO, Model model) {
+//        model.addAttribute("message", "Succesfully make a reservation");
+//        accommodationReservationService.makeReservation(accommodationReservationDTO);
+//        return "accommodationfiltering";
+//    }
 
 
 

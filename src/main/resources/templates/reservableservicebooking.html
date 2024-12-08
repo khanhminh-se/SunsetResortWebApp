@@ -31,28 +31,30 @@
     <div class="container booking-form-container">
         <div class="booking-form">
             <h2>SERVICE BOOKING FORM</h2>
-            <form>
-<!--                <div class="mb-3">-->
-<!--                    <label class="form-label" >Select your service</label>-->
-<!--                    <select class="form-select" id="service" name="service" required>-->
-<!--                        <option value="" disabled selected>Choose a service</option>-->
-<!--                        <option value="Restaurant">Sunset Fine Dining Restaurant</option>-->
-<!--                        <option value="Bar">Sunset Beachfront Bar</option>-->
-<!--                        <option value="Bar">Sunset Café/Bakery</option>-->
-<!--                        <option value="Bar">Sunset Private Party</option>-->
-<!--                    </select>-->
-<!--                </div>-->
+                <p th:if="${response}" th:style="'color : ' + (${response.isSuccess() ? 'green' : 'red'})" th:text="${response.message}"></p>
+            <form action="/reservable-services/reserving" method="POST">
+                <div class="mb-3">
+                    <label for="service-name" class="form-label">Service Name</label>
+                    <input readonly type="text" name="reservableServiceName" th:value="${service.reservableServiceName}" class="form-control" id="service-name" required>
+                </div>
+                <div class="mb-3">
+                    <input type="hidden" th:value="${service.serviceId}" name="reservableResortServiceId" class="form-control" id="service-id" required>
+                </div>
+                <div class="mb-3">
+                    <label for="maximum-guests" class="form-label">Maximum Guests</label>
+                    <input type="number" readonly th:value="${service.maximumGuests}" class="form-control" id="maximum-guests" required>
+                </div>
                 <div class="mb-3">
                     <label for="date" class="form-label">Booking Date</label>
-                    <input type="date" class="form-control" id="date" required>
+                    <input type="date" name="reservedDate" class="form-control" id="date" required>
                 </div>
                 <div class="mb-3">
                     <label for="time" class="form-label">Time</label>
-                    <input type="time" class="form-control" id="time" required>
+                    <input type="time" name="reservedTime" class="form-control" id="time" required>
                 </div>
                 <div class="mb-3">
                     <label for="adults" class="form-label">Number of People</label>
-                    <input type="number" class="form-control" id="adults" placeholder="Enter number of adults" required>
+                    <input type="number" name="reservedQuantity" class="form-control" id="adults" placeholder="Enter number of adults" required>
                 </div>
                 <button type="submit" class="btn btn-custom w-100">RESERVE</button>
             </form>

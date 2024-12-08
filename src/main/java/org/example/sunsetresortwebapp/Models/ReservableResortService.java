@@ -1,9 +1,6 @@
 package org.example.sunsetresortwebapp.Models;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.PrimaryKeyJoinColumn;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
@@ -21,5 +18,11 @@ public class ReservableResortService extends ResortService {
     @Column(name = "reservable_service_name")
     private String reservableServiceName;
 
+    @OneToOne(
+            mappedBy = "reservableResortService",
+            cascade = CascadeType.ALL,
+            fetch = FetchType.EAGER
+    )
+    private ReservableServiceReservation reservableServiceReservation;
 
 }

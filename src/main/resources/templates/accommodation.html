@@ -75,6 +75,7 @@
                 <h4>Total Amount</h4>
                 <p id="total-amount">0</p>
                 <button class="amount-btn" id="export-booking"  >Reserve</button>
+                <button class="amount-btn" id="clear-booking"  >Clear</button>
             </div>
             <div class="room-list">
                 <div class="room-card" th:if="${accommodations}" th:each="accommodation:${accommodations}">
@@ -101,11 +102,8 @@
                             <li><img class="amenities-icon" src="/images/people.png">
                                 Maximum People
                                 <span th:text="${accommodation.maximumGuests}"></span></li>
-                            <li><img class="amenities-icon" src="/images/quantity.png"> Remained Quantity:
-
-                                <span class="remained-quantity" th:if="${availabilityMap} != null" th:text="${availabilityMap[accommodation.accommodationId]}"></span>
-                                AccommodationID :  <span th:text="${accommodation.accommodationId}"></span><br>
-
+                            <li th:if="${availabilityMap} != null"  th:with="remainedQuantity = ${availabilityMap[accommodation.accommodationId]}" ><img class="amenities-icon" src="/images/quantity.png"> Remained Quantity:
+                                <span class="remained-quantity" th:text="${remainedQuantity}"  th:style="'color :' +(${remainedQuantity} <= 0 ? 'red' :'green') + ';font-weight:bold;'" ></span>
                             </li>
                         </ul>
                         <div class="price-detail">

@@ -1,6 +1,7 @@
 package org.example.sunsetresortwebapp.Controllers;
 
 import jakarta.servlet.http.HttpSession;
+import org.example.sunsetresortwebapp.Enum.UserRole;
 import org.example.sunsetresortwebapp.Models.CheckUserResponse;
 import org.example.sunsetresortwebapp.Models.User;
 import org.example.sunsetresortwebapp.Repository.UserRepository;
@@ -67,7 +68,7 @@ public class UserController {
 
         @GetMapping("/reservable-booking")
         public String getReservableBooking() {
-                return "restaurantbooking";
+                return "reservableservicebooking";
         }
 
         @GetMapping("/requestable-booking")
@@ -105,8 +106,14 @@ public class UserController {
                 CheckUserResponse response = userService.checkUser(email, password);
                 if(response.isSuccess()){
                         session.setMaxInactiveInterval(86400);
-                        session.setAttribute("loggedInUser", userRepository.findUserByEmail(email));
-                        return "redirect:/homepage";
+                        User user = userRepository.findUserByEmail(email);
+                        session.setAttribute("loggedInUser", user);
+                        model.addAttribute("loggedInUser",user);
+                        if(user.getUserRole().equals(UserRole.ADMIN)){
+                                return "redirect:/admindashboard";
+                        }else{
+                                return "homepage";
+                        }
                 }else{
                         model.addAttribute("error", response.getMessage());
                         return "signin";

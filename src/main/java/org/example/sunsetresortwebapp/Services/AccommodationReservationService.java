@@ -1,6 +1,7 @@
 package org.example.sunsetresortwebapp.Services;
 
 import org.example.sunsetresortwebapp.DTO.AccommodationReservationDTO;
+import org.example.sunsetresortwebapp.Enum.ReservationStatus;
 import org.example.sunsetresortwebapp.Models.Accommodation;
 import org.example.sunsetresortwebapp.Models.AccommodationReservation;
 import org.example.sunsetresortwebapp.Models.AccommodationReservationDetail;
@@ -11,6 +12,9 @@ import org.example.sunsetresortwebapp.Repository.AccommodationReservationReposit
 import org.example.sunsetresortwebapp.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDate;
+import java.util.List;
 
 @Service
 public class AccommodationReservationService {
@@ -26,22 +30,45 @@ public class AccommodationReservationService {
         this.accommodationRepository = accommodationRepository;
         this.accommodationReservationDetailRepository = accommodationReservationDetailRepository;
     }
-
-    public void makeReservation(AccommodationReservationDTO accommodationReservationDTO) {
-        User user = userRepository.findUserById(accommodationReservationDTO.userId());
-        Accommodation accommodation = accommodationRepository.findById(accommodationReservationDTO.accommodationId()).get();
+   public List<AccommodationReservation>  getAllReservationsByUserId(User user){
+        return accommodationReservationRepository.findAccommodationReservationsByUserId(user.getId());
+   }
+   public void updateAccommodationReservation(AccommodationReservation accommodationReservation){
+        accommodationReservationRepository.save(accommodationReservation);
+   }
+   public AccommodationReservation getAccommodationReservation(Long accommodationReservationId){
+        return accommodationReservationRepository.findById(accommodationReservationId).get();
+   }
+    public void makeReservations(User user,AccommodationReservationDTO accommodationReservationDTO) {
         AccommodationReservation accommodationReservation = new AccommodationReservation();
         accommodationReservation.setUser(user);
-        accommodationReservation.setCheckInDate(accommodationReservationDTO.checkInDate());
-        accommodationReservation.setCheckOutDate(accommodationReservationDTO.checkOutDate());
+        accommodationReservation.setStatus(ReservationStatus.PENDING);
         accommodationReservation.setTotalPrice(accommodationReservationDTO.totalPrice());
         accommodationReservation.setTotalQuantity(accommodationReservationDTO.totalQuantity());
-        AccommodationReservationDetail accommodationReservationDetail = new AccommodationReservationDetail();
-        accommodationReservationDetail.setAccommodation(accommodation);
-        accommodationReservationDetail.setReservedQuantity(accommodationReservationDTO.reservedQuantity());
-        accommodationReservationDetail.setAccommodationReservation(accommodationReservation);
+        accommodationReservation.setCheckInDate(LocalDate.parse(formatDate(accommodationReservationDTO.checkInDate())));
+        accommodationReservation.setCheckOutDate(LocalDate.parse(formatDate(accommodationReservationDTO.checkOutDate())));
         accommodationReservationRepository.save(accommodationReservation);
-        accommodationReservationDetailRepository.save(accommodationReservationDetail);
+        accommodationReservationDTO.reservationUnitDTOList().forEach((reservationUnitDTO) -> {
+               Accommodation accommodation = accommodationRepository.findById(reservationUnitDTO.getAccommodationId()).orElse(null);
+               AccommodationReservationDetail accommodationReservationDetail = new AccommodationReservationDetail();
+               accommodationReservationDetail.setAccommodationReservation(accommodationReservation);
+               accommodationReservationDetail.setReservedQuantity(reservationUnitDTO.getQuantity());
+               accommodationReservationDetail.setAccommodation(accommodation);
+               accommodationReservationDetail.setAccommodationReservationTotalPrice(reservationUnitDTO.getTotalPrice());
+               accommodationReservationDetailRepository.save(accommodationReservationDetail);
+        });
+    }
+    public void updateAccommodationReservationStatus(User user,Long accommodationReservationId){
+        AccommodationReservation ar = accommodationReservationRepository.findById(accommodationReservationId).get();
+        ar.setStatus(ReservationStatus.CANCELED);
+        accommodationReservationRepository.save(ar);
+    }
+    public String formatDate(String date){
+        String [] dates = date.split("/");
+        return dates[2] + "-" + dates[0] + "-" + dates[1];
+    }
+    public List<AccommodationReservation> getAllAccommodationReservations(){
+        return accommodationReservationRepository.findAll();
     }
 
 }
