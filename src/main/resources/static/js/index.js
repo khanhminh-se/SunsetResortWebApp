@@ -425,7 +425,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 function handleViewDetail(e){
     const accommodationId = e.target.getAttribute("data-id");
-    window.location.href= "http://localhost:8081/accommodations/detail-booking/" + accommodationId;
+    window.location.href= "/accommodations/detail-booking/" + accommodationId;
 
 }
 function handleReserveReservableService(event){
