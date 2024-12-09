@@ -1,29 +1,30 @@
 package org.example.sunsetresortwebapp.Models;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.PrimaryKeyJoinColumn;
-import jakarta.persistence.Table;
-import lombok.EqualsAndHashCode;
+import jakarta.persistence.*;
+import lombok.*;
+
+import java.util.List;
 
 @Entity
 @Table(name ="reservable_services")
 @PrimaryKeyJoinColumn(name ="reservable_service_id")
 @EqualsAndHashCode(callSuper = true)
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class ReservableResortService extends ResortService {
-    @Column(name ="quantity")
-    private  int availableQuantity;
+    @Column(name ="maximum_guests")
+    private  int maximumGuests;
 
-    public ReservableResortService(int availableQuantity) {
-        this.availableQuantity = availableQuantity;
-    }
-    public ReservableResortService() {}
+    @Column(name = "reservable_service_name")
+    private String reservableServiceName;
 
-    public int getAvailableQuantity() {
-        return availableQuantity;
-    }
+    @OneToMany(
+            mappedBy = "reservableResortService",
+            cascade = CascadeType.ALL,
+            fetch = FetchType.EAGER
+    )
+    private List<ReservableServiceReservation> reservableServiceReservation;
 
-    public void setAvailableQuantity(int availableQuantity) {
-        this.availableQuantity = availableQuantity;
-    }
 }

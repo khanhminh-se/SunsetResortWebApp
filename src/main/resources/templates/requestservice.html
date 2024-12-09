@@ -27,40 +27,27 @@
     </nav>
 </header>
 <main>
-    <div class="container-fluid">
-        <!-- Section 1 -->
+    <div th:if="${requestableServices}" th:each="request,stat : ${requestableServices}" class="container-fluid">
         <div class="row service-section">
-            <div class="col-md-6">
-                <img src="/images/request-service/roomcleanin.png" alt="roomcleaning">
-            </div>
-            <div class="col-md-6 text">
-                <h2>Room Tidy</h2>
-                <p>Keep your living space clean and organized. Our professional room cleaning service ensures a comfortable and refreshing stay.</p>
-                <button class="btn btn-custom" onclick="window.location.href='/requestable-booking';">Request</button>
-            </div>
-        </div>
 
-        <!-- Section 2 -->
-        <div class="row service-section ">
-            <div class="col-md-6 text">
-                <h2>Laundry</h2>
-                <p>Give your clothes a fresh and clean feel. Our professional laundry service saves you time while you enjoy your vacation.</p>
-                <button class="btn btn-custom" onclick="window.location.href='/requestable-booking';">Request</button>
+            <div th:if="${stat.index % 2 == 0}" class="col-md-6">
+                <img th:src="${request.images[0].imageUrl}" th:alt="${request.requestName}">
             </div>
-            <div class="col-md-6";>
-                <img src="/images/request-service/laundry.png" alt="laundry">
+            <div th:if="${stat.index % 2 == 0}" class="col-md-6 text">
+                <h2 th:text="${request.requestName}"></h2>
+                <p th:text="${request.requestDescription}"></p>
+                <p><strong>Fee: </strong><span th:text="${request.price}"></span></p>
+                <button class="btn btn-custom" th:attr="data-id=${request.serviceId}" onclick="handleRequestService(event)">Request</button>
             </div>
-        </div>
 
-        <!-- Section 3 -->
-        <div class="row service-section">
-            <div class="col-md-6">
-                <img src="/images/request-service/ironing.png" alt="ironing">
+            <div th:if="${stat.index % 2 != 0}" class="col-md-6 text">
+                <h2 th:text="${request.requestName}"></h2>
+                <p th:text="${request.requestDescription}"></p>
+                <p><strong>Fee: </strong><span th:text="${request.price}"></span></p>
+                <button class="btn btn-custom" th:attr="data-id=${request.serviceId}" onclick="handleRequestService(event)">Request</button>
             </div>
-            <div class="col-md-6 text" >
-                <h2>Ironing</h2>
-                <p>Keep your outfits wrinkle-free and ready for any occasion. We provide high-quality ironing services with attention to every detail.</p>
-                <button class="btn btn-custom" onclick="window.location.href='/requestable-booking';">Request</button>
+            <div th:if="${stat.index % 2 != 0}" class="col-md-6">
+                <img th:src="${request.images[0].imageUrl}" th:alt="${request.requestName}">
             </div>
         </div>
     </div>

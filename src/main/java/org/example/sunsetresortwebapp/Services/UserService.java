@@ -1,13 +1,15 @@
 package org.example.sunsetresortwebapp.Services;
-import org.example.sunsetresortwebapp.Models.CheckUserResponse;
-import org.example.sunsetresortwebapp.Models.User;
+import org.example.sunsetresortwebapp.Models.*;
 import org.example.sunsetresortwebapp.Repository.UserRepository;
+import org.example.sunsetresortwebapp.Utils.StatusComparator;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,6 +17,7 @@ import java.util.Optional;
 public class UserService {
     @Autowired
     private final UserRepository userRepository;
+
     public UserService(UserRepository userRepository){
         this.userRepository = userRepository;
     }
@@ -35,6 +38,7 @@ public class UserService {
 
 
     public void deleleteUserById(long id) {
+
             userRepository.deleteById(id);
     }
     public List<User> getAllUsers() {
@@ -119,5 +123,56 @@ public class UserService {
             response.setMessage("Wrong password");
         }
         return response;
+    }
+    public List<AccommodationReservation> getAllSortedAccommodationReservations(User user){
+        List<AccommodationReservation> accommodationReservations = user.getAccommodationReservations();
+        Comparator<AccommodationReservation> statusComparator = new StatusComparator().getStatusComparatorForAccommodationReservation();
+        accommodationReservations.sort(statusComparator);
+        return  accommodationReservations;
+    }
+    public List<ReservableServiceReservation> getAllSortedReservableServiceReservation(User user){
+        List<ReservableServiceReservation> reservableServiceReservations = user.getReservableServiceReservations();
+        Comparator<ReservableServiceReservation> statusComparator = new StatusComparator().getStatusComparatorForReservableServiceReservation();
+        reservableServiceReservations.sort(statusComparator);
+        return reservableServiceReservations;
+    }
+    public List<RequestableServiceRequest> getAllSortedRequestableServiceRequests(User user){
+        List<RequestableServiceRequest> requestableServiceRequests = user.getRequestableServiceRequests();
+        Comparator<RequestableServiceRequest> statusComparator = new StatusComparator().getStatusComparatorForRequestableServiceRequest();
+        requestableServiceRequests.sort(statusComparator);
+        return requestableServiceRequests;
+    }
+    public List<User> getAllSortedUsers(){
+        List<User> users  =  userRepository.findAll();
+        Comparator<User> userStatusComparator = Comparator.comparingInt((user) -> {
+            switch(user.getStatus()) {
+                case ACTIVATED:
+                    return 1;
+                case BANNED:
+                    return 2;
+                case DEACTIVATED:return 3;
+                default:
+                    return 4;
+            }
+        });
+
+        users.sort(userStatusComparator);
+        return users;
+    }
+    public List<User> getAllSortedUsers(List<User> users){
+        Comparator<User> userStatusComparator = Comparator.comparingInt((user) -> {
+            switch(user.getStatus()) {
+                case ACTIVATED:
+                    return 1;
+                case BANNED:
+                    return 2;
+                case DEACTIVATED:return 3;
+                default:
+                    return 4;
+            }
+        });
+
+        users.sort(userStatusComparator);
+        return users;
     }
 }

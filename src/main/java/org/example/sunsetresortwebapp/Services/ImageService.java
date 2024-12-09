@@ -28,21 +28,24 @@ public class ImageService {
 
 
     public Image  createImage(String iamgeUrl, Long accommodationId, Long resortServiceId, String type){
-        Accommodation accommodation =accommodationService.getAccommodationById(accommodationId);
-        ResortService resortService =resortServiceService.findResortServiceById(resortServiceId);
+        Accommodation accommodation =null;
+        ResortService resortService =null;
         Image image = null;
         if(type.equals("Accommodation")){
             image = new AccommodationImage();
+            accommodation = accommodationService.getAccommodationById(accommodationId);
             image.setAccommodation(accommodation);
 
         }else{
-             image = new ServiceImage();
-             image.setResortService(resortService);
+            image = new ServiceImage();
+            resortService = resortServiceService.findResortServiceById(resortServiceId);
+            image.setResortService(resortService);
         }
         image.setImageUrl(iamgeUrl);
         return imageRepository.save(image);
 
     }
+
     public List<Image> getAllImages(){
         return imageRepository.findAll();
     }

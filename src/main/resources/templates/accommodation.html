@@ -39,11 +39,11 @@
         <div class="stay-info">
             <div class="col-lg-8 col-8">
                 <div class="form " id="reverse-form">
-                    <form>
-                        <input type="text" class="datepicker" placeholder="Check in" required>
-                        <input type="text" class="datepicker" placeholder="Check out" required>
-                        <input type="number" step="any" class="mf-input mf-conditional-input"
-                               id="mf-input-mobile-3b9c09b0" name="mf-childs" placeholder="Number of Guest "
+                    <form id="searchAccommodationForm" action="accommodations/search-accommodation" method="POST" >
+                        <input type="text" class="datepicker" id="checkInDate" name="checkInDate" placeholder="Check in" th:value="${checkInDate} != null  ? ${checkInDate} : ''"  required>
+                        <input type="text" class="datepicker" id="checkOutDate" name="checkOutDate" placeholder="Check out" th:value="${checkOutDate} != null  ? ${checkOutDate} : ''" required>
+                        <input type="number" id="numberOfGuests" step="any" class="mf-input mf-conditional-input"
+                              name="numberOfGuests" placeholder="Number of Guest " th:value="${numberOfGuests} != null  ? ${numberOfGuests} : ''"
                                aria-invalid="false" fdprocessedid="b35gu" required>
                         <button type="submit" class="orange-button top-book-now-btn">Search</button>
                     </form>
@@ -59,6 +59,7 @@
                 <li>Daily afternoon tea</li>
                 <li>Access to fitness centre, spa, private beach and public swimming pool</li>
             </ul>
+            <h1 th:if="${error}" th:text="${error}"></h1>
         </div>
 
         <div class="room-selection">
@@ -73,13 +74,14 @@
             <div class="amount">
                 <h4>Total Amount</h4>
                 <p id="total-amount">0</p>
-                <button class="amount-btn" id="export-booking"  onclick="window.location.href='/payment';">Reserve</button>
+                <button class="amount-btn" id="export-booking"  >Reserve</button>
+                <button class="amount-btn" id="clear-booking"  >Clear</button>
             </div>
             <div class="room-list">
                 <div class="room-card" th:if="${accommodations}" th:each="accommodation:${accommodations}">
                     <img th:if="${accommodation.images != null and !accommodation.images.isEmpty()}"  th:src="${accommodation.images[0].imageUrl}" >
                     <div class="room-details">
-                        <h3 th:text="${accommodation.accommodationType}"></h3>
+                        <h3 th:text="${accommodation.accommodationName}"></h3>
                         <p th:text="${accommodation.description}"></p>
                         <ul th:if="${accommodation.amenities} != null" th:with="amenities=${#strings.arraySplit(accommodation.amenities, '|')}">
                             <li><img class="amenities-icon" src="/images/area.png">
@@ -100,14 +102,16 @@
                             <li><img class="amenities-icon" src="/images/people.png">
                                 Maximum People
                                 <span th:text="${accommodation.maximumGuests}"></span></li>
-                            <li><img class="amenities-icon" src="/images/quantity.png"> Remained Quantity: <span class="remained-quantity" th:text="${accommodation.availableQuantity}"></span></li>
+                            <li th:if="${availabilityMap} != null"  th:with="remainedQuantity = ${availabilityMap[accommodation.accommodationId]}" ><img class="amenities-icon" src="/images/quantity.png"> Remained Quantity:
+                                <span class="remained-quantity" th:text="${remainedQuantity}"  th:style="'color :' +(${remainedQuantity} <= 0 ? 'red' :'green') + ';font-weight:bold;'" ></span>
+                            </li>
                         </ul>
                         <div class="price-detail">
                             <p   class="price">From <strong>
                                 $<span th:text="${accommodation.pricePerNight}"></span>
                                 / night
                             </strong></p>
-                            <button class="view-btn" onclick="window.location.href='/bookingvilla';">View Details</button>
+                            <button class="view-btn" th:attr="data-id=${accommodation.accommodationId}"  onclick="handleViewDetail(this)">View Details</button>
                             <button class="select-btn">Select Amount <input type="number" step="any" class="mf-input mf-conditional-input quantity"
                                                                      id="mf-input-room-1" name="mf-childs"
                                                                      aria-invalid="false" required></button>

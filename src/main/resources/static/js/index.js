@@ -25,7 +25,6 @@ $(document).ready(function () {
             $(".video-box").hide();
         })
     });
-
     //load items
     function loadVillaItems() {
         let villas = $("#villa-items-row");
@@ -76,8 +75,8 @@ $(document).ready(function () {
     //load service
     function loadService() {
         let serArr = [
-            { imgSrc: `images/restaurant.png"`, title: "Reservable Service", link: "/reservable-service"},
-            { imgSrc: `images/laundry.png"`, title: "Requestable Service", link: "/requestable-service"},
+            { imgSrc: `images/restaurant.png"`, title: "Reservable Service", link: "/reservable-services"},
+            { imgSrc: `images/laundry.png"`, title: "Requestable Service", link: "/requestable-services"},
             { imgSrc: `images/golf.png"`, title: "General Service", link: "/general-service"}
         ];
         let serEl = "";
@@ -312,10 +311,61 @@ function showLogoutPopup() {
     $('#logout-popup').removeClass('hidden');
 }
 
+
 function hideLogoutPopup() {
     $('#logout-popup').addClass('hidden');
 }
 
+// Request for Cancel
+function showRequestForCancel(){
+    $('#cancel-popup').removeClass('hidden');
+}
+function hideRequestForCancel(){
+    $('#cancel-popup').addClass('hidden');
+}
+function handleRequestForCancel(event
+){
+    event.preventDefault();
+    const bookingID = event.target.getAttribute("bookingID");
+    const itemType =  event.target.getAttribute("itemType");
+    showRequestForCancel();
+    const yesButton  = document.getElementById('confirm-cancel');
+    yesButton.addEventListener("click", function (){
+        handleCancel(bookingID,itemType);
+    });
+}
+function handleCancel(bookingId, itemType){
+    let url = "";
+    switch(itemType){
+        case "requestableServiceRequest":
+            url = "/requestable-services/cancel-requests"
+            break;
+        case "accommodationReservation":
+           url = "/accommodations/cancel-reservations";
+            break;
+        case "reservableServiceReservation" :
+            url = "/reservable-services/cancel-reservations";
+            break;
+
+    }
+    fetch(url, {
+        method:"POST",
+        headers:{
+            "Content-Type": "application/json",
+        },
+        body:JSON.stringify({
+            bookingID : bookingId
+        })
+    }).then(response => response.json())
+        .then(data => {
+            if(data.status && data.status == 'success'){
+                if(data.redirectUrl){
+                    window.location.href= data.redirectUrl;
+                }
+            }
+        })
+        .catch(error => console.error('Error:', error))
+}
 $(document).ready(function () {
     $('.sidebar ul li:nth-child(5) a').click(function (e) {
         e.preventDefault();
@@ -324,7 +374,7 @@ $(document).ready(function () {
 
     $('#confirm-logout').click(function () {
         hideLogoutPopup();
-        window.location.href = "/logout";
+        window.location.href = "/logout/user";
     });
 
     $('#cancel-logout').click(function () {
@@ -352,7 +402,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
 });
 document.addEventListener("DOMContentLoaded", function () {
-    console.log("DOM fully loaded and parsed");
+     document.getElementById("accommodations-title").addEventListener("click", function (){
+
+         console.log("Click")
+         window.location.href="/accommodations";
+     });
 
     // Select the profile message element
     const messageProfileElement = document.getElementById("profile-message");
@@ -369,10 +423,18 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 });
 
-function handleViewAndBook(e){
+function handleViewDetail(e){
     console.log("Clicked");
     console.log(e);
     const accommodationId = e.getAttribute("data-id");
     window.location.href= "http://localhost:8081/accommodations/detail-booking/" + accommodationId;
 
+}
+function handleReserveReservableService(event){
+    const reservableServiceId = event.target.getAttribute('data-id');
+    window.location.href= "/reservable-services/reserving/" + reservableServiceId;
+}
+function handleRequestService(event){
+    const serviceId =  event.target.getAttribute('data-id');
+    window.location.href = "/requestable-services/requesting/" + serviceId;
 }

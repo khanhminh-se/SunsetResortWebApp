@@ -217,4 +217,27 @@ input.form-control {
     right: 0;
     bottom: 0;
 }
+
+.accommodation-row-id:hover{
+    background-color:#555555;
+    cursor: pointer;
+}
 /*end footer*/
+
+.status.PENDING {
+    background-color: #fff4e5;
+    color: #ff8800;
+}
+.status.CONFIRMED {
+    background-color: #e6f8ed;
+    color: #28a745;
+}
+
+.status.REJECTED {
+    background-color: #fde8e8;
+    color: #e63946;
+}
+.status.CANCELED {
+    background-color: #fde8e8;
+    color: #e63946;
+}
