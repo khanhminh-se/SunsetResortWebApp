@@ -111,7 +111,7 @@
                                 $<span th:text="${accommodation.pricePerNight}"></span>
                                 / night
                             </strong></p>
-                            <button class="view-btn" th:attr="data-id=${accommodation.accommodationId}"  onclick="handleViewDetail(this)">View Details</button>
+                            <button class="view-btn" th:attr="data-id=${accommodation.accommodationId}"  onclick="handleViewDetail(event)">View Details</button>
                             <button class="select-btn">Select Amount <input type="number" step="any" class="mf-input mf-conditional-input quantity"
                                                                      id="mf-input-room-1" name="mf-childs"
                                                                      aria-invalid="false" required></button>
