@@ -26,7 +26,7 @@ public class ReservableServiceReservation {
     @Column(name="status")
     @Enumerated(EnumType.STRING)
     private ReservationStatus reservationStatus;
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name ="reservable_resort_service_id")
     private ReservableResortService reservableResortService;
     @ManyToOne

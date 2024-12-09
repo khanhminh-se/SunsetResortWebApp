@@ -2,9 +2,10 @@ package org.example.sunsetresortwebapp.Controllers;
 
 
 import jakarta.servlet.http.HttpSession;
-import org.example.sunsetresortwebapp.DTO.RequestCancelDTO;
+import org.example.sunsetresortwebapp.DTO.RequestReservationStatusDTO;
 import org.example.sunsetresortwebapp.DTO.ReservableServiceRequestDTO;
 import org.example.sunsetresortwebapp.DTO.ReservableServiceResponseDTO;
+import org.example.sunsetresortwebapp.Enum.ReservationStatus;
 import org.example.sunsetresortwebapp.Models.ReservableResortService;
 import org.example.sunsetresortwebapp.Models.User;
 import org.example.sunsetresortwebapp.Repository.ReservableServiceReservationRepository;
@@ -69,11 +70,33 @@ public class ReservableServiceController {
         return "reservableservicebooking";
     }
     @PostMapping("/reservable-services/cancel-reservations")
-    public ResponseEntity<Map<String,Object>> cancelReservableReservation(@RequestBody RequestCancelDTO requestCancelDTO){
+    public ResponseEntity<Map<String,Object>> cancelReservableReservation(@RequestBody RequestReservationStatusDTO requestCancelDTO){
         Map<String,Object> response = new HashMap<>();
         reservableServiceReservationService.updateReservableServiceReservationStautus(requestCancelDTO.bookingID());
         response.put("status", "success");
         response.put("redirectUrl", "/profile?section=booking");
+        return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/reservable-services/update-reservation-status")
+    public ResponseEntity<Map<String,Object>> updateResevableReservatoinStatus(@RequestBody RequestReservationStatusDTO requestReservationStatusDTO, HttpSession session){
+        Map<String,Object> response = new HashMap<>();
+        if(session.getAttribute("loggedInAdmin") == null){
+            response.put("status", "error");
+            response.put("redirectUrl", "/signin");
+        }else{
+            User user  = (User) session.getAttribute("loggedInUser");
+            ReservationStatus status =null;
+            System.out.println(requestReservationStatusDTO);
+            if(requestReservationStatusDTO.status().equals("ACCEPT")){
+                status = ReservationStatus.CONFIRMED;
+            }else if(requestReservationStatusDTO.status().equals("DECLINE")){
+                status = ReservationStatus.REJECTED;
+            }
+           reservableServiceReservationService.updateReservableServiceReservationStatus(requestReservationStatusDTO.bookingID(),status);
+            response.put("status", "success");
+            response.put("redirectUrl", "/admindashboard");
+        }
         return ResponseEntity.ok(response);
     }
 }

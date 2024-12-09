@@ -1,6 +1,9 @@
 package org.example.sunsetresortwebapp.Services;
 
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
+import org.apache.logging.log4j.util.PropertySource;
+import org.example.sunsetresortwebapp.DTO.RequestReservationStatusDTO;
 import org.example.sunsetresortwebapp.DTO.ReservableServiceRequestDTO;
 import org.example.sunsetresortwebapp.DTO.ReservableServiceResponseDTO;
 import org.example.sunsetresortwebapp.Enum.ReservationStatus;
@@ -8,11 +11,13 @@ import org.example.sunsetresortwebapp.Models.ReservableResortService;
 import org.example.sunsetresortwebapp.Models.ReservableServiceReservation;
 import org.example.sunsetresortwebapp.Models.User;
 import org.example.sunsetresortwebapp.Repository.ReservableServiceReservationRepository;
+import org.example.sunsetresortwebapp.Utils.StatusComparator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -55,5 +60,21 @@ public class ReservableServiceReservationService {
         ReservableServiceReservation r = reservableServiceReservationRepository.findById(reservableServiceReservationId).get();
         r.setReservationStatus(ReservationStatus.CANCELED);
         reservableServiceReservationRepository.save(r);
+    }
+    public List<ReservableServiceReservation> getAllSortedServiceReservations(){
+        List<ReservableServiceReservation> reservableServiceReservations = reservableServiceReservationRepository.findAll();
+        Comparator<ReservableServiceReservation> statusComparator = new StatusComparator().getStatusComparatorForReservableServiceReservation();
+        reservableServiceReservations.sort(statusComparator);
+        return  reservableServiceReservations;
+    }
+    public void updateReservableServiceReservationStatus(Long reservableServiceReservationId,ReservationStatus status){
+
+        ReservableServiceReservation r = reservableServiceReservationRepository.findById(reservableServiceReservationId).get();
+        r.setReservationStatus(status);
+        reservableServiceReservationRepository.save(r);
+    }
+    @Transactional
+    public void deleteReservableServiceReservationByUserId(Long userId){
+        reservableServiceReservationRepository.deleteReservableServiceReservationsByUserId(userId);
     }
 }

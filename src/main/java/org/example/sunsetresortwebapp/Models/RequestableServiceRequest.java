@@ -28,7 +28,7 @@ public class RequestableServiceRequest {
     @ManyToOne
     @JoinColumn(name  = "user_id")
     private User user;
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "requestable_resort_service_id")
     private RequestableResortService requestableResortService;
     @Column(name = "status")

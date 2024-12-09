@@ -1,5 +1,6 @@
 package org.example.sunsetresortwebapp.Services;
 
+import jakarta.transaction.Transactional;
 import org.example.sunsetresortwebapp.DTO.RequestableResortServiceRequestDTO;
 import org.example.sunsetresortwebapp.DTO.RequestableResortServiceResponseDTO;
 import org.example.sunsetresortwebapp.Enum.ReservationStatus;
@@ -8,9 +9,11 @@ import org.example.sunsetresortwebapp.Models.RequestableServiceRequest;
 import org.example.sunsetresortwebapp.Models.User;
 import org.example.sunsetresortwebapp.Repository.RequestableResortServiceRepository;
 import org.example.sunsetresortwebapp.Repository.RequestableServiceRequestRepository;
+import org.example.sunsetresortwebapp.Utils.StatusComparator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -51,6 +54,22 @@ public class RequestableServiceRequestService {
         RequestableServiceRequest request = requestableServiceRequestRepository.findById(requestableServiceRequestId).get();
         request.setStatus(ReservationStatus.CANCELED);
         requestableServiceRequestRepository.save(request);
+    }
+    public List<RequestableServiceRequest>  getAllSortedRequestableServiceRequest(){
+        List<RequestableServiceRequest> requestableServiceRequests = requestableServiceRequestRepository.findAll();
+        Comparator<RequestableServiceRequest> statusComparator = new StatusComparator().getStatusComparatorForRequestableServiceRequest();
+        requestableServiceRequests.sort(statusComparator);
+        return requestableServiceRequests;
+    }
+    public void updateRequestableServiceRequestById(Long requestableServiceRequestId, ReservationStatus status){
+        RequestableServiceRequest request = requestableServiceRequestRepository.findById(requestableServiceRequestId).get();
+        request.setStatus(status);
+        requestableServiceRequestRepository.save(request);
+    }
+
+    @Transactional
+    public void deleteRequestableServiceRequestByUserId(Long userId){
+        requestableServiceRequestRepository.deleteRequestableServiceRequestsByUserId(userId);
     }
 
 

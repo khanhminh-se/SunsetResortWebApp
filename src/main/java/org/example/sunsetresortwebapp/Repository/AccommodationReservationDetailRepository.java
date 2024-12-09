@@ -1,8 +1,10 @@
 package org.example.sunsetresortwebapp.Repository;
 
+import jakarta.transaction.Transactional;
 import org.example.sunsetresortwebapp.Enum.ReservationStatus;
 import org.example.sunsetresortwebapp.Models.AccommodationReservationDetail;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -24,5 +26,9 @@ public interface AccommodationReservationDetailRepository extends JpaRepository<
                                 @Param("checkOutDate") LocalDate checkOutDate,
                                 @Param("excludedList") List<ReservationStatus> excludedList
 
-                                );
+    );
+    @Modifying
+    @Transactional
+    @Query("DELETE FROM AccommodationReservationDetail d where d.accommodationReservation.accommodationReservationId = :reservationId")
+    void deleteAccommodationReservationDetailsByReservationId(@Param("reservationId")  Long reservationId);
 }

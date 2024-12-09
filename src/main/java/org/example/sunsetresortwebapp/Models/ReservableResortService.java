@@ -3,6 +3,8 @@ package org.example.sunsetresortwebapp.Models;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
 @Entity
 @Table(name ="reservable_services")
 @PrimaryKeyJoinColumn(name ="reservable_service_id")
@@ -18,11 +20,11 @@ public class ReservableResortService extends ResortService {
     @Column(name = "reservable_service_name")
     private String reservableServiceName;
 
-    @OneToOne(
+    @OneToMany(
             mappedBy = "reservableResortService",
             cascade = CascadeType.ALL,
             fetch = FetchType.EAGER
     )
-    private ReservableServiceReservation reservableServiceReservation;
+    private List<ReservableServiceReservation> reservableServiceReservation;
 
 }

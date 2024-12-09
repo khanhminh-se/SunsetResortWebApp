@@ -2,13 +2,13 @@ package org.example.sunsetresortwebapp.Controllers;
 
 
 import jakarta.servlet.http.HttpSession;
-import org.example.sunsetresortwebapp.DTO.RequestCancelDTO;
+import org.example.sunsetresortwebapp.DTO.RequestReservationStatusDTO;
 import org.example.sunsetresortwebapp.DTO.RequestableResortServiceRequestDTO;
 import org.example.sunsetresortwebapp.DTO.RequestableResortServiceResponseDTO;
 import org.example.sunsetresortwebapp.DTO.RequestableServiceDTO;
+import org.example.sunsetresortwebapp.Enum.ReservationStatus;
 import org.example.sunsetresortwebapp.Models.RequestableResortService;
 import org.example.sunsetresortwebapp.Models.User;
-import org.example.sunsetresortwebapp.Repository.RequestableResortServiceRepository;
 import org.example.sunsetresortwebapp.Services.RequestableResortServiceService;
 import org.example.sunsetresortwebapp.Services.RequestableServiceRequestService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,11 +66,32 @@ public class RequestableServiceController {
       }
    }
    @PostMapping("/requestable-services/cancel-requests")
-    public ResponseEntity<Map<String,Object>> cancelRequestablServiceRequest(@RequestBody RequestCancelDTO requestCancelDTO){
+    public ResponseEntity<Map<String,Object>> cancelRequestablServiceRequest(@RequestBody RequestReservationStatusDTO requestReservationStatusDTO){
        Map<String,Object> response = new HashMap<>();
-       requestableServiceRequestService.updateRequestableServiceRequestById(requestCancelDTO.bookingID());
+       requestableServiceRequestService.updateRequestableServiceRequestById(requestReservationStatusDTO.bookingID());
        response.put("status", "success");
        response.put("redirectUrl", "/profile?section=booking");
        return ResponseEntity.ok(response);
    }
+    @PostMapping("/requestable-services/update-request-status")
+    public ResponseEntity<Map<String,Object>> updateAccommodationReservationStatus(@RequestBody RequestReservationStatusDTO requestReservationStatusDTO, HttpSession session){
+        Map<String,Object> response = new HashMap<>();
+        if(session.getAttribute("loggedInAdmin") == null){
+            response.put("status", "error");
+            response.put("redirectUrl", "/signin");
+        }else{
+            User user  = (User) session.getAttribute("loggedInUser");
+            ReservationStatus status =null;
+            System.out.println(requestReservationStatusDTO);
+            if(requestReservationStatusDTO.status().equals("ACCEPT")){
+                status = ReservationStatus.CONFIRMED;
+            }else if(requestReservationStatusDTO.status().equals("DECLINE")){
+                status = ReservationStatus.REJECTED;
+            }
+            requestableServiceRequestService.updateRequestableServiceRequestById(requestReservationStatusDTO.bookingID(),status);
+            response.put("status", "success");
+            response.put("redirectUrl", "/admindashboard");
+        }
+        return ResponseEntity.ok(response);
+    }
 }

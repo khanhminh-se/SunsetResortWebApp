@@ -272,7 +272,9 @@ li.has-children .sub-nav a:hover {
 h1 {
     font-size: 48px;
 }
-
+.title a{
+    text-decoration: none;
+}
 .title span {
     font-family: "Cormorant Garamond", serif;
     font-style: italic;

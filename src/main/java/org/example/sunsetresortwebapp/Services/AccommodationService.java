@@ -17,11 +17,9 @@ import java.util.stream.Collectors;
 @Service
 public class AccommodationService {
     private final AccommodationRepository accommodationRepository;
-    private final AccommodationReservationDetailRepository accommodationReservationDetailRepository;
     @Autowired
-    public AccommodationService(AccommodationRepository accommodationRepository, AccommodationReservationDetailRepository accommodationReservationDetailRepository) {
+    public AccommodationService(AccommodationRepository accommodationRepository) {
         this.accommodationRepository = accommodationRepository;
-        this.accommodationReservationDetailRepository = accommodationReservationDetailRepository;
     }
 
     public List<Accommodation> getAllAccommodations() {

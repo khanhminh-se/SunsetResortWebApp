@@ -41,7 +41,8 @@ public class AccommodationReservation {
     @OneToMany(
             mappedBy = "accommodationReservation",
             cascade =  CascadeType.ALL,
-            fetch =  FetchType.EAGER
+            fetch =  FetchType.EAGER,
+            orphanRemoval = true
     )
     private List<AccommodationReservationDetail> accommodationReservationDetails;
 

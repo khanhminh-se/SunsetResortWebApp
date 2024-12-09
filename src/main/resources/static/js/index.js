@@ -75,8 +75,8 @@ $(document).ready(function () {
     //load service
     function loadService() {
         let serArr = [
-            { imgSrc: `images/restaurant.png"`, title: "Reservable Service", link: "/reservable-service"},
-            { imgSrc: `images/laundry.png"`, title: "Requestable Service", link: "/requestable-service"},
+            { imgSrc: `images/restaurant.png"`, title: "Reservable Service", link: "/reservable-services"},
+            { imgSrc: `images/laundry.png"`, title: "Requestable Service", link: "/requestable-services"},
             { imgSrc: `images/golf.png"`, title: "General Service", link: "/general-service"}
         ];
         let serEl = "";
@@ -374,7 +374,7 @@ $(document).ready(function () {
 
     $('#confirm-logout').click(function () {
         hideLogoutPopup();
-        window.location.href = "/logout";
+        window.location.href = "/logout/user";
     });
 
     $('#cancel-logout').click(function () {
@@ -402,7 +402,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
 });
 document.addEventListener("DOMContentLoaded", function () {
-    console.log("DOM fully loaded and parsed");
+     document.getElementById("accommodations-title").addEventListener("click", function (){
+
+         console.log("Click")
+         window.location.href="/accommodations";
+     });
 
     // Select the profile message element
     const messageProfileElement = document.getElementById("profile-message");

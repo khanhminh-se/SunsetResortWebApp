@@ -16,4 +16,11 @@ import java.util.List;
 public class RequestableResortService extends ResortService {
     private String requestName;
     private String requestDescription;
+
+    @OneToMany(
+            mappedBy = "requestableResortService",
+            cascade = CascadeType.ALL,
+            fetch = FetchType.EAGER
+    )
+    List<RequestableServiceRequest> requestableServiceRequests;
 }

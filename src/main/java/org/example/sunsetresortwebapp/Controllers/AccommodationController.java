@@ -1,9 +1,9 @@
 package org.example.sunsetresortwebapp.Controllers;
 
 import jakarta.servlet.http.HttpSession;
-import org.example.sunsetresortwebapp.DTO.AccommodationReservationDTO;
 import org.example.sunsetresortwebapp.DTO.AccommodationSearchingDTO;
-import org.example.sunsetresortwebapp.DTO.RequestCancelDTO;
+import org.example.sunsetresortwebapp.DTO.RequestReservationStatusDTO;
+import org.example.sunsetresortwebapp.Enum.ReservationStatus;
 import org.example.sunsetresortwebapp.Models.User;
 import org.example.sunsetresortwebapp.Services.AccommodationReservationDetailService;
 import org.example.sunsetresortwebapp.Services.AccommodationReservationService;
@@ -88,16 +88,37 @@ public class AccommodationController {
     }
 
     @PostMapping("/accommodations/cancel-reservations")
-    public ResponseEntity<Map<String,Object>> cancelAccommodationReservations(@RequestBody RequestCancelDTO requestCancelDTO, HttpSession session){
+    public ResponseEntity<Map<String,Object>> cancelAccommodationReservations(@RequestBody RequestReservationStatusDTO requestReservationStatusDTO, HttpSession session){
         Map<String,Object> response = new HashMap<>();
         if(session.getAttribute("loggedInUser") == null){
                 response.put("status", "error");
                 response.put("redirectUrl", "/signin");
         }else{
             User user  = (User) session.getAttribute("loggedInUser");
-            accommodationReservationService.updateAccommodationReservationStatus(user,requestCancelDTO.bookingID());
+            accommodationReservationService.updateAccommodationReservationStatus(requestReservationStatusDTO.bookingID(), ReservationStatus.CANCELED);
             response.put("status", "success");
             response.put("redirectUrl", "/profile?section=booking");
+        }
+        return ResponseEntity.ok(response);
+    }
+    @PostMapping("/accommodations/update-reservation-status")
+    public ResponseEntity<Map<String,Object>> updateAccommodationReservationStatus(@RequestBody RequestReservationStatusDTO requestReservationStatusDTO, HttpSession session){
+        Map<String,Object> response = new HashMap<>();
+        if(session.getAttribute("loggedInAdmin") == null){
+            response.put("status", "error");
+            response.put("redirectUrl", "/signin");
+        }else{
+            User user  = (User) session.getAttribute("loggedInUser");
+            ReservationStatus status =null;
+            System.out.println(requestReservationStatusDTO);
+            if(requestReservationStatusDTO.status().equals("ACCEPT")){
+                status = ReservationStatus.CONFIRMED;
+            }else if(requestReservationStatusDTO.status().equals("DECLINE")){
+                status = ReservationStatus.REJECTED;
+            }
+            accommodationReservationService.updateAccommodationReservationStatus(requestReservationStatusDTO.bookingID(),status);
+            response.put("status", "success");
+            response.put("redirectUrl", "/admindashboard");
         }
         return ResponseEntity.ok(response);
     }

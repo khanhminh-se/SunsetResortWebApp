@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.Comparator;
 import java.util.List;
 
 @Controller
@@ -40,9 +41,9 @@ public class ProfileController {
             session.setAttribute("userProfile", userProfile);
             model.addAttribute("userProfile", userProfile);
             model.addAttribute("user", user);
-            model.addAttribute("reservationHistory",user.getAccommodationReservations());
-            model.addAttribute("reservableReservationHistory", user.getReservableServiceReservations());
-            model.addAttribute("requests",user.getRequestableServiceRequests());
+            model.addAttribute("reservationHistory", userService.getAllSortedAccommodationReservations(user));
+            model.addAttribute("reservableReservationHistory",userService.getAllSortedReservableServiceReservation(user));
+            model.addAttribute("requests",userService.getAllSortedRequestableServiceRequests(user));
             System.out.println(user.getAccommodationReservations());
             return "profile";
         }else{

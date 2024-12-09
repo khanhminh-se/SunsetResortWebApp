@@ -1,5 +1,6 @@
 package org.example.sunsetresortwebapp.Services;
 
+import jakarta.transaction.Transactional;
 import org.example.sunsetresortwebapp.DTO.AccommodationReservationDTO;
 import org.example.sunsetresortwebapp.Enum.ReservationStatus;
 import org.example.sunsetresortwebapp.Models.Accommodation;
@@ -10,10 +11,12 @@ import org.example.sunsetresortwebapp.Repository.AccommodationRepository;
 import org.example.sunsetresortwebapp.Repository.AccommodationReservationDetailRepository;
 import org.example.sunsetresortwebapp.Repository.AccommodationReservationRepository;
 import org.example.sunsetresortwebapp.Repository.UserRepository;
+import org.example.sunsetresortwebapp.Utils.StatusComparator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -58,9 +61,9 @@ public class AccommodationReservationService {
                accommodationReservationDetailRepository.save(accommodationReservationDetail);
         });
     }
-    public void updateAccommodationReservationStatus(User user,Long accommodationReservationId){
+    public void updateAccommodationReservationStatus(Long accommodationReservationId, ReservationStatus status){
         AccommodationReservation ar = accommodationReservationRepository.findById(accommodationReservationId).get();
-        ar.setStatus(ReservationStatus.CANCELED);
+        ar.setStatus(status);
         accommodationReservationRepository.save(ar);
     }
     public String formatDate(String date){
@@ -70,5 +73,17 @@ public class AccommodationReservationService {
     public List<AccommodationReservation> getAllAccommodationReservations(){
         return accommodationReservationRepository.findAll();
     }
+
+    public List<AccommodationReservation> getAllSortedReservations(){
+        List<AccommodationReservation> accommodationReservations  = accommodationReservationRepository.findAll();
+        Comparator<AccommodationReservation> statusComparator = new StatusComparator().getStatusComparatorForAccommodationReservation();
+        accommodationReservations.sort(statusComparator);
+        return accommodationReservations;
+    }
+    @Transactional
+    public void deleteAccommodationReservationByUserId(Long userId){
+        accommodationReservationRepository.deleteAccommodationReservationsByUserId(userId);
+    }
+
 
 }

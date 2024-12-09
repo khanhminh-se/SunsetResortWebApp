@@ -44,21 +44,24 @@ public class User {
     @OneToMany(
             mappedBy =  "user",
             cascade =  CascadeType.ALL,
-            fetch =  FetchType.EAGER
+            fetch =  FetchType.EAGER,
+            orphanRemoval = true
     )
     List<AccommodationReservation> accommodationReservations;
 
     @OneToMany(
             mappedBy =  "user",
             cascade =  CascadeType.ALL,
-            fetch =  FetchType.EAGER
+            fetch =  FetchType.EAGER,
+            orphanRemoval = true
     )
     List<ReservableServiceReservation> reservableServiceReservations;
 
     @OneToMany(
             mappedBy = "user",
             cascade = CascadeType.ALL,
-            fetch = FetchType.EAGER
+            fetch = FetchType.EAGER,
+            orphanRemoval = true
     )
     List<RequestableServiceRequest>  requestableServiceRequests;
 

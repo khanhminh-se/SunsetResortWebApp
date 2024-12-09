@@ -5,6 +5,16 @@ document.addEventListener("DOMContentLoaded", () => {
         localStorage.removeItem("totalAmount");
         localStorage.removeItem("reservations");
     }
+    const h_6_Ele = document.getElementById("accommodation-reservation-message");
+    const message = JSON.parse(localStorage.getItem("message"));
+    if(message){
+        h_6_Ele.innerText = message;
+        setTimeout(() => {
+            h_6_Ele.innerText = '';
+            localStorage.removeItem("message");
+            window.location.href="/accommodations";
+        }, 3000);
+    }
 
     let bookings = JSON.parse(localStorage.getItem("bookings")) || [];
     let totalAmount = parseInt(localStorage.getItem("totalAmount")) || 0;
@@ -183,6 +193,7 @@ function handleReserveAndPayment(event){
                     console.log("erorrr")
                 }else{
                     window.location.href = data.redirectURL;
+                    localStorage.setItem("message",JSON.stringify("Successfully make reservations !!!"));
                 }
             }
         })

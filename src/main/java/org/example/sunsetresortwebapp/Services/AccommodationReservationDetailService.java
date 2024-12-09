@@ -1,5 +1,6 @@
 package org.example.sunsetresortwebapp.Services;
 
+import jakarta.transaction.Transactional;
 import org.example.sunsetresortwebapp.Enum.ReservationStatus;
 import org.example.sunsetresortwebapp.Models.Accommodation;
 import org.example.sunsetresortwebapp.Repository.AccommodationRepository;
@@ -38,5 +39,9 @@ public class AccommodationReservationDetailService {
             availabilityMap.put(accommodation.getAccommodationId(), accommodation.getAvailableQuantity() - reservedQuantity);
         }
         return availabilityMap;
+    }
+    @Transactional
+    public void deleteAccommodationReservationDetailByReservationId(Long reservationId){
+        accommodationReservationDetailRepository.deleteAccommodationReservationDetailsByReservationId(reservationId);
     }
 }
