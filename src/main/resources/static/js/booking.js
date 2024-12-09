@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
         setTimeout(() => {
             h_6_Ele.innerText = '';
             localStorage.removeItem("message");
-            window.location.href="/accommodations";
+            window.location.href="/thankyou";
         }, 3000);
     }
 
