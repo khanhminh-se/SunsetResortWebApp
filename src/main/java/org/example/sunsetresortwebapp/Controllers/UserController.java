@@ -2,9 +2,12 @@ package org.example.sunsetresortwebapp.Controllers;
 
 import jakarta.servlet.http.HttpSession;
 import org.example.sunsetresortwebapp.Enum.UserRole;
+import org.example.sunsetresortwebapp.Models.Accommodation;
 import org.example.sunsetresortwebapp.Models.CheckUserResponse;
 import org.example.sunsetresortwebapp.Models.User;
 import org.example.sunsetresortwebapp.Repository.UserRepository;
+import org.example.sunsetresortwebapp.Services.AccommodationReservationService;
+import org.example.sunsetresortwebapp.Services.AccommodationService;
 import org.example.sunsetresortwebapp.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,15 +17,20 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.List;
+
 @Controller
 public class UserController {
         private final UserService userService;
         private final UserRepository userRepository;
-        @Autowired
-        public UserController(UserService userService, UserRepository userRepository) {
+        private final AccommodationService accommodationService;
+
+        public UserController(UserService userService, UserRepository userRepository, AccommodationService accommodationService) {
                 this.userService = userService;
                 this.userRepository = userRepository;
+                this.accommodationService = accommodationService;
         }
+
         @GetMapping("/signup")
         public String register() {
             return "signup";
@@ -51,7 +59,9 @@ public class UserController {
                 User user = (User) session.getAttribute("loggedInUser");
                 if(user != null){
                         session.setAttribute("loggedInUsers", user);
-                       model.addAttribute("user", user);
+                        List<Accommodation> accommodations = accommodationService.getAllAccommodations().subList(0, 3);
+                        model.addAttribute("user", user);
+                        model.addAttribute("accommodations", accommodations);
                         return "homepage";
                 }else{
                         return "signin";

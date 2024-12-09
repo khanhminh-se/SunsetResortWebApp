@@ -29,9 +29,9 @@ $(document).ready(function () {
     function loadVillaItems() {
         let villas = $("#villa-items-row");
         let villasArr = [
-            { overlay: "Luxury", imgSrc: `images/villa.png`, name: "Sunset Villa", bed: "5 ", bath: "5 ", guest: "10 ", details: "Experience unmatched comfort and elegance with panoramic views for an unforgettable stay.", price: "1,245" },
-            { overlay: "President", imgSrc: `images/president-suite.png`, name: "President Suite", bed: "3 ", bath: "3 ", guest: "6 ", details: "Indulge in sophistication and style, featuring spacious rooms and premium services tailored to your needs.", price: "1,000" },
-            { overlay: "Nature Expert", imgSrc: `images/over-water-bungalows.png`, name: "Overwater Bungalow", bed: "2 ", bath: "2 ", guest: "4 ", details: "Immerse yourself in tranquility and nature with direct water access and breathtaking scenic beauty.", price: "800" }
+            {dataId:452, overlay: "Luxury", imgSrc: `images/villa.png`, name: "Sunset Villa", bed: "5 ", bath: "5 ", guest: "10 ", details: "Experience unmatched comfort and elegance with panoramic views for an unforgettable stay.", price: "1,245" },
+            { dataId:453,overlay: "President", imgSrc: `images/president-suite.png`, name: "President Suite", bed: "3 ", bath: "3 ", guest: "6 ", details: "Indulge in sophistication and style, featuring spacious rooms and premium services tailored to your needs.", price: "1,000" },
+            { dataId:454,overlay: "Nature Expert", imgSrc: `images/over-water-bungalows.png`, name: "Overwater Bungalow", bed: "2 ", bath: "2 ", guest: "4 ", details: "Immerse yourself in tranquility and nature with direct water access and breathtaking scenic beauty.", price: "800" }
         ];
         let VillasEl = "";
 
@@ -62,7 +62,7 @@ $(document).ready(function () {
                             <p>${s.details}</p>
                             <hr>
                             <div class="price-and-details">
-                                <p>from <span style="font-size: 24px; font-weight: 500">$${s.price}</span>/Night<button class="more-details-btn orange-button" onclick="window.location.href='/bookingvilla';">More Details</button></p>
+                                <p>from <span style="font-size: 24px; font-weight: 500">$${s.price}</span>/Night<button data-id="${s.dataId}"  class="more-details-btn orange-button" onclick="handleViewDetail(event)">More Details</button></p>
                             </div>
                         </div>
                     </div>
@@ -424,9 +424,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 function handleViewDetail(e){
-    console.log("Clicked");
-    console.log(e);
-    const accommodationId = e.getAttribute("data-id");
+    const accommodationId = e.target.getAttribute("data-id");
     window.location.href= "http://localhost:8081/accommodations/detail-booking/" + accommodationId;
 
 }
